@@ -1,0 +1,78 @@
+// ignore_for_file: use_full_hex_values_for_flutter_colors, prefer_const_constructors
+
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mortgage_exp/src/constants.dart';
+import 'package:mortgage_exp/src/extensions/extension.dart';
+import 'package:mortgage_exp/src/styles/style.dart';
+import '../../../../translation_key.dart';
+
+class CustomTextfield extends StatelessWidget {
+  final double? paddingHor;
+  final double? paddingVer;
+  final double? textfieldHeight;
+  final bool? obscureText;
+  final String? hindText;
+  final Color? color;
+  final bool? enabled;
+  final TextInputAction? textInputAction;
+  final TextInputType? keyboardType;
+  final VoidCallback? showHideVoid;
+  final TextEditingController? controller;
+  final Function(String)? onChange;
+  final String? preIcon;
+  final Widget? suffixIcon;
+  final String? Function(String?)? validator;
+  const CustomTextfield({
+    Key? key,
+    this.paddingHor,
+    this.paddingVer,
+    this.textfieldHeight,
+    this.obscureText,
+    this.hindText,
+    this.color,
+    this.enabled = true,
+    this.textInputAction,
+    this.keyboardType,
+    this.showHideVoid,
+    this.controller,
+    this.onChange,
+    this.preIcon,
+    this.suffixIcon,
+    this.validator,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: paddingHor ?? Dimens.size25,
+          vertical: paddingVer ?? Dimens.size7),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).dividerColor,
+        ),
+        child: TextFormField(
+          validator: validator,
+          controller: controller,
+          keyboardType: keyboardType ?? TextInputType.text,
+          cursorColor: Colors.white,
+          onChanged: onChange,
+          enabled: enabled,
+          textAlignVertical: TextAlignVertical.center,
+          textInputAction: textInputAction ?? TextInputAction.next,
+          obscureText: obscureText ?? false,
+          style: const TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            // errorStyle: theme.textTheme.s14w400o30(),
+            // hintStyle: theme.textTheme.s14w400o30(),
+            prefix: Text("\u0024"),
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.all(Dimens.size10),
+          ),
+        ),
+      ),
+    );
+  }
+}

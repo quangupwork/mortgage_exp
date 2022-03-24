@@ -1,0 +1,262 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.mortgageexpressau.mortgageexpress.mortgage_exp"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+9        android:targetSdkVersion="31" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/android/app/src/debug/AndroidManifest.xml:6:5-66
+14-->/Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/android/app/src/debug/AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->[:connectivity] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+15-->[:connectivity] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+16
+17    <application
+18        android:name="android.app.Application"
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.6.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/122df2e57d294d1a53db26bbc3b813c1/core-1.6.0/AndroidManifest.xml:24:18-86
+20        android:debuggable="true"
+21        android:icon="@mipmap/launcher_icon"
+22        android:label="Mortgage Express" >
+23        <activity
+24            android:name="com.mortgageexpressau.mortgageexpress.mortgage_exp.MainActivity"
+25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+26            android:exported="true"
+27            android:hardwareAccelerated="true"
+28            android:launchMode="singleTop"
+29            android:theme="@style/LaunchTheme"
+30            android:windowSoftInputMode="adjustResize" >
+31
+32            <!--
+33                 Specifies an Android theme to apply to this Activity as soon as
+34                 the Android process has started. This theme is visible to the user
+35                 while the Flutter UI initializes. After that, this theme continues
+36                 to determine the Window background behind the Flutter UI.
+37            -->
+38            <meta-data
+39                android:name="io.flutter.embedding.android.NormalTheme"
+40                android:resource="@style/NormalTheme" />
+41
+42            <intent-filter>
+43                <action android:name="android.intent.action.MAIN" />
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+46            </intent-filter>
+47        </activity>
+48        <!--
+49             Don't delete the meta-data below.
+50             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+51        -->
+52        <meta-data
+53            android:name="flutterEmbedding"
+54            android:value="2" />
+55
+56        <service
+56-->[:firebase_auth] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
+57            android:name="com.google.firebase.components.ComponentDiscoveryService"
+57-->[:firebase_auth] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:18-89
+58            android:directBootAware="true"
+58-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:35:13-43
+59            android:exported="false" >
+59-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:76:13-37
+60            <meta-data
+60-->[:firebase_auth] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+61                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+61-->[:firebase_auth] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-124
+62                android:value="com.google.firebase.components.ComponentRegistrar" />
+62-->[:firebase_auth] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+63            <meta-data
+63-->[:firebase_storage] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+64                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
+64-->[:firebase_storage] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-126
+65                android:value="com.google.firebase.components.ComponentRegistrar" />
+65-->[:firebase_storage] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+66            <meta-data
+66-->[:firebase_core] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+67                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+67-->[:firebase_core] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-124
+68                android:value="com.google.firebase.components.ComponentRegistrar" />
+68-->[:firebase_core] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+69            <meta-data
+69-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:77:13-79:85
+70                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+70-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:78:17-109
+71                android:value="com.google.firebase.components.ComponentRegistrar" />
+71-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:79:17-82
+72            <meta-data
+72-->[com.google.firebase:firebase-storage:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/6ddfd30c8553b44c9d7a5f0168defa39/jetified-firebase-storage-20.0.0/AndroidManifest.xml:33:13-35:85
+73                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+73-->[com.google.firebase:firebase-storage:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/6ddfd30c8553b44c9d7a5f0168defa39/jetified-firebase-storage-20.0.0/AndroidManifest.xml:34:17-107
+74                android:value="com.google.firebase.components.ComponentRegistrar" />
+74-->[com.google.firebase:firebase-storage:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/6ddfd30c8553b44c9d7a5f0168defa39/jetified-firebase-storage-20.0.0/AndroidManifest.xml:35:17-82
+75        </service>
+76
+77        <provider
+77-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
+78            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+78-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-82
+79            android:authorities="com.mortgageexpressau.mortgageexpress.mortgage_exp.flutter.image_provider"
+79-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-74
+80            android:exported="false"
+80-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
+81            android:grantUriPermissions="true" >
+81-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
+82            <meta-data
+82-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:75
+83                android:name="android.support.FILE_PROVIDER_PATHS"
+83-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
+84                android:resource="@xml/flutter_image_picker_file_paths" />
+84-->[:image_picker] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-72
+85        </provider>
+86
+87        <activity
+87-->[:url_launcher_android] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+88            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+88-->[:url_launcher_android] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+89            android:exported="false"
+89-->[:url_launcher_android] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+90            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+90-->[:url_launcher_android] /Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+91
+92        <uses-library
+92-->[androidx.window:window:1.0.0-beta04] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+93            android:name="androidx.window.extensions"
+93-->[androidx.window:window:1.0.0-beta04] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+94            android:required="false" />
+94-->[androidx.window:window:1.0.0-beta04] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+95        <uses-library
+95-->[androidx.window:window:1.0.0-beta04] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+96            android:name="androidx.window.sidecar"
+96-->[androidx.window:window:1.0.0-beta04] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+97            android:required="false" />
+97-->[androidx.window:window:1.0.0-beta04] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+98
+99        <activity
+99-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:27:9-44:20
+100            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+100-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:28:13-80
+101            android:excludeFromRecents="true"
+101-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:29:13-46
+102            android:exported="true"
+102-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:30:13-36
+103            android:launchMode="singleTask"
+103-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:31:13-44
+104            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+104-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:32:13-72
+105            <intent-filter>
+105-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:33:13-43:29
+106                <action android:name="android.intent.action.VIEW" />
+106-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:17-69
+106-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:25-66
+107
+108                <category android:name="android.intent.category.DEFAULT" />
+108-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:17-76
+108-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:27-73
+109                <category android:name="android.intent.category.BROWSABLE" />
+109-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:17-78
+109-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:27-75
+110
+111                <data
+111-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:39:17-42:51
+112                    android:host="firebase.auth"
+112-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:40:21-49
+113                    android:path="/"
+113-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:41:21-37
+114                    android:scheme="genericidp" />
+114-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:42:21-48
+115            </intent-filter>
+116        </activity>
+117        <activity
+117-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:45:9-62:20
+118            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+118-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:46:13-79
+119            android:excludeFromRecents="true"
+119-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:47:13-46
+120            android:exported="true"
+120-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:48:13-36
+121            android:launchMode="singleTask"
+121-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:49:13-44
+122            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+122-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:50:13-72
+123            <intent-filter>
+123-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:51:13-61:29
+124                <action android:name="android.intent.action.VIEW" />
+124-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:17-69
+124-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:25-66
+125
+126                <category android:name="android.intent.category.DEFAULT" />
+126-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:17-76
+126-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:27-73
+127                <category android:name="android.intent.category.BROWSABLE" />
+127-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:17-78
+127-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:27-75
+128
+129                <data
+129-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:39:17-42:51
+130                    android:host="firebase.auth"
+130-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:40:21-49
+131                    android:path="/"
+131-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:41:21-37
+132                    android:scheme="recaptcha" />
+132-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:42:21-48
+133            </intent-filter>
+134        </activity>
+135
+136        <service
+136-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:64:9-73:19
+137            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+137-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:65:13-101
+138            android:enabled="true"
+138-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:66:13-35
+139            android:exported="false" >
+139-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:67:13-37
+140            <intent-filter>
+140-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:68:13-72:29
+141                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+141-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:69:17-89
+141-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:69:25-86
+142
+143                <category android:name="android.intent.category.DEFAULT" />
+143-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:17-76
+143-->[com.google.firebase:firebase-auth:21.0.1] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/0a00e3126b4a8a60c94c0ea395e2f96e/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:27-73
+144            </intent-filter>
+145        </service>
+146
+147        <provider
+147-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:26:9-31:39
+148            android:name="com.google.firebase.provider.FirebaseInitProvider"
+148-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:27:13-77
+149            android:authorities="com.mortgageexpressau.mortgageexpress.mortgage_exp.firebaseinitprovider"
+149-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:28:13-72
+150            android:directBootAware="true"
+150-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:29:13-43
+151            android:exported="false"
+151-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:30:13-37
+152            android:initOrder="100" />
+152-->[com.google.firebase:firebase-common:20.0.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/3660c810531840b7362e70bfaa69e2c8/jetified-firebase-common-20.0.0/AndroidManifest.xml:31:13-36
+153
+154        <activity
+154-->[com.google.android.gms:play-services-base:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/7dd77388cce3f359ce455eec9aaa3ec9/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+155            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+155-->[com.google.android.gms:play-services-base:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/7dd77388cce3f359ce455eec9aaa3ec9/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+156            android:exported="false"
+156-->[com.google.android.gms:play-services-base:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/7dd77388cce3f359ce455eec9aaa3ec9/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+157            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+157-->[com.google.android.gms:play-services-base:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/7dd77388cce3f359ce455eec9aaa3ec9/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+158
+159        <meta-data
+159-->[com.google.android.gms:play-services-basement:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/fac72d06312fcb43068360ce90e568c9/jetified-play-services-basement-17.1.0/AndroidManifest.xml:23:9-25:69
+160            android:name="com.google.android.gms.version"
+160-->[com.google.android.gms:play-services-basement:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/fac72d06312fcb43068360ce90e568c9/jetified-play-services-basement-17.1.0/AndroidManifest.xml:24:13-58
+161            android:value="@integer/google_play_services_version" />
+161-->[com.google.android.gms:play-services-basement:17.1.0] /Users/nhahuynh/.gradle/caches/transforms-2/files-2.1/fac72d06312fcb43068360ce90e568c9/jetified-play-services-basement-17.1.0/AndroidManifest.xml:25:13-66
+162    </application>
+163
+164</manifest>
