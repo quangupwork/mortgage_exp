@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:mortgage_exp/arc/presentation/widgets/commons/common.dart';
 import 'package:mortgage_exp/arc/presentation/widgets/commons/custom_app_bar.dart';
-import 'package:mortgage_exp/src/config/my_theme.dart';
 import 'package:mortgage_exp/src/constants.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/styles/dimens.dart';
@@ -233,7 +232,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
               ],
             ),
           ),
-          const SizedBox(height: Dimens.size14),
+          const SizedBox(height: Dimens.size20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

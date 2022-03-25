@@ -28,9 +28,7 @@ class SelectButton extends StatelessWidget {
             Container(
               height: Dimens.size50,
               width: size.width,
-              color: status
-                  ? Colors.white
-                  : const Color.fromRGBO(242, 242, 242, 1),
+              color: status ? Colors.white : const Color(0xffF2F2F2),
               child: Center(
                 child: Text(
                   text,
@@ -44,9 +42,8 @@ class SelectButton extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 2,
-                color: status
-                    ? const Color.fromRGBO(173, 136, 95, 1)
-                    : const Color.fromRGBO(188, 188, 188, 1),
+                color:
+                    status ? const Color(0xffEACDB2) : const Color(0xffCCCCCC),
               ),
             )
           ],

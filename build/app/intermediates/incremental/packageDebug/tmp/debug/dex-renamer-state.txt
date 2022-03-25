@@ -1,4 +1,0 @@
-#Thu Mar 24 21:27:31 ICT 2022
-base.0=/Users/nhahuynh/Documents/SourceDEV/Freelance/mortgage_exp/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

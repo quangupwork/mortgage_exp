@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/mortgageexpressau/mortgageexpress/mortgage_exp/BuildConfig.java
- com.mortgageexpressau.mortgageexpress.mortgage_exp.BuildConfig
