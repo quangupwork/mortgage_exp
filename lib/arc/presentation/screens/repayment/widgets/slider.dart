@@ -7,11 +7,15 @@ class SliderCustom extends StatelessWidget {
   final List<double> values;
   final Function(int, dynamic, dynamic)? onDragging;
   final FlutterSliderStep step;
+  final double max;
+  final double min;
   const SliderCustom({
     Key? key,
     required this.values,
     required this.onDragging,
     required this.step,
+    required this.min,
+    required this.max,
   }) : super(key: key);
 
   @override
@@ -20,8 +24,8 @@ class SliderCustom extends StatelessWidget {
     return FlutterSlider(
       handlerHeight: 20,
       values: values,
-      max: values[1],
-      min: values[0],
+      max: max,
+      min: min,
       step: step,
       tooltip: FlutterSliderTooltip(disabled: true),
       jump: true,

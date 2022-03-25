@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mortgageexpressau.mortgageexpress.mortgage_exp">
+     
+   <uses-permission android:name="android.permission.INTERNET" /> 
+
    <application
         android:label="Mortgage Express"
         android:name="${applicationName}"

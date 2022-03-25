@@ -59,8 +59,8 @@ class _MyAppState extends State<MyApp> {
             AppDependencies.injector.get<NavigationService>().navigationKey,
         builder: EasyLoading.init(),
         theme: MyTheme.lightTheme(),
-        darkTheme: MyTheme.darkTheme(),
-        themeMode: ThemeMode.system,
+        //  darkTheme: MyTheme.darkTheme(),
+        //   themeMode: ThemeMode.system,
       ),
     );
   }

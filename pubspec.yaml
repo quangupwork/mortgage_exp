@@ -59,6 +59,7 @@ dependencies:
   firebase_storage: ^9.0.0
 
   flutter_keyboard_visibility: ^5.2.0
+  pattern_formatter: ^2.0.0
   device_preview: ^1.0.0
   flutter_xlider:
      path: ./modules/flutter_xlider

@@ -26,6 +26,7 @@ class CustomButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           height: height,
+          padding: const EdgeInsets.symmetric(horizontal: Dimens.size10),
           width: width ?? MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(color: Color.fromRGBO(50, 55, 64, 1)),
           child: Row(
@@ -41,12 +42,11 @@ class CustomButton extends StatelessWidget {
               if (icon?.isNotEmpty ?? false)
                 const SizedBox(width: Dimens.size6),
               Center(
-                child: Text(
-                  text!,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.button,
-                ),
-              )
+                  child: FittedBox(
+                fit: BoxFit.contain,
+                child: Text(text!,
+                    textAlign: TextAlign.center, style: theme.textTheme.button),
+              ))
             ],
           ),
         ),

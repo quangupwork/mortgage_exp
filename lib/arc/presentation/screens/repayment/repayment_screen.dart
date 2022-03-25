@@ -5,6 +5,7 @@ import 'package:mortgage_exp/arc/presentation/widgets/commons/custom_app_bar.dar
 import 'package:mortgage_exp/src/constants.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/styles/dimens.dart';
+import 'package:mortgage_exp/src/utilities/showtoast.dart';
 
 import '../../../../src/helper/convert_helper.dart';
 import 'widgets/custom_textfield.dart';
@@ -24,6 +25,18 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   bool isMonthly = false;
   bool isBoth = true;
   bool isInterest = false;
+  List<double> loadAmountValue = [0, 2000000];
+  bool inValidAccount = false;
+  double loadAmountMax = 2000000;
+  double loadAmountMin = 0;
+  List<double> interestRateValue = [3, 9];
+  bool inValidInterest = false;
+  double loadInterestMax = 9;
+  double loadInterestMin = 3;
+  List<double> loadTermValue = [10, 30];
+  bool inValidTerm = false;
+  double loadTermMax = 30;
+  double loadTermMin = 10;
   final loadAmountController = TextEditingController();
   final interesetRateController = TextEditingController();
   final loadTernController = TextEditingController();
@@ -32,7 +45,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   void initState() {
     super.initState();
     loadAmountController.text = '650,000';
-    interesetRateController.text = '2,5';
+    interesetRateController.text = '2.5';
     loadTernController.text = '29';
   }
 
@@ -55,7 +68,9 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
               Expanded(
                 flex: 5,
                 child: SliderCustom(
-                  values: const [0, 2000000],
+                  values: loadAmountValue,
+                  max: loadAmountMax,
+                  min: loadAmountMin,
                   step: const FlutterSliderStep(step: 1),
                   onDragging: (handlerIndex, lowerValue, upperValue) {
                     loadAmountController.text =
@@ -63,11 +78,35 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                   },
                 ),
               ),
+              const SizedBox(width: Dimens.size4),
               Expanded(
                 flex: 3,
-                child: TextFieldCustom(
-                  controller: loadAmountController,
-                  prefixIcon: '\u0024',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldCustom(
+                      controller: loadAmountController,
+                      prefixIcon: '\u0024',
+                      onChanged: (value) {
+                        final number = double.tryParse(loadAmountController.text
+                                .replaceAll(',', '')) ??
+                            0;
+                        if (number > loadAmountMax) {
+                          inValidAccount = true;
+                          loadAmountValue[0] = loadAmountMax;
+                          setState(() {});
+                        } else {
+                          inValidAccount = false;
+                          loadAmountValue[0] = number;
+                          setState(() {});
+                        }
+                      },
+                    ),
+                    if (inValidAccount) const SizedBox(height: Dimens.size4),
+                    if (inValidAccount)
+                      Text("Invalid Load Account",
+                          style: theme.primaryTextTheme.error())
+                  ],
                 ),
               )
             ],
@@ -81,21 +120,52 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
               Expanded(
                   flex: 5,
                   child: SliderCustom(
-                    values: const [3, 9],
+                    values: interestRateValue,
+                    max: loadInterestMax,
+                    min: loadInterestMin,
                     step: const FlutterSliderStep(step: 0.1),
                     onDragging: (handlerIndex, lowerValue, upperValue) {
                       interesetRateController.text =
                           ConvertHelper.formartNumber(lowerValue.toString());
                     },
                   )),
+              const SizedBox(width: Dimens.size4),
               Expanded(
                 flex: 3,
-                child: TextFieldCustom(
-                  controller: interesetRateController,
-                  suffixIcon: '%',
-                  textAlign: TextAlign.center,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldCustom(
+                      controller: interesetRateController,
+                      suffixIcon: '%',
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        final number =
+                            double.tryParse(interesetRateController.text) ?? 0;
+                        if (number > loadInterestMax) {
+                          inValidInterest = true;
+                          interestRateValue[0] = loadInterestMax;
+                          setState(() {});
+                        } else {
+                          if (number < loadInterestMin) {
+                            interestRateValue[0] = loadInterestMin;
+                            inValidInterest = true;
+                            setState(() {});
+                          } else {
+                            interestRateValue[0] = number;
+                            inValidInterest = false;
+                            setState(() {});
+                          }
+                        }
+                      },
+                    ),
+                    if (inValidInterest) const SizedBox(height: Dimens.size4),
+                    if (inValidInterest)
+                      Text("Invalid Interest Rate",
+                          style: theme.primaryTextTheme.error())
+                  ],
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: Dimens.size10),
@@ -107,21 +177,52 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
               Expanded(
                   flex: 5,
                   child: SliderCustom(
-                    values: const [10, 30],
+                    values: loadTermValue,
+                    max: loadTermMax,
+                    min: loadTermMin,
                     step: const FlutterSliderStep(step: 1),
                     onDragging: (handlerIndex, lowerValue, upperValue) {
                       loadTernController.text =
                           ConvertHelper.formartNumber(lowerValue.toString());
                     },
                   )),
+              const SizedBox(width: Dimens.size4),
               Expanded(
-                flex: 3,
-                child: TextFieldCustom(
-                  controller: loadTernController,
-                  suffixIcon: 'year',
-                  textAlign: TextAlign.center,
-                ),
-              )
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFieldCustom(
+                        controller: loadTernController,
+                        suffixIcon: 'year',
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          final number = double.tryParse(loadTernController.text
+                                  .replaceAll(',', '')) ??
+                              0;
+                          if (number > loadTermMax) {
+                            inValidTerm = true;
+                            loadTermValue[0] = loadTermMax;
+                            setState(() {});
+                          } else {
+                            if (number < loadTermMin) {
+                              loadTermValue[0] = loadTermMin;
+                              inValidTerm = true;
+                              setState(() {});
+                            } else {
+                              loadTermValue[0] = number;
+                              inValidTerm = false;
+                              setState(() {});
+                            }
+                          }
+                        },
+                      ),
+                      if (inValidTerm) const SizedBox(height: Dimens.size4),
+                      if (inValidTerm)
+                        Text("Invalid Loan Term",
+                            style: theme.primaryTextTheme.error())
+                    ],
+                  ))
             ],
           ),
           const SizedBox(height: Dimens.size14),

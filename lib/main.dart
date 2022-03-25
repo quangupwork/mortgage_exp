@@ -15,15 +15,12 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
 
   runApp(
-    DevicePreview(
-      enabled: false,
-      builder: (context) => EasyLocalization(
-        path: 'assets/translations',
-        supportedLocales: Constants.languages,
-        startLocale: Constants.languages[0],
-        fallbackLocale: Constants.languages[0],
-        child: const MyApp(),
-      ),
+    EasyLocalization(
+      path: 'assets/translations',
+      supportedLocales: Constants.languages,
+      startLocale: Constants.languages[0],
+      fallbackLocale: Constants.languages[0],
+      child: const MyApp(),
     ),
   );
 }

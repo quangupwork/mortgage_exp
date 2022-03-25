@@ -125,4 +125,16 @@ extension ThemeExtension on TextTheme {
         fontWeight: FontWeight.w700,
         color: Colors.white);
   }
+
+  TextStyle error({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+        fontFamily: MyTheme.roboto,
+        fontSize: Dimens.size12,
+        fontWeight: FontWeight.w400,
+        color: Colors.red);
+  }
 }
