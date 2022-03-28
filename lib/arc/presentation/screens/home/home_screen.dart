@@ -26,83 +26,108 @@ class _HomeScreenState extends State<HomeScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: theme.primaryColor,
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          const SizedBox(height: Dimens.size20),
-          Center(
-            child: Image.asset(ImageAssetPath.icLogo,
-                height: Dimens.size200, width: Dimens.size200),
-          ),
-          ItemMenu(
-            icon: ImageAssetPath.icBorrowing,
-            title: "Borrowing Power",
-            subTitle: "Know how much you can borrow",
-            onTap: () {},
-          ),
-          const SizedBox(height: Dimens.size12),
-          ItemMenu(
-            icon: ImageAssetPath.icRepayment,
-            title: "Repayments",
-            subTitle: "Know your repayments",
-            onTap: () => navigator.pushNamed(RouteKey.repayment),
-          ),
-          const SizedBox(height: Dimens.size12),
-          ItemMenu(
-            icon: ImageAssetPath.icBorrowing,
-            title: "Borrowing Power",
-            subTitle: "Know how much you can borrow",
-            onTap: () {},
-          ),
-          SizedBox(height: size.height / 14),
-          ItemMenu(
-            icon: ImageAssetPath.icAbout,
-            title: "About Us",
-            subTitle: "Supporting finance advice providers",
-            onTap: () {},
-          ),
-          const SizedBox(height: Dimens.size12),
-          ItemMenu(
-            icon: ImageAssetPath.icFindAdviser,
-            title: "Find an Adviser",
-            subTitle: "Finance, Mortgage and Insurance advice",
-            onTap: () {},
-          ),
-          SizedBox(height: size.height / 12),
-          Row(
-            children: [
-              Expanded(
-                child: CustomButton(
-                  onTap: () {},
-                  text: 'Call Now',
-                  icon: ImageAssetPath.icCall,
+        child: Column(
+          children: [
+            const SizedBox(height: Dimens.size20),
+            Flexible(
+              flex: 4,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Center(
+                  child: Image.asset(ImageAssetPath.icLogo,
+                      height: Dimens.size200, width: Dimens.size200),
                 ),
               ),
-              const SizedBox(width: Dimens.size4),
-              Expanded(
-                child: CustomButton(
-                  onTap: () {},
-                  text: 'Email Now',
-                  icon: ImageAssetPath.icEmail,
-                ),
+            ),
+            Flexible(
+              child: ItemMenu(
+                icon: ImageAssetPath.icBorrowing,
+                title: "Borrowing Power",
+                subTitle: "Know how much you can borrow",
+                onTap: () {},
               ),
-            ],
-          ),
-          SizedBox(height: size.height / 18),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Disclaimer", style: theme.textTheme.subtitle2),
-              Text("Privacy", style: theme.textTheme.subtitle2),
-              Text("Disclosure", style: theme.textTheme.subtitle2),
-            ],
-          ),
-          const SizedBox(height: Dimens.size14),
-          Text("www.mortgage-express.co.nz",
-              textAlign: TextAlign.center, style: theme.textTheme.subtitle2),
-          const SizedBox(height: Dimens.size10),
-        ],
+            ),
+            const SizedBox(height: Dimens.size12),
+            Flexible(
+              child: ItemMenu(
+                icon: ImageAssetPath.icRepayment,
+                title: "Repayments",
+                subTitle: "Know your repayments",
+                onTap: () => navigator.pushNamed(RouteKey.repayment),
+              ),
+            ),
+            const SizedBox(height: Dimens.size12),
+            Flexible(
+              child: ItemMenu(
+                icon: ImageAssetPath.icBorrowing,
+                title: "Borrowing Power",
+                subTitle: "Know how much you can borrow",
+                onTap: () {},
+              ),
+            ),
+            SizedBox(height: size.height / 14),
+            Flexible(
+              child: ItemMenu(
+                icon: ImageAssetPath.icAbout,
+                title: "About Us",
+                subTitle: "Supporting finance advice providers",
+                onTap: () {},
+              ),
+            ),
+            const SizedBox(height: Dimens.size12),
+            Flexible(
+              child: ItemMenu(
+                icon: ImageAssetPath.icFindAdviser,
+                title: "Find an Adviser",
+                subTitle: "Finance, Mortgage and Insurance advice",
+                onTap: () {},
+              ),
+            ),
+            SizedBox(height: size.height / 12),
+            Flexible(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomButton(
+                      onTap: () {},
+                      text: 'Call Now',
+                      icon: ImageAssetPath.icCall,
+                    ),
+                  ),
+                  const SizedBox(width: Dimens.size4),
+                  Expanded(
+                    child: CustomButton(
+                      onTap: () {},
+                      text: 'Email Now',
+                      icon: ImageAssetPath.icEmail,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: size.height / 18),
+            const Spacer(),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Disclaimer", style: theme.textTheme.subtitle2),
+                    Text("Privacy", style: theme.textTheme.subtitle2),
+                    Text("Disclosure", style: theme.textTheme.subtitle2),
+                  ],
+                ),
+                const SizedBox(height: Dimens.size14),
+                Text("www.mortgage-express.co.nz",
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.subtitle2),
+                const SizedBox(height: Dimens.size10),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

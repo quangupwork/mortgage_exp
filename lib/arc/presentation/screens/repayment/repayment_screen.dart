@@ -25,15 +25,15 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   bool isMonthly = false;
   bool isBoth = true;
   bool isInterest = false;
-  List<double> loadAmountValue = [0, 2000000];
+  List<double> loadAmountValue = [650000];
   bool inValidAccount = false;
   double loadAmountMax = 2000000;
   double loadAmountMin = 0;
-  List<double> interestRateValue = [3, 9];
+  List<double> interestRateValue = [6];
   bool inValidInterest = false;
   double loadInterestMax = 9;
   double loadInterestMin = 3;
-  List<double> loadTermValue = [10, 30];
+  List<double> loadTermValue = [20];
   bool inValidTerm = false;
   double loadTermMax = 30;
   double loadTermMin = 10;
@@ -45,22 +45,24 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   void initState() {
     super.initState();
     loadAmountController.text = '650,000';
-    interesetRateController.text = '2.5';
-    loadTernController.text = '29';
+    interesetRateController.text = '6';
+    loadTernController.text = '20';
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: theme.primaryColor,
       appBar: CustomAppBar.withLeading(title: "Repayments"),
       body: ListView(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
-        physics: const BouncingScrollPhysics(),
         children: [
           const SizedBox(height: Dimens.size30),
-          Text("Loan Account", style: theme.textTheme.bodyText1),
+          Text("Loan amount", style: theme.textTheme.bodyText1),
           const SizedBox(height: Dimens.size8),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,27 +86,51 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFieldCustom(
-                      controller: loadAmountController,
-                      prefixIcon: '\u0024',
-                      onChanged: (value) {
-                        final number = double.tryParse(loadAmountController.text
-                                .replaceAll(',', '')) ??
-                            0;
-                        if (number > loadAmountMax) {
-                          inValidAccount = true;
-                          loadAmountValue[0] = loadAmountMax;
-                          setState(() {});
-                        } else {
-                          inValidAccount = false;
-                          loadAmountValue[0] = number;
-                          setState(() {});
-                        }
-                      },
+                    Stack(
+                      children: [
+                        TextFieldCustom(
+                          controller: loadAmountController,
+                          padding: const EdgeInsets.only(
+                              left: 24, top: 10, bottom: 10),
+                          onChanged: (value) {
+                            final number = double.tryParse(loadAmountController
+                                    .text
+                                    .replaceAll(',', '')) ??
+                                -1;
+                            if (number > loadAmountMax) {
+                              inValidAccount = true;
+                              loadAmountValue[0] = loadAmountMax;
+                              loadAmountController.text = '2000,000';
+                              setState(() {});
+                            } else {
+                              if (number < loadAmountMin) {
+                                loadAmountValue[0] = loadAmountMin;
+                                inValidAccount = true;
+                                setState(() {});
+                              } else {
+                                loadAmountValue[0] = number;
+                                inValidAccount = false;
+                                setState(() {});
+                              }
+                            }
+                          },
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              '%',
+                              style: theme.textTheme.styleTextFields(),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     if (inValidAccount) const SizedBox(height: Dimens.size4),
                     if (inValidAccount)
-                      Text("Invalid Load Account",
+                      Text("Invalid loan account",
                           style: theme.primaryTextTheme.error())
                   ],
                 ),
@@ -135,33 +161,53 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFieldCustom(
-                      controller: interesetRateController,
-                      suffixIcon: '%',
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        final number =
-                            double.tryParse(interesetRateController.text) ?? 0;
-                        if (number > loadInterestMax) {
-                          inValidInterest = true;
-                          interestRateValue[0] = loadInterestMax;
-                          setState(() {});
-                        } else {
-                          if (number < loadInterestMin) {
-                            interestRateValue[0] = loadInterestMin;
-                            inValidInterest = true;
-                            setState(() {});
-                          } else {
-                            interestRateValue[0] = number;
-                            inValidInterest = false;
-                            setState(() {});
-                          }
-                        }
-                      },
+                    Stack(
+                      children: [
+                        TextFieldCustom(
+                          isLeft: true,
+                          controller: interesetRateController,
+                          suffixIcon: '%',
+                          textAlign: TextAlign.center,
+                          padding: const EdgeInsets.only(
+                              left: 24, top: 10, bottom: 10),
+                          onChanged: (value) {
+                            final number =
+                                double.tryParse(interesetRateController.text) ??
+                                    0;
+                            if (number > loadInterestMax) {
+                              inValidInterest = true;
+                              interestRateValue[0] = loadInterestMax;
+                              interesetRateController.text = '9.0';
+                              setState(() {});
+                            } else {
+                              if (number < loadInterestMin) {
+                                interestRateValue[0] = loadInterestMin;
+                                inValidInterest = true;
+                                setState(() {});
+                              } else {
+                                interestRateValue[0] = number;
+                                inValidInterest = false;
+                                setState(() {});
+                              }
+                            }
+                          },
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                right: 10, top: 10, bottom: 10),
+                            child: Text(
+                              '%',
+                              style: theme.textTheme.styleTextFields(),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     if (inValidInterest) const SizedBox(height: Dimens.size4),
                     if (inValidInterest)
-                      Text("Invalid Interest Rate",
+                      Text("Invalid interest rate",
                           style: theme.primaryTextTheme.error())
                   ],
                 ),
@@ -192,34 +238,55 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFieldCustom(
-                        controller: loadTernController,
-                        suffixIcon: 'year',
-                        textAlign: TextAlign.center,
-                        onChanged: (value) {
-                          final number = double.tryParse(loadTernController.text
-                                  .replaceAll(',', '')) ??
-                              0;
-                          if (number > loadTermMax) {
-                            inValidTerm = true;
-                            loadTermValue[0] = loadTermMax;
-                            setState(() {});
-                          } else {
-                            if (number < loadTermMin) {
-                              loadTermValue[0] = loadTermMin;
-                              inValidTerm = true;
-                              setState(() {});
-                            } else {
-                              loadTermValue[0] = number;
-                              inValidTerm = false;
-                              setState(() {});
-                            }
-                          }
-                        },
+                      Stack(
+                        children: [
+                          TextFieldCustom(
+                            isLeft: true,
+                            controller: loadTernController,
+                            suffixIcon: 'year',
+                            textAlign: TextAlign.center,
+                            padding: const EdgeInsets.only(
+                                left: 24, top: 10, bottom: 10),
+                            onChanged: (value) {
+                              final number = double.tryParse(loadTernController
+                                      .text
+                                      .replaceAll(',', '')) ??
+                                  0;
+                              if (number > loadTermMax) {
+                                inValidTerm = true;
+                                loadTernController.text =
+                                    loadTermMax.toStringAsFixed(0);
+                                loadTermValue[0] = loadTermMax;
+                                setState(() {});
+                              } else {
+                                if (number < loadTermMin) {
+                                  loadTermValue[0] = loadTermMin;
+                                  inValidTerm = true;
+                                  setState(() {});
+                                } else {
+                                  loadTermValue[0] = number;
+                                  inValidTerm = false;
+                                  setState(() {});
+                                }
+                              }
+                            },
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 10, top: 10, bottom: 10),
+                              child: Text(
+                                'year',
+                                style: theme.textTheme.styleTextFields(),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                       if (inValidTerm) const SizedBox(height: Dimens.size4),
                       if (inValidTerm)
-                        Text("Invalid Loan Term",
+                        Text("Invalid loan term",
                             style: theme.primaryTextTheme.error())
                     ],
                   ))
@@ -301,7 +368,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
             padding: const EdgeInsets.symmetric(horizontal: Dimens.size10),
             decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: Color(0xffd8d7d5))),
+                border: Border.all(color: const Color(0xffd8d7d5))),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -333,7 +400,12 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
               ],
             ),
           ),
-          const SizedBox(height: Dimens.size20),
+          SizedBox(
+              height: 50 +
+                  (!isBoth ? 12 : 0) +
+                  (inValidInterest ? 12 : 0) -
+                  (inValidAccount ? 12 : 0) -
+                  (inValidTerm ? 12 : 0)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

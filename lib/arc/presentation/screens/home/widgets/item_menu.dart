@@ -29,24 +29,43 @@ class ItemMenu extends StatelessWidget {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimens.size6),
-                  child: Center(
-                    child: Image.asset(
-                      icon,
-                      height: Dimens.size40,
-                      width: Dimens.size40,
+                const SizedBox(width: Dimens.size6),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Center(
+                      child: Image.asset(
+                        icon,
+                        height: Dimens.size40,
+                        width: Dimens.size40,
+                      ),
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(title, style: theme.textTheme.headline6),
-                    const SizedBox(height: Dimens.size2),
-                    Text(subTitle, style: theme.textTheme.subtitle1),
-                  ],
+                const SizedBox(width: Dimens.size6),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: Dimens.size4),
+                      Flexible(
+                        child: FittedBox(
+                            fit: BoxFit.contain,
+                            child:
+                                Text(title, style: theme.textTheme.headline6)),
+                      ),
+                      const SizedBox(height: Dimens.size2),
+                      Flexible(
+                        child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(subTitle,
+                                style: theme.textTheme.subtitle1)),
+                      ),
+                      const SizedBox(height: Dimens.size4),
+                    ],
+                  ),
                 )
               ],
             ),

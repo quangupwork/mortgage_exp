@@ -10,7 +10,9 @@ class TextFieldCustom extends StatelessWidget {
   final String hintText;
   final String prefixIcon;
   final String suffixIcon;
+  final bool isLeft;
   final TextAlign textAlign;
+  final EdgeInsets padding;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   const TextFieldCustom({
@@ -19,7 +21,10 @@ class TextFieldCustom extends StatelessWidget {
     this.hintText = '',
     this.prefixIcon = '',
     this.validator,
+    this.isLeft = false,
     this.suffixIcon = '',
+    this.padding = const EdgeInsets.symmetric(
+        horizontal: Dimens.size10, vertical: Dimens.size10),
     this.textAlign = TextAlign.left,
     this.onChanged,
   }) : super(key: key);
@@ -36,36 +41,32 @@ class TextFieldCustom extends StatelessWidget {
         maxLines: 1,
         style: theme.textTheme.bodyText2,
         textAlignVertical: TextAlignVertical.center,
-        textAlign: textAlign,
+        textAlign: TextAlign.left,
         onChanged: onChanged,
+        cursorColor: const Color(0xff8b745d),
+        cursorWidth: 2,
         inputFormatters: [ThousandsFormatter(allowFraction: true)],
         decoration: InputDecoration(
           filled: true,
           isDense: true,
           suffixIconConstraints: BoxConstraints(
-              minWidth: suffixIcon == '' ? 0 : 10,
-              minHeight: suffixIcon == '' ? 0 : 20),
-          suffixIcon: suffixIcon == ''
-              ? null
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Dimens.size10),
-                  child: Text(suffixIcon,
-                      style: theme.textTheme.styleTextFields())),
-          prefixIconConstraints: BoxConstraints(
-              minWidth: prefixIcon == '' ? 0 : 10,
-              minHeight: prefixIcon == '' ? 0 : 20),
-          prefixIcon: prefixIcon == ''
-              ? null
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Dimens.size10),
-                  child: Text(prefixIcon,
-                      style: theme.textTheme.styleTextFields())),
+              minWidth: isLeft ? 0 : 30, minHeight: isLeft ? 0 : 30),
+          // suffixIcon: suffixIcon == ''
+          //     ? null
+          //     : Padding(
+          //         padding: const EdgeInsets.only(right: Dimens.size10),
+          //         child: Text(suffixIcon,
+          //             style: theme.textTheme.styleTextFields())),
+          // prefixIconConstraints:
+          //     const BoxConstraints(minWidth: 20, minHeight: 20),
+          suffixIcon: isLeft
+              ? Padding(
+                  padding: const EdgeInsets.only(left: Dimens.size10),
+                  child: Text('    ', style: theme.textTheme.styleTextFields()))
+              : null,
           border: const OutlineInputBorder(borderSide: BorderSide.none),
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(
-              horizontal: Dimens.size10, vertical: Dimens.size10),
+          contentPadding: padding,
           hintText: hintText,
         ),
       ),

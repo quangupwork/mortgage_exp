@@ -39,16 +39,19 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             ? leading ??
                 GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Container(
-                        color: Colors.transparent,
-                        height: Dimens.size50,
-                        width: Dimens.size50,
-                        child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Image.asset(ImageAssetPath.icBack,
-                                fit: BoxFit.cover,
-                                height: Dimens.size20,
-                                width: Dimens.size20))))
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Container(
+                          color: Colors.transparent,
+                          height: Dimens.size50,
+                          width: Dimens.size50,
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Image.asset(ImageAssetPath.icBack,
+                                  fit: BoxFit.cover,
+                                  height: Dimens.size20,
+                                  width: Dimens.size20))),
+                    ))
             : const SizedBox.shrink(),
         centerTitle: true,
         title: Text(title ?? '', style: theme.textTheme.styleAppBar()),

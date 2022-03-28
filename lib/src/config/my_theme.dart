@@ -72,7 +72,7 @@ class MyTheme {
         bodyText1: TextStyle(
           fontFamily: crimsonPro,
           color: Colors.black,
-          fontSize: Dimens.textSize14,
+          fontSize: Dimens.textSize16,
           fontWeight: FontWeight.w700,
         ),
         bodyText2: TextStyle(

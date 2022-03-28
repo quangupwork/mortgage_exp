@@ -33,20 +33,24 @@ class CustomButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (icon?.isNotEmpty ?? false)
-                FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Image.asset(icon!,
-                        height: Dimens.size34,
-                        width: Dimens.size34,
-                        fit: BoxFit.scaleDown)),
+                Flexible(
+                  child: Image.asset(icon!,
+                      height: Dimens.size34,
+                      width: Dimens.size34,
+                      fit: BoxFit.scaleDown),
+                ),
               if (icon?.isNotEmpty ?? false)
                 const SizedBox(width: Dimens.size6),
-              Center(
-                  child: FittedBox(
-                fit: BoxFit.contain,
-                child: Text(text!,
-                    textAlign: TextAlign.center, style: theme.textTheme.button),
-              ))
+              Flexible(
+                flex: 3,
+                child: Center(
+                    child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(text!,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.button),
+                )),
+              )
             ],
           ),
         ),
