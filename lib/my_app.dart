@@ -30,18 +30,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   void config() async {
-    var locate = await appPreference.language;
-    var color = await appPreference.colorMode;
-    if (locate == 'vi') {
-      context.setLocale(Constants.languages[0]);
-    } else if (locate == 'en') {
-      context.setLocale(Constants.languages[1]);
-    }
-    if (color == 'dark') {
-      isLight = false;
-    } else if (color == 'light') {
-      isLight = true;
-    }
+    // var locate = await appPreference.language;
+    // var color = await appPreference.colorMode;
+    // if (locate == 'vi') {
+    //   context.setLocale(Constants.languages[0]);
+    // } else if (locate == 'en') {
+    //   context.setLocale(Constants.languages[1]);
+    // }
+    // if (color == 'dark') {
+    //   isLight = false;
+    // } else if (color == 'light') {
+    //   isLight = true;
+    // }
   }
 
   @override

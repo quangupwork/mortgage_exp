@@ -35,7 +35,7 @@ class AppClient {
       if (withToken) {
         final AppPreference appPreference =
             AppDependencies.injector.get<AppPreference>();
-        token = await appPreference.token ?? StaticVariable.token;
+        // token = await appPreference.token ?? StaticVariable.token;
         LoggerUtils.d('TOKEN:\n$token');
       }
 
@@ -89,7 +89,7 @@ class AppClient {
       if (withToken) {
         final AppPreference appPreference =
             AppDependencies.injector.get<AppPreference>();
-        token = await appPreference.token;
+        //    token = await appPreference.token;
       }
 
       final _client = getClient(token: token);

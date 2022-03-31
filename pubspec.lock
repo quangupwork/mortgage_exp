@@ -440,6 +440,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.3"
+  flutter_intro:
+    dependency: "direct main"
+    description:
+      name: flutter_intro
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.1"
   flutter_keyboard_visibility:
     dependency: "direct main"
     description:
@@ -1153,6 +1160,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  tutorial_coach_mark:
+    dependency: "direct main"
+    description:
+      name: tutorial_coach_mark
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.1"
   typed_data:
     dependency: transitive
     description:

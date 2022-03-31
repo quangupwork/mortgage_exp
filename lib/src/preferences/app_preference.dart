@@ -3,55 +3,54 @@ import '../../src/constants.dart';
 import 'base_preference.dart';
 
 class AppPreference extends BasePreference {
-  Future<String?> get token async => await getLocal(PreferenceKeys.xToken);
+  Future<String?> get loadAmount async =>
+      await getLocal(PreferenceKeys.loadAmount);
 
-  Future setToken(String? value) async =>
-      await setLocal(PreferenceKeys.xToken, value);
+  Future setLoadAmount(String? value) async =>
+      await setLocal(PreferenceKeys.loadAmount, value);
 
-  Future<String?> get seen async => await getLocal(PreferenceKeys.seen);
+  Future<String?> get interestRate async =>
+      await getLocal(PreferenceKeys.interestRate);
 
-  Future setSeen(String value) async =>
-      await setLocal(PreferenceKeys.seen, value);
+  Future setInterestRate(String? value) async =>
+      await setLocal(PreferenceKeys.interestRate, value);
 
-  Future<String?> get language async => await getLocal(PreferenceKeys.language);
+  Future<String?> get loanTerm async => await getLocal(PreferenceKeys.loanTerm);
 
-  Future setLanguage(String value) async =>
-      await setLocal(PreferenceKeys.language, value);
-  Future<String?> get verificationID async =>
-      await getLocal(PreferenceKeys.verificationId);
+  Future setLoanTerm(String? value) async =>
+      await setLocal(PreferenceKeys.loanTerm, value);
 
-  Future setVerificationID(String value) async =>
-      await setLocal(PreferenceKeys.verificationId, value);
+  Future<bool?> get isWeekly async => await getBool(PreferenceKeys.isWeekly);
 
-  Future<String?> get colorMode async =>
-      await getLocal(PreferenceKeys.colorMode);
+  Future setWeekly(bool? value) async =>
+      await setBool(PreferenceKeys.isWeekly, value);
 
-  Future setColorMode(String value) async =>
-      await setLocal(PreferenceKeys.colorMode, value);
+  Future<bool?> get isFortnightly async =>
+      await getBool(PreferenceKeys.isFortnightly);
 
-  Future<String?> get remember async => await getLocal(PreferenceKeys.remember);
+  Future setFortnightly(bool? value) async =>
+      await setBool(PreferenceKeys.isFortnightly, value);
 
-  Future setRememberUser(String? value) async =>
-      await setLocal(PreferenceKeys.remember, value ?? '');
+  Future<bool?> get isMonthly async => await getBool(PreferenceKeys.isMonthly);
 
-  Future<String?> get username async => await getLocal(PreferenceKeys.username);
+  Future setMonthly(bool? value) async =>
+      await setBool(PreferenceKeys.isMonthly, value);
 
-  Future setUsername(String? value) async =>
-      await setLocal(PreferenceKeys.username, value ?? '');
+  Future<bool?> get principleInterest async =>
+      await getBool(PreferenceKeys.principleInterest);
 
-  Future<String?> get password async => await getLocal(PreferenceKeys.password);
+  Future setPrincipleInterest(bool? value) async =>
+      await setBool(PreferenceKeys.isMonthly, value);
 
-  Future setPassword(String? value) async =>
-      await setLocal(PreferenceKeys.password, value ?? '');
+  Future<bool?> get interestOnly async =>
+      await getBool(PreferenceKeys.interestOnly);
 
-  Future<String?> get theme async => await getLocal(PreferenceKeys.theme);
+  Future setInterestOnly(bool? value) async =>
+      await setBool(PreferenceKeys.interestOnly, value);
 
-  Future setTheme(String value) async =>
-      await setLocal(PreferenceKeys.seen, value);
+  Future<bool?> get firstRepayment async =>
+      await getBool(PreferenceKeys.firstRepayment);
 
-  Future<List<String>?> get news async =>
-      await getListString(PreferenceKeys.news);
-
-  Future setNews(List<String>? value) async =>
-      await setListString(PreferenceKeys.news, value);
+  Future setFirstRepayment(bool? value) async =>
+      await setBool(PreferenceKeys.firstRepayment, value);
 }

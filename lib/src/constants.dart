@@ -14,16 +14,15 @@ class Constants {
 }
 
 class PreferenceKeys {
-  static const String xToken = 'X_TOKEN';
-  static const String seen = 'SEEN';
-  static const String language = 'LANGUAGE';
-  static const String colorMode = 'COLORMODE';
-  static const String theme = 'THEME';
-  static const String username = 'USERNAME';
-  static const String password = 'PASSWORD';
-  static const String remember = 'REMEMBER';
-  static const String verificationId = 'VERIFICATIONID';
-  static const String news = 'NEWS';
+  static const String firstRepayment = 'FIRST_REPAYMENT';
+  static const String loadAmount = 'LOAN_AMOUNT';
+  static const String interestRate = 'INTEREST_RATE';
+  static const String loanTerm = 'LOAN_TERM';
+  static const String isWeekly = 'WEEKLY';
+  static const String isFortnightly = 'FORTNIGHTLY';
+  static const String isMonthly = 'MONTHLY';
+  static const String principleInterest = 'PRINCIPLE_INTEREST';
+  static const String interestOnly = 'INTEREST_ONLY';
 }
 
 class ImageAssetPath {
