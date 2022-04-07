@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mortgage_exp/arc/presentation/screens/repayment/extra_repayment_screen.dart';
 import 'package:mortgage_exp/arc/presentation/screens/screens.dart';
 import 'package:mortgage_exp/src/config/config.dart';
 
@@ -13,6 +14,8 @@ class AppRoutes {
         return _materialRoute(const HomeScreen());
       case RouteKey.repayment:
         return _materialRoute(const RepaymentScreen());
+      case RouteKey.extraRepayment:
+        return _materialRoute(const ExtraRepaymentScreen());
       default:
         return _materialRoute(const CommonErrorPage());
     }

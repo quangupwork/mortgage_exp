@@ -18,6 +18,7 @@ class PreferenceKeys {
   static const String loadAmount = 'LOAN_AMOUNT';
   static const String interestRate = 'INTEREST_RATE';
   static const String loanTerm = 'LOAN_TERM';
+  static const String extraRepayment = 'EXTRA_REPAYMENT';
   static const String isWeekly = 'WEEKLY';
   static const String isFortnightly = 'FORTNIGHTLY';
   static const String isMonthly = 'MONTHLY';

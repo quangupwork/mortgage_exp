@@ -19,6 +19,11 @@ class AppPreference extends BasePreference {
 
   Future setLoanTerm(String? value) async =>
       await setLocal(PreferenceKeys.loanTerm, value);
+  Future<String?> get extraRepayment async =>
+      await getLocal(PreferenceKeys.extraRepayment);
+
+  Future setExtraRepayment(String? value) async =>
+      await setLocal(PreferenceKeys.extraRepayment, value);
 
   Future<bool?> get isWeekly async => await getBool(PreferenceKeys.isWeekly);
 

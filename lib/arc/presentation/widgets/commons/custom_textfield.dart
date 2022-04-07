@@ -15,6 +15,7 @@ class TextFieldCustom extends StatelessWidget {
   final EdgeInsets padding;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final FocusNode focusNode;
   const TextFieldCustom({
     Key? key,
     required this.controller,
@@ -23,6 +24,7 @@ class TextFieldCustom extends StatelessWidget {
     this.validator,
     this.isLeft = false,
     this.suffixIcon = '',
+    required this.focusNode,
     this.padding = const EdgeInsets.symmetric(
         horizontal: Dimens.size10, vertical: Dimens.size10),
     this.textAlign = TextAlign.left,
@@ -37,6 +39,7 @@ class TextFieldCustom extends StatelessWidget {
           BoxDecoration(border: Border.all(color: const Color(0xffd8d7d5))),
       child: TextFormField(
         controller: controller,
+        focusNode: focusNode,
         keyboardType: TextInputType.number,
         maxLines: 1,
         style: theme.textTheme.bodyText2,

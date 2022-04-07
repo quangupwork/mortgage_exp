@@ -13,7 +13,18 @@ Future<void> main() async {
   await AppConfig.instance.configApp();
 
   Bloc.observer = AppBlocObserver();
-
+  // runApp(
+  //   DevicePreview(
+  //     enabled: true,
+  //     builder: (context) => EasyLocalization(
+  //       path: 'assets/translations',
+  //       supportedLocales: Constants.languages,
+  //       startLocale: Constants.languages[0],
+  //       fallbackLocale: Constants.languages[0],
+  //       child: const MyApp(),
+  //     ),
+  //   ),
+  // );
   runApp(
     EasyLocalization(
       path: 'assets/translations',

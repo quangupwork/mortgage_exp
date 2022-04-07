@@ -61,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: Dimens.size12),
             Flexible(
               child: ItemMenu(
-                icon: ImageAssetPath.icBorrowing,
-                title: "Borrowing Power",
-                subTitle: "Know how much you can borrow",
-                onTap: () {},
+                icon: ImageAssetPath.icExtraRepayment,
+                title: "Extra Repayments",
+                subTitle: "Know how much you will save",
+                onTap: () => navigator.pushNamed(RouteKey.extraRepayment),
               ),
             ),
             SizedBox(height: size.height / 14),

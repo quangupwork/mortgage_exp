@@ -14,9 +14,10 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../../injector.dart';
 import '../../../../src/helper/convert_helper.dart';
-import 'widgets/custom_textfield.dart';
-import 'widgets/select_button.dart';
-import 'widgets/slider.dart';
+import '../../widgets/commons/bottom_space.dart';
+import '../../widgets/commons/custom_textfield.dart';
+import '../../widgets/commons/select_button.dart';
+import '../../widgets/commons/slider.dart';
 
 class RepaymentScreen extends StatefulWidget {
   const RepaymentScreen({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class RepaymentScreen extends StatefulWidget {
 class _RepaymentScreenState extends State<RepaymentScreen> {
   final appPreference = AppDependencies.injector.get<AppPreference>();
   final formatter = NumberFormat('\$###,###');
+  final formatNumber = NumberFormat('###,###');
   final formatDouble = NumberFormat('#.##');
   bool isWeekly = true;
   bool isFortnightly = false;
@@ -38,18 +40,21 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   bool inValidAmount = false;
   double loadAmountMax = 2000000;
   double loadAmountMin = 0;
-  List<double> interestRateValue = [3];
+  List<double> interestRateValue = [2];
   bool inValidInterest = false;
-  double loadInterestMax = 9;
-  double loadInterestMin = 3;
-  List<double> loadTermValue = [10];
+  double loadInterestMax = 6.5;
+  double loadInterestMin = 0.5;
+  List<double> loadTermValue = [30];
   bool inValidTerm = false;
   double loadTermMax = 30;
   double loadTermMin = 10;
   final loadAmountController = TextEditingController();
   final interesetRateController = TextEditingController();
   final loadTermController = TextEditingController();
-  int payFreq = 52;
+  final loadAmountNode = FocusNode();
+  final interesetRateNode = FocusNode();
+  final loadTermNode = FocusNode();
+  int payFreq = 12;
   double intWithout = 0;
   double totalIntWithout = 0;
   double totalIntWith = 0;
@@ -153,6 +158,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: theme.primaryColor,
@@ -191,10 +197,10 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                         children: [
                           TextFieldCustom(
                             controller: loadAmountController,
+                            focusNode: loadAmountNode,
                             padding: const EdgeInsets.only(
                                 left: 24, top: 10, bottom: 10),
-                            onChanged: (value) {
-                              appPreference.setLoadAmount(value);
+                            onChanged: (value) async {
                               final number = double.tryParse(
                                       loadAmountController.text
                                           .replaceAll(',', '')) ??
@@ -203,26 +209,34 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                                 inValidAmount = true;
                                 loadAmountValue[0] = loadAmountMax;
                                 loadAmountController.text = '2,000,000';
+                                setState(() {});
                               } else {
                                 if (number < loadAmountMin) {
                                   loadAmountValue[0] = loadAmountMin;
                                   inValidAmount = true;
+                                  setState(() {});
                                 } else {
                                   loadAmountValue[0] = number;
                                   inValidAmount = false;
+                                  setState(() {});
                                 }
                               }
+                              await appPreference.setLoadAmount(
+                                  formatNumber.format(loadAmountValue[0]));
                               calculate();
                             },
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, top: 10, bottom: 10),
-                              child: Text(
-                                '\u0024',
-                                style: theme.textTheme.styleTextFields(),
+                          GestureDetector(
+                            onTap: () => loadAmountNode.requestFocus(),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, top: 10, bottom: 10),
+                                child: Text(
+                                  '\u0024',
+                                  style: theme.textTheme.styleTextFields(),
+                                ),
                               ),
                             ),
                           )
@@ -264,20 +278,21 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                         children: [
                           TextFieldCustom(
                             isLeft: true,
+                            focusNode: interesetRateNode,
                             controller: interesetRateController,
                             suffixIcon: '%',
                             textAlign: TextAlign.center,
                             padding: const EdgeInsets.only(
                                 left: 24, top: 10, bottom: 10),
-                            onChanged: (value) {
-                              appPreference.setInterestRate(value);
+                            onChanged: (value) async {
                               final number = double.tryParse(
                                       interesetRateController.text) ??
                                   0;
                               if (number > loadInterestMax) {
                                 inValidInterest = true;
                                 interestRateValue[0] = loadInterestMax;
-                                interesetRateController.text = '9.0';
+                                interesetRateController.text =
+                                    loadInterestMax.toString();
                                 setState(() {});
                               } else {
                                 if (number < loadInterestMin) {
@@ -290,17 +305,22 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                                   setState(() {});
                                 }
                               }
+                              await appPreference.setInterestRate(
+                                  interestRateValue[0].toString());
                               calculate();
                             },
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 10, top: 10, bottom: 10),
-                              child: Text(
-                                '%',
-                                style: theme.textTheme.styleTextFields(),
+                          GestureDetector(
+                            onTap: () => interesetRateNode.requestFocus(),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 10, top: 10, bottom: 10),
+                                child: Text(
+                                  '%',
+                                  style: theme.textTheme.styleTextFields(),
+                                ),
                               ),
                             ),
                           )
@@ -343,13 +363,13 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                             children: [
                               TextFieldCustom(
                                 isLeft: true,
+                                focusNode: loadTermNode,
                                 controller: loadTermController,
                                 suffixIcon: 'year',
                                 textAlign: TextAlign.center,
                                 padding: const EdgeInsets.only(
                                     left: 24, top: 10, bottom: 10),
-                                onChanged: (value) {
-                                  appPreference.setLoanTerm(value);
+                                onChanged: (value) async {
                                   final number = double.tryParse(
                                           loadTermController.text
                                               .replaceAll(',', '')) ??
@@ -363,6 +383,8 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                                   } else {
                                     if (number < loadTermMin) {
                                       loadTermValue[0] = loadTermMin;
+                                      // loadTermController.text =
+                                      //     loadTermMin.toStringAsFixed(0);
                                       inValidTerm = true;
                                       setState(() {});
                                     } else {
@@ -371,17 +393,22 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                                       setState(() {});
                                     }
                                   }
+                                  await appPreference.setLoanTerm(
+                                      loadTermValue[0].toStringAsFixed(0));
                                   calculate();
                                 },
                               ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 10, top: 10, bottom: 10),
-                                  child: Text(
-                                    'year',
-                                    style: theme.textTheme.styleTextFields(),
+                              GestureDetector(
+                                onTap: () => loadTermNode.requestFocus(),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 10, top: 10, bottom: 10),
+                                    child: Text(
+                                      'year',
+                                      style: theme.textTheme.styleTextFields(),
+                                    ),
                                   ),
                                 ),
                               )
@@ -406,7 +433,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                     child: SelectButton(
                       status: isWeekly,
                       text: 'Weekly',
-                      onTap: () => onRepaymentFrequency('1'),
+                      onTap: () async => onRepaymentFrequency('1'),
                     ),
                   ),
                   const SizedBox(width: Dimens.size1),
@@ -414,14 +441,14 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                       child: SelectButton(
                     status: isFortnightly,
                     text: 'Fortnightly',
-                    onTap: () => onRepaymentFrequency('2'),
+                    onTap: () async => onRepaymentFrequency('2'),
                   )),
                   const SizedBox(width: Dimens.size1),
                   Expanded(
                       child: SelectButton(
                     status: isMonthly,
                     text: 'Monthly',
-                    onTap: () => onRepaymentFrequency('3'),
+                    onTap: () async => onRepaymentFrequency('3'),
                   ))
                 ],
               ),
@@ -435,14 +462,14 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                     child: SelectButton(
                   text: 'Principle & Interest',
                   status: principleInterest,
-                  onTap: () => onRepaymentType('1'),
+                  onTap: () async => onRepaymentType('1'),
                 )),
                 const SizedBox(width: Dimens.size1),
                 Expanded(
                     child: SelectButton(
                   status: interestOnly,
                   text: 'Interest only',
-                  onTap: () => onRepaymentType('2'),
+                  onTap: () async => onRepaymentType('2'),
                 )),
               ],
             ),
@@ -518,7 +545,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                 Text("Disclosure", style: theme.textTheme.subtitle2),
               ],
             ),
-            const SizedBox(height: Dimens.size10),
+            const SizedBox(height: Dimens.size10)
           ],
         ),
       ),
@@ -540,9 +567,9 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   }
 
   Future<void> initTextField() async {
-    final amount = await appPreference.loadAmount ?? '0';
-    final interest = await appPreference.interestRate ?? '3';
-    final term = await appPreference.loanTerm ?? '10';
+    final amount = await appPreference.loadAmount ?? '500,000';
+    final interest = await appPreference.interestRate ?? '2';
+    final term = await appPreference.loanTerm ?? '30';
     final weekly = await appPreference.isWeekly ?? false;
     final fortnightly = await appPreference.isFortnightly ?? false;
     final monthly = await appPreference.isMonthly ?? false;
@@ -560,12 +587,15 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
     isMonthly = monthly;
     principleInterest = principle;
     interestOnly = only;
+
     if (!weekly && !fortnightly && !monthly) {
-      isWeekly = true;
+      isMonthly = true;
     }
     if (!principle && !only) {
       principleInterest = true;
     }
+
+    setState(() {});
     calculate();
   }
 
@@ -581,10 +611,10 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
     } else if (key == '2') {
       interesetRateController.text =
-          ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0));
+          ConvertHelper.formartNumber(lowerValue.toStringAsFixed(1));
       interestRateValue[0] = lowerValue;
       await appPreference.setInterestRate(
-          ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+          ConvertHelper.formartNumber(lowerValue.toStringAsFixed(1)));
     } else if (key == '3') {
       loadTermController.text =
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0));
@@ -616,10 +646,18 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
     await appPreference.setFortnightly(isFortnightly);
     await appPreference.setMonthly(isMonthly);
     calculate();
-    setState(() {});
   }
 
   Future<void> calculate() async {
+    if (isWeekly) {
+      onRepaymentFrequency('1');
+    }
+    if (isFortnightly) {
+      onRepaymentFrequency('2');
+    }
+    if (isMonthly) {
+      onRepaymentFrequency('3');
+    }
     int amount = int.parse(loadAmountController.text.replaceAll(',', ''));
     int loanTerm = int.parse(loadTermController.text);
     double intRate = double.parse(interesetRateController.text);

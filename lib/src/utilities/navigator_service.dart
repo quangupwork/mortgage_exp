@@ -12,7 +12,7 @@ class NavigationService {
   }
 
   Future<Object?>? pushNamedAndRemoveUntil(String routeName,
-      {Object? arguments, bool predicate = true}) {
+      {Object? arguments, bool predicate = false}) {
     return navigationKey.currentState?.pushNamedAndRemoveUntil(
       routeName,
       (Route<dynamic> route) => predicate,
@@ -22,6 +22,16 @@ class NavigationService {
 
   pop() {
     return navigationKey.currentState?.pop();
+  }
+
+  push(BuildContext rootContext, Widget child) {
+    return Navigator.of(rootContext).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return child;
+        },
+      ),
+    );
   }
 
   canPop() {
