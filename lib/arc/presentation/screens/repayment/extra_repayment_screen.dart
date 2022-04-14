@@ -18,6 +18,7 @@ import '../../../../injector.dart';
 import '../../../../src/helper/convert_helper.dart';
 import '../../widgets/commons/bottom_space.dart';
 import '../../widgets/commons/custom_textfield.dart';
+import '../../widgets/commons/footer_widget.dart';
 import '../../widgets/commons/select_button.dart';
 import '../../widgets/commons/slider.dart';
 
@@ -564,7 +565,7 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                       children: [
                         SizedBox(height: height * 0.014),
                         Image.asset(ImageAssetPath.icYourPayment,
-                            height: Dimens.size40, width: Dimens.size40),
+                            height: Dimens.size40, width: Dimens.size30),
                         Flexible(
                           flex: 2,
                           child: Row(
@@ -604,38 +605,7 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                   ),
                 ),
                 const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('Disclaimer',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5),
-                                  content: Text(
-                                    'Whilst every effort has been made to ensure the accuracy of the calculators the results should be used as an indication only. They are not a quote or a pre qualification for the home loan. The calculators are not intended to be a substitue for professional financial advice',
-                                    style: theme.textTheme.bodyMedium,
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text('OK',
-                                            style: theme.textTheme.bodyMedium)),
-                                  ],
-                                );
-                              });
-                        },
-                        child: Text("Disclaimer",
-                            style: theme.textTheme.subtitle2)),
-                    Text("Disclosure", style: theme.textTheme.subtitle2),
-                  ],
-                ),
-                const SizedBox(height: Dimens.size10)
+                const FooterWidget()
               ],
             ),
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mortgage_exp/src/extensions/text_theme_extension.dart';
 import 'package:mortgage_exp/src/styles/style.dart';
 
 class ConfirmDialog extends StatelessWidget {
@@ -48,10 +47,7 @@ class ConfirmDialog extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: TextButton(
                   onPressed: onTap,
-                  child: Text(
-                    "Yes",
-                    //     style: theme.textTheme.s15w400green1(),
-                  ),
+                  child: Text("Yes", style: theme.textTheme.headline1),
                 ),
               ),
               Align(
@@ -60,10 +56,7 @@ class ConfirmDialog extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
-                    "No",
-                    //   style: theme.textTheme.s15w400green1(),
-                  ),
+                  child: Text("No", style: theme.textTheme.headline1),
                 ),
               ),
             ],

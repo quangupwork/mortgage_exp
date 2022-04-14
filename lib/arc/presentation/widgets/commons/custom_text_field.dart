@@ -1,11 +1,5 @@
-// ignore_for_file: use_full_hex_values_for_flutter_colors, prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mortgage_exp/src/constants.dart';
-import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/styles/style.dart';
-import '../../../../translation_key.dart';
 
 class CustomTextfield extends StatelessWidget {
   final double? paddingHor;

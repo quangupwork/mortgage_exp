@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mortgage_exp/src/config/my_theme.dart';
 import 'package:mortgage_exp/src/styles/style.dart';
-import 'package:mortgage_exp/src/extensions/text_theme_extension.dart';
 
 class CustomButton extends StatelessWidget {
   final String? text;

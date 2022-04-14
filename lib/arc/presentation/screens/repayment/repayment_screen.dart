@@ -14,8 +14,8 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../../injector.dart';
 import '../../../../src/helper/convert_helper.dart';
-import '../../widgets/commons/bottom_space.dart';
 import '../../widgets/commons/custom_textfield.dart';
+import '../../widgets/commons/footer_widget.dart';
 import '../../widgets/commons/select_button.dart';
 import '../../widgets/commons/slider.dart';
 
@@ -158,7 +158,6 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: theme.primaryColor,
@@ -487,7 +486,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
                   children: [
                     const SizedBox(height: Dimens.size14),
                     Image.asset(ImageAssetPath.icYourPayment,
-                        height: Dimens.size40, width: Dimens.size40),
+                        height: Dimens.size40, width: Dimens.size30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -516,36 +515,7 @@ class _RepaymentScreenState extends State<RepaymentScreen> {
               ),
             ),
             const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Disclaimer',
-                                  style: Theme.of(context).textTheme.headline5),
-                              content: Text(
-                                'Whilst every effort has been made to ensure the accuracy of the calculators the results should be used as an indication only. They are not a quote or a pre qualification for the home loan. The calculators are not intended to be a substitue for professional financial advice',
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: Text('OK',
-                                        style: theme.textTheme.bodyMedium)),
-                              ],
-                            );
-                          });
-                    },
-                    child:
-                        Text("Disclaimer", style: theme.textTheme.subtitle2)),
-                Text("Disclosure", style: theme.textTheme.subtitle2),
-              ],
-            ),
-            const SizedBox(height: Dimens.size10)
+            const FooterWidget()
           ],
         ),
       ),

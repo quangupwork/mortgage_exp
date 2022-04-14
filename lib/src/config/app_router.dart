@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mortgage_exp/arc/presentation/screens/borrowing/borrowing_power_screen.dart';
+import 'package:mortgage_exp/arc/presentation/screens/borrowing/your_borrowing_screen.dart';
 import 'package:mortgage_exp/arc/presentation/screens/repayment/extra_repayment_screen.dart';
 import 'package:mortgage_exp/arc/presentation/screens/screens.dart';
 import 'package:mortgage_exp/src/config/config.dart';
@@ -16,6 +18,24 @@ class AppRoutes {
         return _materialRoute(const RepaymentScreen());
       case RouteKey.extraRepayment:
         return _materialRoute(const ExtraRepaymentScreen());
+      case RouteKey.borrowingPower:
+        return _materialRoute(const BorrowingPowerScreen());
+      case RouteKey.yourBorrowingPower:
+        final args = settings.arguments as Map;
+        double canBorrow = args['canBorrow'];
+        double livingExpreses = args['livingExpreses'];
+        double monthlyIncome = args['monthlyIncome'];
+        double otherRepayment = args['otherRepayment'];
+        double mortgageRepayment = args['mortgageRepayment'];
+        double remaining = args['remaining'];
+        return _materialRoute(YourBorrowingScreen(
+          canBorrow: canBorrow,
+          livingExpreses: livingExpreses,
+          monthlyIncome: monthlyIncome,
+          otherRepayment: otherRepayment,
+          mortgageRepayment: mortgageRepayment,
+          remaining: remaining,
+        ));
       default:
         return _materialRoute(const CommonErrorPage());
     }

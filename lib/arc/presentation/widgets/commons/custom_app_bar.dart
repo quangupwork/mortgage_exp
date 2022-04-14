@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mortgage_exp/src/config/my_theme.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/styles/style.dart';
 
@@ -35,6 +31,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     final theme = Theme.of(context);
     return AppBar(
         backgroundColor: color,
+        elevation: 0,
         leading: hasLeading
             ? leading ??
                 GestureDetector(

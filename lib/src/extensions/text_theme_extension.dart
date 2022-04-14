@@ -38,6 +38,34 @@ extension ThemeExtension on TextTheme {
     );
   }
 
+  TextStyle styleBTabEnable({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.roboto,
+      fontWeight: FontWeight.w700,
+      height: 1.2,
+      color: Colors.white,
+      fontSize: Dimens.size15,
+    );
+  }
+
+  TextStyle styleBTabDisable({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.roboto,
+      fontWeight: FontWeight.w500,
+      height: 1.2,
+      color: Colors.white,
+      fontSize: Dimens.size15,
+    );
+  }
+
   TextStyle styleButtonEnable({bool? isLightMode, Color? color}) {
     final bool _isLightMode =
         SchedulerBinding.instance?.window.platformBrightness ==
@@ -73,6 +101,57 @@ extension ThemeExtension on TextTheme {
       fontWeight: FontWeight.w800,
       color: Color.fromRGBO(66, 76, 88, 1),
       fontSize: Dimens.size20,
+    );
+  }
+
+  TextStyle s16w700({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.crimsonPro,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+      fontSize: Dimens.size18,
+    );
+  }
+
+  TextStyle s16w700black({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.crimsonPro,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+      fontSize: Dimens.size16,
+    );
+  }
+
+  TextStyle s16w800({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.din,
+      fontWeight: FontWeight.w800,
+      color: Color.fromRGBO(66, 76, 88, 1),
+      fontSize: Dimens.size16,
+    );
+  }
+
+  TextStyle s16w800normal({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.din,
+      color: Color.fromRGBO(66, 76, 88, 1),
+      fontSize: Dimens.size16,
     );
   }
 
