@@ -29,12 +29,12 @@ class _AboutScreenState extends State<AboutScreen> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: Dimens.size40),
             padding: const EdgeInsets.symmetric(
-                horizontal: Dimens.size10, vertical: Dimens.size20),
+                horizontal: Dimens.size10, vertical: Dimens.size14),
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: const Color(0xffd8d7d5))),
             child: Text(
-                "Calculations are approximation only and should not be regarded as being final. The figures will vary depending upon fees, charges and calculation methodology used by the lender. To know accurately how much you can borrow please call or email us now.",
+                "Mortgage Express Limited is engaged in the business of supporting Financial Advice Providers to access financial products, and to market and promote, their finance, mortgage and insurance broking and facilitation services.\n\nEvery Financial Advice Provider trades using the Mortgage Express brand and is authorised by the Financial Advice Provider licence held by Astute Financial Management Limited FSP641829.",
                 maxLines: 50,
                 textAlign: TextAlign.start,
                 style: theme.textTheme.s16w700black()),
