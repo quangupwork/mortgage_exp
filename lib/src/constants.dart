@@ -11,10 +11,28 @@ class Constants {
     Locale('en'),
     Locale('vi'),
   ];
+  static List<int> categoryIDS = [
+    3883698826, // All Region
+    4030995060, // Auckland
+    4031001500, // Bay of Plenty
+    3838289969, // Chinese Speaking
+    3838290214, // Christchurch
+    4031000525, // Hamilton, Waikato
+    3838290249, // Hawkes Bay
+    3883709516, // Marlborough
+    3895800217, // Migrant
+    4031001625, // Nelson
+    3900843318, // New Plymouth
+    3895800592, // Northland
+    3883704076, // Tauranga
+    4059967301, // Wellington
+  ];
 }
 
 class PreferenceKeys {
-  static const String firstRepayment = 'FIRST_REPAYMENT';
+  static const String saveFilter = 'FILTER';
+  static const String savePost = 'POST';
+  static const String saveDocument = 'DOCUMENT';
   static const String loadAmount = 'LOAN_AMOUNT';
   static const String interestRate = 'INTEREST_RATE';
   static const String loanTerm = 'LOAN_TERM';
@@ -54,6 +72,7 @@ class ImageAssetPath {
   static const String icBack = 'assets/images/ic_back.png';
   static const String icArrow = 'assets/images/ic_arrow.png';
   static const String icAbout = 'assets/images/ic_about.png';
+  static const String icCheck = 'assets/images/ic_check.png';
   static const String icBorrowing = 'assets/images/ic_borrowing.png';
   static const String icCall = 'assets/images/ic_call.png';
   static const String icEmail = 'assets/images/ic_email.png';
@@ -64,4 +83,5 @@ class ImageAssetPath {
   static const String icYourPayment = 'assets/images/ic_your_payment.png';
   static const String icCurrency = 'assets/images/ic_currency.png';
   static const String icPercent = 'assets/images/ic_percent.png';
+  static const String icFilter = 'assets/images/ic_filter.png';
 }

@@ -4,7 +4,6 @@ import 'package:mortgage_exp/arc/presentation/widgets/commons/footer_widget.dart
 import 'package:mortgage_exp/src/config/config.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/helper/caculator_helper.dart';
-import 'package:mortgage_exp/src/utilities/showtoast.dart';
 
 import '../../../../injector.dart';
 import '../../../../src/helper/convert_helper.dart';
@@ -688,7 +687,6 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: theme.primaryColor,
@@ -924,787 +922,834 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                     ],
                   ),
                 ),
-                ListView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Dimens.size40),
+                Column(
                   children: [
-                    const SizedBox(height: Dimens.size20),
-                    Text("Who is this loan for?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SelectButton(
-                            status: justMe,
-                            text: 'Just me',
-                            onTap: () => changeLoanType('1'),
-                          ),
-                        ),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: twoUs,
-                          text: 'Two of us',
-                          onTap: () => changeLoanType('2'),
-                        )),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size20),
-                    Text("How much do you earn after tax?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SelectButton(
-                            status: earnWeekly,
-                            text: 'Weekly',
-                            onTap: () async => onChangeType('earn_tax_week'),
-                          ),
-                        ),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: earnFortnightly,
-                          text: 'Fortnightly',
-                          onTap: () async => onChangeType('earn_tax_fortnight'),
-                        )),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: earnMonthly,
-                          text: 'Monthly',
-                          onTap: () async => onChangeType('earn_tax_month'),
-                        ))
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: SliderCustom(
-                              values: earnTaxValue,
-                              max: earnTaxMax,
-                              min: earnTaxMin,
-                              step: const FlutterSliderStep(step: 0.1),
-                              onDragging:
-                                  (handlerIndex, lowerValue, upperValue) {
-                                onProgress(lowerValue, 'earn_tax');
-                              },
-                            )),
-                        const SizedBox(width: Dimens.size4),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    Expanded(
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Dimens.size40),
+                        children: [
+                          const SizedBox(height: Dimens.size20),
+                          Text("Who is this loan for?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
                             children: [
-                              Stack(
-                                children: [
-                                  TextFieldCustom(
-                                    focusNode: earnTaxNode,
-                                    controller: earnTaxController,
-                                    suffixIcon: '%',
-                                    textAlign: TextAlign.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 24, top: 10, bottom: 10),
-                                    onChanged: (value) async {
-                                      final number = double.tryParse(
-                                              earnTaxController.text
-                                                  .replaceAll(',', '')) ??
-                                          0;
-                                      if (number > earnTaxMax) {
-                                        inValidEarnTax = true;
-                                        earnTaxController.text =
-                                            formatter.format(earnTaxMax);
-                                        earnTaxValue[0] = earnTaxMax;
-                                        setState(() {});
-                                      } else {
-                                        if (number < earnTaxMin) {
-                                          earnTaxValue[0] = earnTaxMin;
-                                          inValidEarnTax = true;
-                                          setState(() {});
-                                        } else {
-                                          earnTaxValue[0] = number;
-                                          inValidEarnTax = false;
-                                          setState(() {});
-                                        }
-                                      }
-                                      await appPreference.setEarnTax(
-                                          ConvertHelper.formartNumber(
-                                              earnTaxValue[0]
-                                                  .toStringAsFixed(0)));
-                                    },
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => earnTaxNode.requestFocus(),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10, bottom: 10),
-                                        child: Text(
-                                          '\u0024',
-                                          style:
-                                              theme.textTheme.styleTextFields(),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                              Expanded(
+                                child: SelectButton(
+                                  status: justMe,
+                                  text: 'Just me',
+                                  onTap: () => changeLoanType('1'),
+                                ),
                               ),
-                              if (inValidEarnTax)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidEarnTax)
-                                Text("Invalid number",
-                                    style: theme.primaryTextTheme.error())
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: twoUs,
+                                text: 'Two of us',
+                                onTap: () => changeLoanType('2'),
+                              )),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size20),
-                    if (twoUs)
-                      Text("How much does other applicant earn after tax?",
-                          style: theme.textTheme.bodyText1),
-                    if (twoUs) const SizedBox(height: Dimens.size10),
-                    if (twoUs)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: SelectButton(
-                              status: nextWeekly,
-                              text: 'Weekly',
-                              onTap: () async => onChangeType('next_tax_week'),
-                            ),
+                          const SizedBox(height: Dimens.size20),
+                          Text("How much do you earn after tax?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: SelectButton(
+                                  status: earnWeekly,
+                                  text: 'Weekly',
+                                  onTap: () async =>
+                                      onChangeType('earn_tax_week'),
+                                ),
+                              ),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: earnFortnightly,
+                                text: 'Fortnightly',
+                                onTap: () async =>
+                                    onChangeType('earn_tax_fortnight'),
+                              )),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: earnMonthly,
+                                text: 'Monthly',
+                                onTap: () async =>
+                                    onChangeType('earn_tax_month'),
+                              ))
+                            ],
                           ),
-                          const SizedBox(width: Dimens.size1),
-                          Expanded(
-                              child: SelectButton(
-                            status: nextFortnightly,
-                            text: 'Fortnightly',
-                            onTap: () async =>
-                                onChangeType('next_tax_fortnight'),
-                          )),
-                          const SizedBox(width: Dimens.size1),
-                          Expanded(
-                              child: SelectButton(
-                            status: nextMonthly,
-                            text: 'Monthly',
-                            onTap: () async => onChangeType('next_tax_month'),
-                          ))
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SliderCustom(
+                                    values: earnTaxValue,
+                                    max: earnTaxMax,
+                                    min: earnTaxMin,
+                                    step: const FlutterSliderStep(step: 0.1),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      onProgress(lowerValue, 'earn_tax');
+                                    },
+                                  )),
+                              const SizedBox(width: Dimens.size4),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        TextFieldCustom(
+                                          focusNode: earnTaxNode,
+                                          controller: earnTaxController,
+                                          suffixIcon: '%',
+                                          textAlign: TextAlign.center,
+                                          padding: const EdgeInsets.only(
+                                              left: 24, top: 10, bottom: 10),
+                                          onChanged: (value) async {
+                                            final number = double.tryParse(
+                                                    earnTaxController.text
+                                                        .replaceAll(',', '')) ??
+                                                0;
+                                            if (number > earnTaxMax) {
+                                              inValidEarnTax = true;
+                                              earnTaxController.text =
+                                                  formatter.format(earnTaxMax);
+                                              earnTaxValue[0] = earnTaxMax;
+                                              setState(() {});
+                                            } else {
+                                              if (number < earnTaxMin) {
+                                                earnTaxValue[0] = earnTaxMin;
+                                                inValidEarnTax = true;
+                                                setState(() {});
+                                              } else {
+                                                earnTaxValue[0] = number;
+                                                inValidEarnTax = false;
+                                                setState(() {});
+                                              }
+                                            }
+                                            await appPreference.setEarnTax(
+                                                ConvertHelper.formartNumber(
+                                                    earnTaxValue[0]
+                                                        .toStringAsFixed(0)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          onTap: () =>
+                                              earnTaxNode.requestFocus(),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+                                                  top: 10,
+                                                  bottom: 10),
+                                              child: Text(
+                                                '\u0024',
+                                                style: theme.textTheme
+                                                    .styleTextFields(),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    if (inValidEarnTax)
+                                      const SizedBox(height: Dimens.size4),
+                                    if (inValidEarnTax)
+                                      Text("Invalid number",
+                                          style: theme.primaryTextTheme.error())
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size20),
+                          if (twoUs)
+                            Text(
+                                "How much does other applicant earn after tax?",
+                                style: theme.textTheme.bodyText1),
+                          if (twoUs) const SizedBox(height: Dimens.size10),
+                          if (twoUs)
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: SelectButton(
+                                    status: nextWeekly,
+                                    text: 'Weekly',
+                                    onTap: () async =>
+                                        onChangeType('next_tax_week'),
+                                  ),
+                                ),
+                                const SizedBox(width: Dimens.size1),
+                                Expanded(
+                                    child: SelectButton(
+                                  status: nextFortnightly,
+                                  text: 'Fortnightly',
+                                  onTap: () async =>
+                                      onChangeType('next_tax_fortnight'),
+                                )),
+                                const SizedBox(width: Dimens.size1),
+                                Expanded(
+                                    child: SelectButton(
+                                  status: nextMonthly,
+                                  text: 'Monthly',
+                                  onTap: () async =>
+                                      onChangeType('next_tax_month'),
+                                ))
+                              ],
+                            ),
+                          if (twoUs) const SizedBox(height: Dimens.size10),
+                          if (twoUs)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    flex: 5,
+                                    child: SliderCustom(
+                                      values: nextTaxValue,
+                                      max: nextTaxMax,
+                                      min: nextTaxMin,
+                                      step: const FlutterSliderStep(step: 0.1),
+                                      onDragging: (handlerIndex, lowerValue,
+                                          upperValue) {
+                                        onProgress(lowerValue, 'next_tax');
+                                      },
+                                    )),
+                                const SizedBox(width: Dimens.size4),
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          TextFieldCustom(
+                                            focusNode: nextTaxNode,
+                                            controller: nextTaxController,
+                                            suffixIcon: '%',
+                                            textAlign: TextAlign.center,
+                                            padding: const EdgeInsets.only(
+                                                left: 24, top: 10, bottom: 10),
+                                            onChanged: (value) async {
+                                              final number = double.tryParse(
+                                                      nextTaxController.text
+                                                          .replaceAll(
+                                                              ',', '')) ??
+                                                  0;
+                                              if (number > nextTaxMax) {
+                                                inValidNextTax = true;
+                                                nextTaxController.text =
+                                                    formatter
+                                                        .format(nextTaxMax);
+                                                nextTaxValue[0] = nextTaxMax;
+                                                setState(() {});
+                                              } else {
+                                                if (number < nextTaxMin) {
+                                                  nextTaxValue[0] = nextTaxMin;
+                                                  inValidNextTax = true;
+                                                  setState(() {});
+                                                } else {
+                                                  nextTaxValue[0] = number;
+                                                  inValidNextTax = false;
+                                                  setState(() {});
+                                                }
+                                              }
+                                              await appPreference.setNextTax(
+                                                  ConvertHelper.formartNumber(
+                                                      nextTaxValue[0]
+                                                          .toStringAsFixed(0)));
+                                            },
+                                          ),
+                                          GestureDetector(
+                                            onTap: () =>
+                                                nextTaxNode.requestFocus(),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10,
+                                                    top: 10,
+                                                    bottom: 10),
+                                                child: Text(
+                                                  '\u0024',
+                                                  style: theme.textTheme
+                                                      .styleTextFields(),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      if (inValidNextTax)
+                                        const SizedBox(height: Dimens.size4),
+                                      if (inValidNextTax)
+                                        Text("Invalid number",
+                                            style:
+                                                theme.primaryTextTheme.error())
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          const SizedBox(height: Dimens.size20),
+                          Text("Do you have any other sources of income?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: SelectButton(
+                                  status: incomeWeekly,
+                                  text: 'Weekly',
+                                  onTap: () async =>
+                                      onChangeType('income_week'),
+                                ),
+                              ),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: incomeFortnightly,
+                                text: 'Fortnightly',
+                                onTap: () async =>
+                                    onChangeType('income_fortnight'),
+                              )),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: incomeMonthly,
+                                text: 'Monthly',
+                                onTap: () async => onChangeType('income_month'),
+                              ))
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SliderCustom(
+                                    values: incomeValue,
+                                    max: incomeMax,
+                                    min: incomeMin,
+                                    step: const FlutterSliderStep(step: 0.1),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      onProgress(lowerValue, 'income');
+                                    },
+                                  )),
+                              const SizedBox(width: Dimens.size4),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        TextFieldCustom(
+                                          focusNode: incomeNode,
+                                          controller: incomeController,
+                                          suffixIcon: '%',
+                                          textAlign: TextAlign.center,
+                                          padding: const EdgeInsets.only(
+                                              left: 24, top: 10, bottom: 10),
+                                          onChanged: (value) async {
+                                            final number = double.tryParse(
+                                                    incomeController.text
+                                                        .replaceAll(',', '')) ??
+                                                0;
+                                            if (number > incomeMax) {
+                                              inValidIncome = true;
+                                              incomeController.text =
+                                                  formatter.format(incomeMax);
+                                              incomeValue[0] = incomeMax;
+                                              setState(() {});
+                                            } else {
+                                              if (number < incomeMin) {
+                                                incomeValue[0] = incomeMin;
+                                                inValidIncome = true;
+                                                setState(() {});
+                                              } else {
+                                                incomeValue[0] = number;
+                                                inValidIncome = false;
+                                                setState(() {});
+                                              }
+                                            }
+                                            await appPreference.setIncome(
+                                                ConvertHelper.formartNumber(
+                                                    incomeValue[0]
+                                                        .toStringAsFixed(0)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          onTap: () =>
+                                              incomeNode.requestFocus(),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+                                                  top: 10,
+                                                  bottom: 10),
+                                              child: Text(
+                                                '\u0024',
+                                                style: theme.textTheme
+                                                    .styleTextFields(),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    if (inValidIncome)
+                                      const SizedBox(height: Dimens.size4),
+                                    if (inValidIncome)
+                                      Text("Invalid number",
+                                          style: theme.primaryTextTheme.error())
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size20),
+                          ButtonNext(
+                            text: 'Next: Your expense details',
+                            onTap: () => onChangeTab(2, true),
+                          ),
+                          const SizedBox(height: Dimens.size80),
                         ],
                       ),
-                    if (twoUs) const SizedBox(height: Dimens.size10),
-                    if (twoUs)
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    ),
+                    const FooterWidget(hasPadding: true)
+                  ],
+                ),
+                Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Dimens.size40),
                         children: [
-                          Expanded(
-                              flex: 5,
-                              child: SliderCustom(
-                                values: nextTaxValue,
-                                max: nextTaxMax,
-                                min: nextTaxMin,
-                                step: const FlutterSliderStep(step: 0.1),
-                                onDragging:
-                                    (handlerIndex, lowerValue, upperValue) {
-                                  onProgress(lowerValue, 'next_tax');
-                                },
+                          const SizedBox(height: Dimens.size20),
+                          Text("How much is your car loan repayment?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: SelectButton(
+                                  status: carWeekly,
+                                  text: 'Weekly',
+                                  onTap: () async => onChangeType('car_week'),
+                                ),
+                              ),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: carFortnightly,
+                                text: 'Fortnightly',
+                                onTap: () async =>
+                                    onChangeType('car_fortnight'),
                               )),
-                          const SizedBox(width: Dimens.size4),
-                          Expanded(
-                            flex: 3,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Stack(
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: carMonthly,
+                                text: 'Monthly',
+                                onTap: () async => onChangeType('car_month'),
+                              ))
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SliderCustom(
+                                    values: carLoanValue,
+                                    max: carLoanMax,
+                                    min: carLoanMin,
+                                    step: const FlutterSliderStep(step: 0.1),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      onProgress(lowerValue, 'car_loan');
+                                    },
+                                  )),
+                              const SizedBox(width: Dimens.size4),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        TextFieldCustom(
+                                          focusNode: carLoanNode,
+                                          controller: carLoanController,
+                                          suffixIcon: '%',
+                                          textAlign: TextAlign.center,
+                                          padding: const EdgeInsets.only(
+                                              left: 24, top: 10, bottom: 10),
+                                          onChanged: (value) async {
+                                            final number = double.tryParse(
+                                                    carLoanController.text
+                                                        .replaceAll(',', '')) ??
+                                                0;
+                                            if (number > carLoanMax) {
+                                              inValidCarLoan = true;
+                                              carLoanController.text =
+                                                  formatter.format(carLoanMax);
+                                              carLoanValue[0] = carLoanMax;
+                                              setState(() {});
+                                            } else {
+                                              if (number < carLoanMin) {
+                                                carLoanValue[0] = carLoanMin;
+                                                inValidCarLoan = true;
+                                                setState(() {});
+                                              } else {
+                                                carLoanValue[0] = number;
+                                                inValidCarLoan = false;
+                                                setState(() {});
+                                              }
+                                            }
+                                            await appPreference.setCarLoan(
+                                                ConvertHelper.formartNumber(
+                                                    carLoanValue[0]
+                                                        .toStringAsFixed(0)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          onTap: () =>
+                                              carLoanNode.requestFocus(),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+                                                  top: 10,
+                                                  bottom: 10),
+                                              child: Text(
+                                                '\u0024',
+                                                style: theme.textTheme
+                                                    .styleTextFields(),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    if (inValidCarLoan)
+                                      const SizedBox(height: Dimens.size4),
+                                    if (inValidCarLoan)
+                                      Text("Invalid number",
+                                          style: theme.primaryTextTheme.error())
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size20),
+                          Text("How much is your other loan repayments?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: SelectButton(
+                                  status: otherWeekly,
+                                  text: 'Weekly',
+                                  onTap: () async => onChangeType('other_week'),
+                                ),
+                              ),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: otherFortnightly,
+                                text: 'Fortnightly',
+                                onTap: () async =>
+                                    onChangeType('other_fortnight'),
+                              )),
+                              const SizedBox(width: Dimens.size1),
+                              Expanded(
+                                  child: SelectButton(
+                                status: otherMonthly,
+                                text: 'Monthly',
+                                onTap: () async => onChangeType('other_month'),
+                              ))
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SliderCustom(
+                                    values: otherLoanValue,
+                                    max: otherLoanMax,
+                                    min: otherLoanMin,
+                                    step: const FlutterSliderStep(step: 0.1),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      onProgress(lowerValue, 'other_loan');
+                                    },
+                                  )),
+                              const SizedBox(width: Dimens.size4),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        TextFieldCustom(
+                                          focusNode: otherLoanNode,
+                                          controller: otherLoanController,
+                                          suffixIcon: '%',
+                                          textAlign: TextAlign.center,
+                                          padding: const EdgeInsets.only(
+                                              left: 24, top: 10, bottom: 10),
+                                          onChanged: (value) async {
+                                            final number = double.tryParse(
+                                                    otherLoanController.text
+                                                        .replaceAll(',', '')) ??
+                                                0;
+                                            if (number > otherLoanMax) {
+                                              inValidOtherLoan = true;
+                                              otherLoanController.text =
+                                                  formatter
+                                                      .format(otherLoanMax);
+                                              otherLoanValue[0] = otherLoanMax;
+                                              setState(() {});
+                                            } else {
+                                              if (number < otherLoanMin) {
+                                                otherLoanValue[0] =
+                                                    otherLoanMin;
+                                                inValidOtherLoan = true;
+                                                setState(() {});
+                                              } else {
+                                                otherLoanValue[0] = number;
+                                                inValidOtherLoan = false;
+                                                setState(() {});
+                                              }
+                                            }
+                                            await appPreference.setOtherLoan(
+                                                ConvertHelper.formartNumber(
+                                                    otherLoanValue[0]
+                                                        .toStringAsFixed(0)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          onTap: () =>
+                                              otherLoanNode.requestFocus(),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+                                                  top: 10,
+                                                  bottom: 10),
+                                              child: Text(
+                                                '\u0024',
+                                                style: theme.textTheme
+                                                    .styleTextFields(),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    if (inValidOtherLoan)
+                                      const SizedBox(height: Dimens.size4),
+                                    if (inValidOtherLoan)
+                                      Text("Invalid number",
+                                          style: theme.primaryTextTheme.error())
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size20),
+                          Text("What’s your credit card limit?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size8),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SliderCustom(
+                                    values: creditValue,
+                                    max: creditMax,
+                                    min: creditMin,
+                                    step: const FlutterSliderStep(step: 0.1),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      onProgress(lowerValue, 'credit');
+                                    },
+                                  )),
+                              const SizedBox(width: Dimens.size4),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        TextFieldCustom(
+                                          focusNode: creditNode,
+                                          controller: creditController,
+                                          suffixIcon: '%',
+                                          textAlign: TextAlign.center,
+                                          padding: const EdgeInsets.only(
+                                              left: 24, top: 10, bottom: 10),
+                                          onChanged: (value) async {
+                                            final number = double.tryParse(
+                                                    creditController.text
+                                                        .replaceAll(',', '')) ??
+                                                0;
+                                            if (number > creditMax) {
+                                              inValidCredit = true;
+                                              creditController.text =
+                                                  formatter.format(creditMax);
+                                              creditValue[0] = creditMax;
+                                              setState(() {});
+                                            } else {
+                                              if (number < creditMin) {
+                                                creditValue[0] = creditMin;
+                                                inValidCredit = true;
+                                                setState(() {});
+                                              } else {
+                                                creditValue[0] = number;
+                                                inValidCredit = false;
+                                                setState(() {});
+                                              }
+                                            }
+                                            await appPreference.setCredit(
+                                                ConvertHelper.formartNumber(
+                                                    creditValue[0]
+                                                        .toStringAsFixed(0)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          onTap: () =>
+                                              creditNode.requestFocus(),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+                                                  top: 10,
+                                                  bottom: 10),
+                                              child: Text(
+                                                '\u0024',
+                                                style: theme.textTheme
+                                                    .styleTextFields(),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    if (inValidCredit)
+                                      const SizedBox(height: Dimens.size4),
+                                    if (inValidCredit)
+                                      Text("Invalid number",
+                                          style: theme.primaryTextTheme.error())
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: Dimens.size20),
+                          Text(
+                              "How many dependants do you financially support?",
+                              style: theme.textTheme.bodyText1),
+                          const SizedBox(height: Dimens.size8),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SliderCustom(
+                                    values: dependantValue,
+                                    max: dependantMax,
+                                    min: dependantMin,
+                                    step: const FlutterSliderStep(step: 0.1),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      onProgress(lowerValue, 'dependant');
+                                    },
+                                  )),
+                              const SizedBox(width: Dimens.size4),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextFieldCustom(
-                                      focusNode: nextTaxNode,
-                                      controller: nextTaxController,
+                                      focusNode: dependantNode,
+                                      controller: dependantController,
                                       suffixIcon: '%',
                                       textAlign: TextAlign.center,
                                       padding: const EdgeInsets.only(
                                           left: 24, top: 10, bottom: 10),
                                       onChanged: (value) async {
                                         final number = double.tryParse(
-                                                nextTaxController.text
+                                                dependantController.text
                                                     .replaceAll(',', '')) ??
                                             0;
-                                        if (number > nextTaxMax) {
-                                          inValidNextTax = true;
-                                          nextTaxController.text =
-                                              formatter.format(nextTaxMax);
-                                          nextTaxValue[0] = nextTaxMax;
+                                        if (number > dependantMax) {
+                                          inValidDependant = true;
+                                          dependantController.text = '5';
+                                          dependantValue[0] = dependantMax;
                                           setState(() {});
                                         } else {
-                                          if (number < nextTaxMin) {
-                                            nextTaxValue[0] = nextTaxMin;
-                                            inValidNextTax = true;
+                                          if (number < dependantMin) {
+                                            dependantValue[0] = dependantMin;
+                                            inValidDependant = true;
                                             setState(() {});
                                           } else {
-                                            nextTaxValue[0] = number;
-                                            inValidNextTax = false;
+                                            dependantValue[0] = number;
+                                            inValidDependant = false;
                                             setState(() {});
                                           }
                                         }
-                                        await appPreference.setNextTax(
-                                            ConvertHelper.formartNumber(
-                                                nextTaxValue[0]
-                                                    .toStringAsFixed(0)));
                                       },
                                     ),
-                                    GestureDetector(
-                                      onTap: () => nextTaxNode.requestFocus(),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, top: 10, bottom: 10),
-                                          child: Text(
-                                            '\u0024',
-                                            style: theme.textTheme
-                                                .styleTextFields(),
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                    if (inValidDependant)
+                                      const SizedBox(height: Dimens.size4),
+                                    if (inValidDependant)
+                                      Text("Invalid number",
+                                          style: theme.primaryTextTheme.error())
                                   ],
                                 ),
-                                if (inValidNextTax)
-                                  const SizedBox(height: Dimens.size4),
-                                if (inValidNextTax)
-                                  Text("Invalid number",
-                                      style: theme.primaryTextTheme.error())
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                          const SizedBox(height: Dimens.size30),
+                          ButtonNext.noIcon(
+                            text: 'Calculate',
+                            onTap: () {
+                              openCalculate();
+                            },
+                          ),
+                          const SizedBox(height: Dimens.size80)
                         ],
                       ),
-                    const SizedBox(height: Dimens.size20),
-                    Text("Do you have any other sources of income?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SelectButton(
-                            status: incomeWeekly,
-                            text: 'Weekly',
-                            onTap: () async => onChangeType('income_week'),
-                          ),
-                        ),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: incomeFortnightly,
-                          text: 'Fortnightly',
-                          onTap: () async => onChangeType('income_fortnight'),
-                        )),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: incomeMonthly,
-                          text: 'Monthly',
-                          onTap: () async => onChangeType('income_month'),
-                        ))
-                      ],
                     ),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: SliderCustom(
-                              values: incomeValue,
-                              max: incomeMax,
-                              min: incomeMin,
-                              step: const FlutterSliderStep(step: 0.1),
-                              onDragging:
-                                  (handlerIndex, lowerValue, upperValue) {
-                                onProgress(lowerValue, 'income');
-                              },
-                            )),
-                        const SizedBox(width: Dimens.size4),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  TextFieldCustom(
-                                    focusNode: incomeNode,
-                                    controller: incomeController,
-                                    suffixIcon: '%',
-                                    textAlign: TextAlign.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 24, top: 10, bottom: 10),
-                                    onChanged: (value) async {
-                                      final number = double.tryParse(
-                                              incomeController.text
-                                                  .replaceAll(',', '')) ??
-                                          0;
-                                      if (number > incomeMax) {
-                                        inValidIncome = true;
-                                        incomeController.text =
-                                            formatter.format(incomeMax);
-                                        incomeValue[0] = incomeMax;
-                                        setState(() {});
-                                      } else {
-                                        if (number < incomeMin) {
-                                          incomeValue[0] = incomeMin;
-                                          inValidIncome = true;
-                                          setState(() {});
-                                        } else {
-                                          incomeValue[0] = number;
-                                          inValidIncome = false;
-                                          setState(() {});
-                                        }
-                                      }
-                                      await appPreference.setIncome(
-                                          ConvertHelper.formartNumber(
-                                              incomeValue[0]
-                                                  .toStringAsFixed(0)));
-                                    },
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => incomeNode.requestFocus(),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10, bottom: 10),
-                                        child: Text(
-                                          '\u0024',
-                                          style:
-                                              theme.textTheme.styleTextFields(),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              if (inValidIncome)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidIncome)
-                                Text("Invalid number",
-                                    style: theme.primaryTextTheme.error())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size20),
-                    ButtonNext(
-                      text: 'Next: Your expense details',
-                      onTap: () => onChangeTab(2, true),
-                    ),
-                    SizedBox(height: height * 0.055),
-                    const FooterWidget()
-                  ],
-                ),
-                ListView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Dimens.size40),
-                  children: [
-                    const SizedBox(height: Dimens.size30),
-                    Text("How much is your car loan repayment?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SelectButton(
-                            status: carWeekly,
-                            text: 'Weekly',
-                            onTap: () async => onChangeType('car_week'),
-                          ),
-                        ),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: carFortnightly,
-                          text: 'Fortnightly',
-                          onTap: () async => onChangeType('car_fortnight'),
-                        )),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: carMonthly,
-                          text: 'Monthly',
-                          onTap: () async => onChangeType('car_month'),
-                        ))
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: SliderCustom(
-                              values: carLoanValue,
-                              max: carLoanMax,
-                              min: carLoanMin,
-                              step: const FlutterSliderStep(step: 0.1),
-                              onDragging:
-                                  (handlerIndex, lowerValue, upperValue) {
-                                onProgress(lowerValue, 'car_loan');
-                              },
-                            )),
-                        const SizedBox(width: Dimens.size4),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  TextFieldCustom(
-                                    focusNode: carLoanNode,
-                                    controller: carLoanController,
-                                    suffixIcon: '%',
-                                    textAlign: TextAlign.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 24, top: 10, bottom: 10),
-                                    onChanged: (value) async {
-                                      final number = double.tryParse(
-                                              carLoanController.text
-                                                  .replaceAll(',', '')) ??
-                                          0;
-                                      if (number > carLoanMax) {
-                                        inValidCarLoan = true;
-                                        carLoanController.text =
-                                            formatter.format(carLoanMax);
-                                        carLoanValue[0] = carLoanMax;
-                                        setState(() {});
-                                      } else {
-                                        if (number < carLoanMin) {
-                                          carLoanValue[0] = carLoanMin;
-                                          inValidCarLoan = true;
-                                          setState(() {});
-                                        } else {
-                                          carLoanValue[0] = number;
-                                          inValidCarLoan = false;
-                                          setState(() {});
-                                        }
-                                      }
-                                      await appPreference.setCarLoan(
-                                          ConvertHelper.formartNumber(
-                                              carLoanValue[0]
-                                                  .toStringAsFixed(0)));
-                                    },
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => carLoanNode.requestFocus(),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10, bottom: 10),
-                                        child: Text(
-                                          '\u0024',
-                                          style:
-                                              theme.textTheme.styleTextFields(),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              if (inValidCarLoan)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidCarLoan)
-                                Text("Invalid number",
-                                    style: theme.primaryTextTheme.error())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size20),
-                    Text("How much is your other loan repayments?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SelectButton(
-                            status: otherWeekly,
-                            text: 'Weekly',
-                            onTap: () async => onChangeType('other_week'),
-                          ),
-                        ),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: otherFortnightly,
-                          text: 'Fortnightly',
-                          onTap: () async => onChangeType('other_fortnight'),
-                        )),
-                        const SizedBox(width: Dimens.size1),
-                        Expanded(
-                            child: SelectButton(
-                          status: otherMonthly,
-                          text: 'Monthly',
-                          onTap: () async => onChangeType('other_month'),
-                        ))
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: SliderCustom(
-                              values: otherLoanValue,
-                              max: otherLoanMax,
-                              min: otherLoanMin,
-                              step: const FlutterSliderStep(step: 0.1),
-                              onDragging:
-                                  (handlerIndex, lowerValue, upperValue) {
-                                onProgress(lowerValue, 'other_loan');
-                              },
-                            )),
-                        const SizedBox(width: Dimens.size4),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  TextFieldCustom(
-                                    focusNode: otherLoanNode,
-                                    controller: otherLoanController,
-                                    suffixIcon: '%',
-                                    textAlign: TextAlign.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 24, top: 10, bottom: 10),
-                                    onChanged: (value) async {
-                                      final number = double.tryParse(
-                                              otherLoanController.text
-                                                  .replaceAll(',', '')) ??
-                                          0;
-                                      if (number > otherLoanMax) {
-                                        inValidOtherLoan = true;
-                                        otherLoanController.text =
-                                            formatter.format(otherLoanMax);
-                                        otherLoanValue[0] = otherLoanMax;
-                                        setState(() {});
-                                      } else {
-                                        if (number < otherLoanMin) {
-                                          otherLoanValue[0] = otherLoanMin;
-                                          inValidOtherLoan = true;
-                                          setState(() {});
-                                        } else {
-                                          otherLoanValue[0] = number;
-                                          inValidOtherLoan = false;
-                                          setState(() {});
-                                        }
-                                      }
-                                      await appPreference.setOtherLoan(
-                                          ConvertHelper.formartNumber(
-                                              otherLoanValue[0]
-                                                  .toStringAsFixed(0)));
-                                    },
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => otherLoanNode.requestFocus(),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10, bottom: 10),
-                                        child: Text(
-                                          '\u0024',
-                                          style:
-                                              theme.textTheme.styleTextFields(),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              if (inValidOtherLoan)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidOtherLoan)
-                                Text("Invalid number",
-                                    style: theme.primaryTextTheme.error())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size20),
-                    Text("What’s your credit card limit?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: SliderCustom(
-                              values: creditValue,
-                              max: creditMax,
-                              min: creditMin,
-                              step: const FlutterSliderStep(step: 0.1),
-                              onDragging:
-                                  (handlerIndex, lowerValue, upperValue) {
-                                onProgress(lowerValue, 'credit');
-                              },
-                            )),
-                        const SizedBox(width: Dimens.size4),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  TextFieldCustom(
-                                    focusNode: creditNode,
-                                    controller: creditController,
-                                    suffixIcon: '%',
-                                    textAlign: TextAlign.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 24, top: 10, bottom: 10),
-                                    onChanged: (value) async {
-                                      final number = double.tryParse(
-                                              creditController.text
-                                                  .replaceAll(',', '')) ??
-                                          0;
-                                      if (number > creditMax) {
-                                        inValidCredit = true;
-                                        creditController.text =
-                                            formatter.format(creditMax);
-                                        creditValue[0] = creditMax;
-                                        setState(() {});
-                                      } else {
-                                        if (number < creditMin) {
-                                          creditValue[0] = creditMin;
-                                          inValidCredit = true;
-                                          setState(() {});
-                                        } else {
-                                          creditValue[0] = number;
-                                          inValidCredit = false;
-                                          setState(() {});
-                                        }
-                                      }
-                                      await appPreference.setCredit(
-                                          ConvertHelper.formartNumber(
-                                              creditValue[0]
-                                                  .toStringAsFixed(0)));
-                                    },
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => creditNode.requestFocus(),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10, bottom: 10),
-                                        child: Text(
-                                          '\u0024',
-                                          style:
-                                              theme.textTheme.styleTextFields(),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              if (inValidCredit)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidCredit)
-                                Text("Invalid number",
-                                    style: theme.primaryTextTheme.error())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size20),
-                    Text("How many dependants do you financially support?",
-                        style: theme.textTheme.bodyText1),
-                    const SizedBox(height: Dimens.size8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: SliderCustom(
-                              values: dependantValue,
-                              max: dependantMax,
-                              min: dependantMin,
-                              step: const FlutterSliderStep(step: 0.1),
-                              onDragging:
-                                  (handlerIndex, lowerValue, upperValue) {
-                                onProgress(lowerValue, 'dependant');
-                              },
-                            )),
-                        const SizedBox(width: Dimens.size4),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextFieldCustom(
-                                focusNode: dependantNode,
-                                controller: dependantController,
-                                suffixIcon: '%',
-                                textAlign: TextAlign.center,
-                                padding: const EdgeInsets.only(
-                                    left: 24, top: 10, bottom: 10),
-                                onChanged: (value) async {
-                                  final number = double.tryParse(
-                                          dependantController.text
-                                              .replaceAll(',', '')) ??
-                                      0;
-                                  if (number > dependantMax) {
-                                    inValidDependant = true;
-                                    dependantController.text = '5';
-                                    dependantValue[0] = dependantMax;
-                                    setState(() {});
-                                  } else {
-                                    if (number < dependantMin) {
-                                      dependantValue[0] = dependantMin;
-                                      inValidDependant = true;
-                                      setState(() {});
-                                    } else {
-                                      dependantValue[0] = number;
-                                      inValidDependant = false;
-                                      setState(() {});
-                                    }
-                                  }
-                                },
-                              ),
-                              if (inValidDependant)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidDependant)
-                                Text("Invalid number",
-                                    style: theme.primaryTextTheme.error())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: Dimens.size30),
-                    ButtonNext.noIcon(
-                      text: 'Calculate',
-                      onTap: () {
-                        openCalculate();
-                      },
-                    ),
-                    SizedBox(height: height * 0.075),
-                    const FooterWidget()
+                    const FooterWidget(hasPadding: true)
                   ],
                 ),
               ],

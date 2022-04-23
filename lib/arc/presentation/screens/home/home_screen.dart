@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:mortgage_exp/arc/presentation/screens/home/widgets/button_widget.dart';
-import 'package:mortgage_exp/arc/presentation/widgets/commons/common.dart';
-import 'package:mortgage_exp/src/config/my_theme.dart';
+import 'package:mortgage_exp/arc/presentation/widgets/commons/footer_widget.dart';
 import 'package:mortgage_exp/src/config/route_keys.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../injector.dart';
 import '../../../../src/constants.dart';
@@ -75,39 +72,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: ImageAssetPath.icAbout,
                 title: "About Us",
                 subTitle: "Supporting finance advice providers",
-                onTap: () {},
+                onTap: () => navigator.pushNamed(RouteKey.about),
               ),
             ),
             const SizedBox(height: Dimens.size12),
             Flexible(
               child: ItemMenu(
                 icon: ImageAssetPath.icFindAdviser,
-                title: "Find an Adviser",
+                title: "Find an adviser",
                 subTitle: "Finance, Mortgage and Insurance advice",
-                onTap: () {},
+                onTap: () => navigator.pushNamed(RouteKey.findAnAdvicer),
               ),
             ),
             SizedBox(height: size.height / 12),
             const ButtonWidget(),
             SizedBox(height: size.height / 18),
             const Spacer(),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Disclaimer", style: theme.textTheme.subtitle2),
-                    Text("Privacy", style: theme.textTheme.subtitle2),
-                    Text("Disclosure", style: theme.textTheme.subtitle2),
-                  ],
-                ),
-                const SizedBox(height: Dimens.size14),
-                Text("www.mortgage-express.co.nz",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.subtitle2),
-                const SizedBox(height: Dimens.size10),
-              ],
-            )
+            const FooterWidget.withURL()
           ],
         ),
       ),

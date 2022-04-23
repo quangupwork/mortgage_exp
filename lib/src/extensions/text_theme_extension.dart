@@ -104,6 +104,45 @@ extension ThemeExtension on TextTheme {
     );
   }
 
+  TextStyle s14w700({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.din,
+      fontWeight: FontWeight.w600,
+      color: Color.fromRGBO(66, 76, 88, 1),
+      fontSize: Dimens.size14,
+    );
+  }
+
+  TextStyle s16w700grey({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.din,
+      fontWeight: FontWeight.w700,
+      color: Color.fromRGBO(66, 76, 88, 1),
+      fontSize: Dimens.size17,
+    );
+  }
+
+  TextStyle s16w700white({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.din,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      fontSize: Dimens.size17,
+    );
+  }
+
   TextStyle s16w700({bool? isLightMode, Color? color}) {
     final bool _isLightMode =
         SchedulerBinding.instance?.window.platformBrightness ==
@@ -123,7 +162,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.crimsonPro,
+      fontFamily: MyTheme.din,
       fontWeight: FontWeight.w500,
       color: Colors.black,
       fontSize: Dimens.size16,

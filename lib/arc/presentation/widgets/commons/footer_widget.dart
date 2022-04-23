@@ -1,67 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:mortgage_exp/arc/presentation/widgets/commons/bottom_space.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../src/styles/style.dart';
 
 class FooterWidget extends StatelessWidget {
-  const FooterWidget({Key? key}) : super(key: key);
+  final bool hasPadding;
+  final bool hasURL;
+  const FooterWidget({
+    Key? key,
+    this.hasPadding = false,
+  })  : hasURL = false,
+        super(key: key);
+  const FooterWidget.withURL({
+    Key? key,
+    this.hasPadding = false,
+  })  : hasURL = true,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: hasPadding
+          ? const EdgeInsets.symmetric(horizontal: Dimens.size40)
+          : EdgeInsets.zero,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                  onTap: () async {
+                    const url = "https://www.mortgage-express.co.nz/legal";
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                  child: Text("Terms and Conditions",
+                      style: theme.textTheme.subtitle2)),
+              GestureDetector(
+                  onTap: () async {
+                    const url =
+                        "https://www.mortgage-express.co.nz/privacy-statement";
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                  child: Text("Privacy Statement",
+                      style: theme.textTheme.subtitle2)),
+            ],
+          ),
+          if (hasURL) const SizedBox(height: Dimens.size14),
+          if (hasURL)
             GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Disclaimer',
-                              style: Theme.of(context).textTheme.headline5),
-                          content: Text(
-                            'Whilst every effort has been made to ensure the accuracy of the calculators the results should be used as an indication only. They are not a quote or a pre qualification for the home loan. The calculators are not intended to be a substitue for professional financial advice',
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text('OK',
-                                    style: theme.textTheme.bodyMedium)),
-                          ],
-                        );
-                      });
-                },
-                child: Text("Disclaimer", style: theme.textTheme.subtitle2)),
-            GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Disclosure',
-                              style: Theme.of(context).textTheme.headline5),
-                          content: Text(
-                            'A disclosure statement relating to the advisers associated with this app are available on request and free of charge',
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text('OK',
-                                    style: theme.textTheme.bodyMedium)),
-                          ],
-                        );
-                      });
-                },
-                child: Text("Disclosure", style: theme.textTheme.subtitle2)),
-          ],
-        ),
-        const BottomSpace()
-      ],
+              onTap: _onPrivacy,
+              child: Text("www.mortgage-express.co.nz",
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.subtitle2),
+            ),
+          const SizedBox(height: Dimens.size10),
+        ],
+      ),
     );
+  }
+
+  Future<void> _onPrivacy() async {
+    const url = "https://www.mortgage-express.co.nz";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw "Could not launch $url";
+    }
   }
 }

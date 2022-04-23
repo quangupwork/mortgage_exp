@@ -9,7 +9,7 @@ class AppConfig {
 
   AppConfig._();
 
-  String get apiEndpoint => '';
+  String get apiEndpoint => 'https://api.hubapi.com/';
 
   Future<void> configApp() async {
     initDependencies();

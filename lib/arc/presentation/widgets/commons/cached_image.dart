@@ -26,13 +26,13 @@ class CachedImage extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
         ),
       ),
       placeholder: (context, url) => Center(
-        child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
-      ),
+          child:
+              CircularProgressIndicator(color: Theme.of(context).primaryColor)),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }

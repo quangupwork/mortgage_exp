@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:mortgage_exp/arc/data/services/post_service.dart';
+import 'package:mortgage_exp/arc/presentation/blocs/blocs.dart';
 
 import 'package:mortgage_exp/src/network/network.dart';
 import 'package:mortgage_exp/src/utilities/utilities.dart';
@@ -8,7 +10,6 @@ class AppDependencies {
   static GetIt get injector => GetIt.I;
 
   static Future<void> initialize() async {
-    _initRequest();
     _initServices();
     _initBlocs();
     injector.registerLazySingleton<AppPreference>(() => AppPreference());
@@ -17,9 +18,12 @@ class AppDependencies {
         .registerLazySingleton<NavigationService>(() => NavigationService());
   }
 
-  static void _initRequest() {}
+  static void _initServices() {
+    injector.registerLazySingleton<PostService>(() => PostService());
+  }
 
-  static void _initServices() {}
-
-  static void _initBlocs() {}
+  static void _initBlocs() {
+    injector.registerFactory<PostBloc>(() => PostBloc(injector()));
+    injector.registerFactory<SplashBloc>(() => SplashBloc(injector()));
+  }
 }

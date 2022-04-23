@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mortgage_exp/arc/presentation/screens/about/about_screen.dart';
 import 'package:mortgage_exp/arc/presentation/screens/borrowing/borrowing_power_screen.dart';
 import 'package:mortgage_exp/arc/presentation/screens/borrowing/your_borrowing_screen.dart';
+import 'package:mortgage_exp/arc/presentation/screens/find_adviser/filter_adviser.dart';
+import 'package:mortgage_exp/arc/presentation/screens/find_adviser/find_adviser.dart';
+import 'package:mortgage_exp/arc/presentation/screens/find_adviser/widgets/pdf_view.dart';
 import 'package:mortgage_exp/arc/presentation/screens/repayment/extra_repayment_screen.dart';
 import 'package:mortgage_exp/arc/presentation/screens/screens.dart';
 import 'package:mortgage_exp/src/config/config.dart';
@@ -36,6 +40,16 @@ class AppRoutes {
           mortgageRepayment: mortgageRepayment,
           remaining: remaining,
         ));
+      case RouteKey.findAnAdvicer:
+        return _materialRoute(const FindAdvicerScreen());
+      case RouteKey.filterAdvicer:
+        final args = settings.arguments as int;
+        return _materialRoute(FilterAdviserScreen(selectedValue: args));
+      case RouteKey.about:
+        return _materialRoute(const AboutScreen());
+      case RouteKey.pdfView:
+        final args = settings.arguments as String;
+        return _materialRoute(PDFViewScreen(url: args));
       default:
         return _materialRoute(const CommonErrorPage());
     }

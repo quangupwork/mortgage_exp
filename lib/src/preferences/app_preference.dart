@@ -188,9 +188,21 @@ class AppPreference extends BasePreference {
   Future setInterestOnly(bool? value) async =>
       await setBool(PreferenceKeys.interestOnly, value);
 
-  Future<bool?> get firstRepayment async =>
-      await getBool(PreferenceKeys.firstRepayment);
+  Future<List<String>?> get saveFilter async =>
+      await getListString(PreferenceKeys.saveFilter);
 
-  Future setFirstRepayment(bool? value) async =>
-      await setBool(PreferenceKeys.firstRepayment, value);
+  Future setSaveFilter(List<String>? value) async =>
+      await setListString(PreferenceKeys.saveFilter, value);
+
+  Future<List<String>?> get savePost async =>
+      await getListString(PreferenceKeys.savePost);
+
+  Future setSavePost(List<String>? value) async =>
+      await setListString(PreferenceKeys.savePost, value);
+
+  Future<List<String>?> get saveDocument async =>
+      await getListString(PreferenceKeys.saveDocument);
+
+  Future setSaveDocument(List<String>? value) async =>
+      await setListString(PreferenceKeys.saveDocument, value);
 }

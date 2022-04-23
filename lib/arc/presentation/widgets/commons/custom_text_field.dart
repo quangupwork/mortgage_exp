@@ -59,9 +59,9 @@ class CustomTextfield extends StatelessWidget {
           obscureText: obscureText ?? false,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            // errorStyle: theme.textTheme.s14w400o30(),
-            // hintStyle: theme.textTheme.s14w400o30(),
-            prefix: Text("\u0024"),
+            errorStyle: theme.textTheme.bodyText1,
+            hintStyle: theme.textTheme.bodyText1,
+            prefix: const Text("\u0024"),
             border: InputBorder.none,
             contentPadding: const EdgeInsets.all(Dimens.size10),
           ),

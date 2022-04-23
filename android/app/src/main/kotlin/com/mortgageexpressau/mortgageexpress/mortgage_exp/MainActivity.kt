@@ -1,4 +1,4 @@
-package com.mortgageexpressau.mortgageexpress.mortgage_exp
+package com.mortgageexpressnz.mortgageexpress
 
 import io.flutter.embedding.android.FlutterActivity
 
