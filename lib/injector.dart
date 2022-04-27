@@ -25,5 +25,7 @@ class AppDependencies {
   static void _initBlocs() {
     injector.registerFactory<PostBloc>(() => PostBloc(injector()));
     injector.registerFactory<SplashBloc>(() => SplashBloc(injector()));
+    injector.registerFactory<RepaymentBloc>(() => RepaymentBloc());
+    injector.registerFactory<ExtraBloc>(() => ExtraBloc());
   }
 }

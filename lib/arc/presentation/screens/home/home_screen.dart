@@ -7,6 +7,7 @@ import '../../../../injector.dart';
 import '../../../../src/constants.dart';
 import '../../../../src/styles/style.dart';
 import '../../../../src/utilities/navigator_service.dart';
+import '../../widgets/commons/dialog.dart';
 import 'widgets/item_menu.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,8 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final navigator = AppDependencies.injector.get<NavigationService>();
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

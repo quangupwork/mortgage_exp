@@ -1,18 +1,19 @@
-import 'dart:math' as math;
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:intl/intl.dart';
+import 'package:mortgage_exp/arc/presentation/blocs/blocs.dart';
 import 'package:mortgage_exp/arc/presentation/widgets/commons/common.dart';
 import 'package:mortgage_exp/arc/presentation/widgets/commons/custom_app_bar.dart';
 import 'package:mortgage_exp/src/constants.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/preferences/app_preference.dart';
 import 'package:mortgage_exp/src/styles/dimens.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../../injector.dart';
+import '../../../../src/base_widget_state/base_widget_state.dart';
+import '../../../../src/bloc/base.dart';
 import '../../../../src/helper/convert_helper.dart';
+import '../../widgets/commons/bottom_space.dart';
 import '../../widgets/commons/custom_textfield.dart';
 import '../../widgets/commons/footer_widget.dart';
 import '../../widgets/commons/select_button.dart';
@@ -25,11 +26,20 @@ class ExtraRepaymentScreen extends StatefulWidget {
   State<ExtraRepaymentScreen> createState() => _ExtraRepaymentScreenState();
 }
 
-class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
+class _ExtraRepaymentScreenState
+    extends IStateful<ExtraBloc, ExtraRepaymentScreen> {
   final appPreference = AppDependencies.injector.get<AppPreference>();
   final formatter = NumberFormat('\$###,###');
   final formatNumber = NumberFormat('###,###');
   final formatDouble = NumberFormat('#.##');
+  final loadAmountController = TextEditingController();
+  final interesetRateController = TextEditingController();
+  final loadTermController = TextEditingController();
+  final repaymentController = TextEditingController();
+  final loadAmountNode = FocusNode();
+  final repaymentNode = FocusNode();
+  final interesetRateNode = FocusNode();
+  final loadTermNode = FocusNode();
   bool isWeekly = true;
   bool isFortnightly = false;
   bool isMonthly = false;
@@ -49,31 +59,72 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
   bool inValidTerm = false;
   double loadTermMax = 30;
   double loadTermMin = 10;
-  final loadAmountController = TextEditingController();
-  final interesetRateController = TextEditingController();
-  final loadTermController = TextEditingController();
-  final repaymentController = TextEditingController();
-  final loadAmountNode = FocusNode();
-  final repaymentNode = FocusNode();
-  final interesetRateNode = FocusNode();
-  final loadTermNode = FocusNode();
   int payFreq = 12;
   double total = 0;
   String time = '';
 
   double repaymentInterestOnly = 0;
   double repayment = 0;
-  late TutorialCoachMark tutorialCoachMark;
-  List<TargetFocus> targets = <TargetFocus>[];
 
   @override
   void initState() {
     super.initState();
+    bloc.add(InitExtraEvent());
     initTextField();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void listener(BuildContext context, IBaseState state) async {
+    super.listener(context, state);
+    if (state is ExtraLoaded) {
+      loadAmountController.text = ConvertHelper.formartNumber(
+          state.loadAmountValue?[0].toString() ?? '0');
+      interesetRateController.text = ConvertHelper.formartNumber(
+          state.interestRateValue?[0].toString() ?? '0');
+      loadTermController.text = ConvertHelper.formartNumber(
+          state.loadTermValue?[0].toString() ?? '0');
+      repaymentController.text = ConvertHelper.formartNumber(
+          state.repaymentValue?[0].toString() ?? '0');
+      repaymentController.selection = TextSelection.fromPosition(
+          TextPosition(offset: repaymentController.text.length));
+      loadAmountController.selection = TextSelection.fromPosition(
+          TextPosition(offset: loadAmountController.text.length));
+      interesetRateController.selection = TextSelection.fromPosition(
+          TextPosition(offset: interesetRateController.text.length));
+      loadTermController.selection = TextSelection.fromPosition(
+          TextPosition(offset: loadTermController.text.length));
+      isWeekly = state.isWeekly ?? false;
+      isFortnightly = state.isFortnightly ?? false;
+      isMonthly = state.isMonthly ?? false;
+      loadAmountValue = state.loadAmountValue ?? [0];
+      inValidAmount = state.inValidAmount ?? false;
+      loadAmountMax = state.loadAmountMax ?? 0;
+      loadAmountMin = state.loadAmountMin ?? 0;
+      interestRateValue = state.interestRateValue ?? [0];
+      inValidInterest = state.inValidInterest ?? false;
+      loadInterestMax = state.loadInterestMax ?? 0;
+      loadInterestMin = state.loadInterestMin ?? 0;
+      loadTermValue = state.loadTermValue ?? [0];
+      inValidTerm = state.inValidTerm ?? false;
+      loadTermMax = state.loadTermMax ?? 0;
+      loadTermMin = state.loadTermMin ?? 0;
+      payFreq = state.payFreq ?? 0;
+      repaymentInterestOnly = state.repaymentInterestOnly ?? 0;
+      repayment = state.repayment ?? 0;
+      repaymentValue = state.repaymentValue ?? [0];
+      inValidRepayment = state.inValidRepayment ?? false;
+      repaymentMax = state.repaymentMax ?? 0;
+      repaymentMin = state.repaymentMin ?? 0;
+      time = state.time ?? '';
+      total = state.total ?? 0;
+      if (total.isNaN) {
+        total = 0;
+      }
+    }
+  }
+
+  @override
+  Widget buildContent(BuildContext context, {IBaseState? state}) {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -122,7 +173,12 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     final number = double.tryParse(
                                             loadAmountController.text
                                                 .replaceAll(',', '')) ??
-                                        -1;
+                                        0;
+                                    if (number == 0) {
+                                      loadAmountController.text = '0';
+                                      inValidAmount = true;
+                                      setState(() {});
+                                    }
                                     if (number > loadAmountMax) {
                                       inValidAmount = true;
                                       loadAmountValue[0] = loadAmountMax;
@@ -131,6 +187,10 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     } else {
                                       if (number < loadAmountMin) {
                                         loadAmountValue[0] = loadAmountMin;
+                                        inValidAmount = true;
+                                        setState(() {});
+                                      } else if (number == 0) {
+                                        loadAmountValue[0] = 0;
                                         inValidAmount = true;
                                         setState(() {});
                                       } else {
@@ -142,6 +202,10 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     await appPreference.setLoadAmount(
                                         formatNumber
                                             .format(loadAmountValue[0]));
+                                    loadAmountController.selection =
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: loadAmountController
+                                                .text.length));
                                     calculate();
                                   },
                                 ),
@@ -207,6 +271,9 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     final number = double.tryParse(
                                             interesetRateController.text) ??
                                         0;
+                                    if (number == 0) {
+                                      interesetRateController.text = '0';
+                                    }
                                     if (number > loadInterestMax) {
                                       inValidInterest = true;
                                       interestRateValue[0] = loadInterestMax;
@@ -226,6 +293,10 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     }
                                     await appPreference.setInterestRate(
                                         interestRateValue[0].toString());
+                                    interesetRateController.selection =
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: interesetRateController
+                                                .text.length));
                                     calculate();
                                   },
                                 ),
@@ -292,6 +363,9 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                               loadTermController.text
                                                   .replaceAll(',', '')) ??
                                           0;
+                                      if (number == 0) {
+                                        loadTermController.text = '0';
+                                      }
                                       if (number > loadTermMax) {
                                         inValidTerm = true;
                                         loadTermController.text =
@@ -313,6 +387,11 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                       }
                                       await appPreference.setLoanTerm(
                                           loadTermValue[0].toStringAsFixed(0));
+                                      loadTermController.selection =
+                                          TextSelection.fromPosition(
+                                              TextPosition(
+                                                  offset: loadTermController
+                                                      .text.length));
                                       calculate();
                                     },
                                   ),
@@ -401,15 +480,23 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     final number = double.tryParse(
                                             repaymentController.text
                                                 .replaceAll(',', '')) ??
-                                        -1;
+                                        0;
+                                    if (number == 0) {
+                                      repaymentController.text = '0';
+                                    }
                                     if (number > repaymentMax) {
                                       inValidRepayment = true;
+                                      repaymentController.text =
+                                          formatNumber.format(repaymentMax);
                                       repaymentValue[0] = repaymentMax;
-                                      loadAmountController.text = '5,000';
                                       setState(() {});
                                     } else {
                                       if (number < repaymentMin) {
                                         repaymentValue[0] = repaymentMin;
+                                        inValidRepayment = true;
+                                        setState(() {});
+                                      } else if (number == 0) {
+                                        repaymentValue[0] = 0;
                                         inValidRepayment = true;
                                         setState(() {});
                                       } else {
@@ -420,6 +507,10 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                                     }
                                     await appPreference.setExtraRepayment(
                                         formatNumber.format(repaymentValue[0]));
+                                    repaymentController.selection =
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: repaymentController
+                                                .text.length));
                                     calculate();
                                   },
                                 ),
@@ -503,6 +594,7 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
                       ],
                     ),
                   ),
+                  const BottomSpace(),
                   const SizedBox(height: Dimens.size80),
                 ],
               ),
@@ -515,32 +607,14 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
   }
 
   Future<void> initTextField() async {
-    final amount = await appPreference.loadAmount ?? '500,000';
-    final repayment = await appPreference.extraRepayment ?? '250';
-    final interest = await appPreference.interestRate ?? '2';
-    final term = await appPreference.loanTerm ?? '30';
-    final weekly = await appPreference.isWeekly ?? false;
-    final fortnightly = await appPreference.isFortnightly ?? false;
-    final monthly = await appPreference.isMonthly ?? false;
-
-    loadAmountController.text = amount;
-    interesetRateController.text = interest;
-    loadTermController.text = term;
-    repaymentController.text = repayment;
-    loadAmountValue[0] = double.parse(amount.replaceAll(',', ''));
-    interestRateValue[0] = double.parse(interest);
-    loadTermValue[0] = double.parse(term);
-    repaymentValue[0] = double.parse(repayment.replaceAll(',', ''));
-    isWeekly = weekly;
-    isFortnightly = fortnightly;
-    isMonthly = monthly;
-
-    if (!weekly && !fortnightly && !monthly) {
-      isMonthly = true;
-    }
-
-    setState(() {});
-    calculate();
+    bloc.add(ExtraInitTextFieldEvent());
+    await Future.delayed(const Duration(milliseconds: 500));
+    bloc.add(ExtraCaculateEvent(
+      loadAmount: loadAmountController.text,
+      interestRate: interesetRateController.text,
+      loadTerm: loadTermController.text,
+      extra: repaymentController.text,
+    ));
   }
 
   Future<void> onProgress(
@@ -553,117 +627,53 @@ class _ExtraRepaymentScreenState extends State<ExtraRepaymentScreen> {
       loadAmountValue[0] = lowerValue;
       await appPreference.setLoadAmount(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+      inValidAmount = false;
+      setState(() {});
     } else if (key == '2') {
       interesetRateController.text =
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(1));
       interestRateValue[0] = lowerValue;
       await appPreference.setInterestRate(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(1)));
+      inValidInterest = false;
+      setState(() {});
     } else if (key == '3') {
       loadTermController.text =
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0));
       loadTermValue[0] = lowerValue;
       await appPreference.setLoanTerm(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+      inValidTerm = false;
+      setState(() {});
     } else if (key == '4') {
       repaymentController.text =
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0));
       repaymentValue[0] = lowerValue;
       await appPreference.setExtraRepayment(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+      inValidRepayment = false;
+      setState(() {});
     }
     calculate();
   }
 
   Future<void> onRepaymentFrequency(String key) async {
-    if (key == '1') {
-      isWeekly = true;
-      isFortnightly = false;
-      isMonthly = false;
-      payFreq = 52;
-      setState(() {});
-    } else if (key == '2') {
-      isWeekly = false;
-      isFortnightly = true;
-      isMonthly = false;
-      payFreq = 26;
-      setState(() {});
-    } else if (key == '3') {
-      isWeekly = false;
-      isFortnightly = false;
-      isMonthly = true;
-      payFreq = 12;
-      setState(() {});
-    }
-    await appPreference.setWeekly(isWeekly);
-    await appPreference.setFortnightly(isFortnightly);
-    await appPreference.setMonthly(isMonthly);
-    calculate();
+    bloc.add(ExtraChangeFrequencyEvent(key: key));
+    bloc.add(ExtraCaculateEvent(
+      loadAmount: loadAmountController.text,
+      interestRate: interesetRateController.text,
+      loadTerm: loadTermController.text,
+      extra: repaymentController.text,
+    ));
   }
 
   Future<void> calculate() async {
-    if (isWeekly) {
-      onRepaymentFrequency('1');
-    }
-    if (isFortnightly) {
-      onRepaymentFrequency('2');
-    }
-    if (isMonthly) {
-      onRepaymentFrequency('3');
-    }
-    double amount = double.parse(loadAmountController.text.replaceAll(',', ''));
-    double loanTerm = double.parse(loadTermController.text);
-    double intRate = double.parse(interesetRateController.text);
-    double extContPerDay =
-        double.parse(repaymentController.text.replaceAll(',', ''));
-    double timeSaved;
-    double intSaved;
-    double savedYears;
-    double savedMonths;
-
-    //CALCULATE LOGIC
-    double r = intRate / (payFreq * 100);
-    int n = (loanTerm * payFreq).toInt();
-    double _r = (1 + r);
-
-    num _rn = math.pow(_r, n);
-    double a = amount * ((r * _rn) / (_rn - 1));
-
-    double totalPayAmount = (a * loanTerm * payFreq);
-    double payPerPeriod = totalPayAmount / n;
-    double incRepay = payPerPeriod + extContPerDay;
-
-    double nAfterExtra = (-log(1 - amount / incRepay * r) / log(_r));
-
-    timeSaved = n - nAfterExtra;
-    intSaved = (a * timeSaved) - extContPerDay * nAfterExtra;
-
-    if (timeSaved.isNaN || timeSaved.isInfinite) {
-      savedYears = 0;
-      savedMonths = 0;
-    } else {
-      savedYears = (timeSaved / payFreq).floorToDouble();
-      savedMonths = (timeSaved - savedYears * payFreq).floorToDouble();
-    }
-    if (timeSaved < 0) {
-      savedYears = 0;
-      savedMonths = 0;
-    }
-    if (intSaved < 0) {
-      intSaved = 0;
-    }
-
-    if (savedMonths > 11) {
-      savedYears += savedMonths / 12;
-      savedMonths = savedMonths % 12;
-    }
-    if (intSaved.isNaN) {
-      intSaved = 0;
-    }
-
-    total = intSaved;
-    time = '${savedYears.toInt()} years ${savedMonths.toInt()} months';
-
-    setState(() {});
+    await Future.delayed(const Duration(seconds: 2));
+    bloc.add(ExtraCaculateEvent(
+      loadAmount: loadAmountController.text,
+      interestRate: interesetRateController.text,
+      loadTerm: loadTermController.text,
+      extra: repaymentController.text,
+    ));
   }
 }

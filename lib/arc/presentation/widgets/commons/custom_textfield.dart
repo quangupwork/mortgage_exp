@@ -53,14 +53,6 @@ class TextFieldCustom extends StatelessWidget {
           isDense: true,
           suffixIconConstraints: BoxConstraints(
               minWidth: isLeft ? 0 : 30, minHeight: isLeft ? 0 : 30),
-          // suffixIcon: suffixIcon == ''
-          //     ? null
-          //     : Padding(
-          //         padding: const EdgeInsets.only(right: Dimens.size10),
-          //         child: Text(suffixIcon,
-          //             style: theme.textTheme.styleTextFields())),
-          // prefixIconConstraints:
-          //     const BoxConstraints(minWidth: 20, minHeight: 20),
           suffixIcon: isLeft
               ? Padding(
                   padding: const EdgeInsets.only(left: Dimens.size10),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:mortgage_exp/arc/presentation/widgets/commons/bottom_space.dart';
+import 'package:mortgage_exp/arc/presentation/widgets/commons/dialog.dart';
 import 'package:mortgage_exp/arc/presentation/widgets/commons/footer_widget.dart';
 import 'package:mortgage_exp/src/config/config.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
@@ -182,6 +184,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       interestRateValue[0] = lowerValue;
       await appPreference.setInterestRate(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(2)));
+      inValidInterest = false;
+      setState(() {});
     }
     if (key == 'load_term') {
       loadTermController.text =
@@ -189,6 +193,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       loadTermValue[0] = lowerValue;
       await appPreference.setLoanTerm(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+      inValidTerm = false;
+      setState(() {});
     }
     if (key == 'earn_tax') {
       earnTaxController.text =
@@ -196,6 +202,13 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       earnTaxValue[0] = lowerValue;
       await appPreference.setEarnTax(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+      if (lowerValue == 0) {
+        inValidEarnTax = true;
+        setState(() {});
+      } else {
+        inValidEarnTax = false;
+        setState(() {});
+      }
     }
     if (key == 'next_tax') {
       nextTaxController.text =
@@ -203,6 +216,13 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       nextTaxValue[0] = lowerValue;
       await appPreference.setNextTax(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+      if (lowerValue == 0) {
+        inValidNextTax = true;
+        setState(() {});
+      } else {
+        inValidNextTax = false;
+        setState(() {});
+      }
     }
     if (key == 'income') {
       incomeController.text =
@@ -210,6 +230,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       incomeValue[0] = lowerValue;
       await appPreference.setIncome(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+
+      inValidIncome = false;
+      setState(() {});
     }
     if (key == 'car_loan') {
       carLoanController.text =
@@ -217,6 +240,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       carLoanValue[0] = lowerValue;
       await appPreference.setCarLoan(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+
+      inValidCarLoan = false;
+      setState(() {});
     }
     if (key == 'other_loan') {
       otherLoanController.text =
@@ -224,6 +250,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       otherLoanValue[0] = lowerValue;
       await appPreference.setOtherLoan(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+
+      inValidOtherLoan = false;
+      setState(() {});
     }
     if (key == 'credit') {
       creditController.text =
@@ -231,6 +260,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       creditValue[0] = lowerValue;
       await appPreference.setCredit(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+
+      inValidCredit = false;
+      setState(() {});
     }
     if (key == 'dependant') {
       dependantController.text =
@@ -238,6 +270,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       dependantValue[0] = lowerValue;
       await appPreference.setDependant(
           ConvertHelper.formartNumber(lowerValue.toStringAsFixed(0)));
+
+      inValidDependant = false;
+      setState(() {});
     }
   }
 
@@ -255,19 +290,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
 
   Future<void> onChangeType(String key) async {
     if (key == 'earn_tax_week') {
-      // if (earnWeekly) {
-      //   earnWeekly = false;
-      //   earnFortnightly = false;
-      //   earnMonthly = false;
-      //   payFreqEarn = 1;
-      //   earnTaxMax = 1000000;
-      // } else {
       earnWeekly = true;
       earnFortnightly = false;
       earnMonthly = false;
       payFreqEarn = 52;
       earnTaxMax = 25000;
-      // }
+
       if (earnTaxValue[0] > earnTaxMax) {
         earnTaxValue[0] = earnTaxMax;
       }
@@ -277,19 +305,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'earn_tax_fortnight') {
-      // if (earnFortnightly) {
-      //   earnWeekly = false;
-      //   earnFortnightly = false;
-      //   earnMonthly = false;
-      //   payFreqEarn = 1;
-      //   earnTaxMax = 1000000;
-      // } else {
       earnWeekly = false;
       earnFortnightly = true;
       earnMonthly = false;
       payFreqEarn = 26;
       earnTaxMax = 50000;
-      // }
+
       if (earnTaxValue[0] > earnTaxMax) {
         earnTaxValue[0] = earnTaxMax;
       }
@@ -299,19 +320,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'earn_tax_month') {
-      // if (earnMonthly) {
-      //   earnWeekly = false;
-      //   earnFortnightly = false;
-      //   earnMonthly = false;
-      //   payFreqEarn = 1;
-      //   earnTaxMax = 1000000;
-      // } else {
       earnWeekly = false;
       earnFortnightly = false;
       earnMonthly = true;
       payFreqEarn = 12;
       earnTaxMax = 100000;
-      // }
+
       if (earnTaxValue[0] > earnTaxMax) {
         inValidEarnTax = true;
       }
@@ -321,19 +335,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'next_tax_week') {
-      // if (nextWeekly) {
-      //   nextWeekly = false;
-      //   nextFortnightly = false;
-      //   nextMonthly = false;
-      //   payFreqNext = 1;
-      //   nextTaxMax = 1000000;
-      // } else {
       nextWeekly = true;
       nextFortnightly = false;
       nextMonthly = false;
       payFreqNext = 52;
       nextTaxMax = 25000;
-      //}
+
       if (nextTaxValue[0] > nextTaxMax) {
         nextTaxValue[0] = nextTaxMax;
       }
@@ -343,19 +350,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'next_tax_fortnight') {
-      // if (nextFortnightly) {
-      //   nextWeekly = false;
-      //   nextFortnightly = false;
-      //   nextMonthly = false;
-      //   payFreqNext = 1;
-      //   nextTaxMax = 1000000;
-      // } else {
       nextWeekly = false;
       nextFortnightly = true;
       nextMonthly = false;
       payFreqNext = 26;
       nextTaxMax = 50000;
-      //  }
+
       if (nextTaxValue[0] > nextTaxMax) {
         nextTaxValue[0] = nextTaxMax;
       }
@@ -365,19 +365,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'next_tax_month') {
-      // if (nextMonthly) {
-      //   nextWeekly = false;
-      //   nextFortnightly = false;
-      //   nextMonthly = true;
-      //   payFreqNext = 1;
-      //   nextTaxMax = 1000000;
-      // } else {
       nextWeekly = false;
       nextFortnightly = false;
       nextMonthly = true;
       payFreqNext = 12;
       nextTaxMax = 100000;
-      //}
+
       if (nextTaxValue[0] > nextTaxMax) {
         nextTaxValue[0] = nextTaxMax;
       }
@@ -387,19 +380,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'income_week') {
-      // if (incomeWeekly) {
-      //   incomeWeekly = false;
-      //   incomeFortnightly = false;
-      //   incomeMonthly = false;
-      //   payFreqIncome = 1;
-      //   incomeMax = 1000000;
-      // } else {
       incomeWeekly = true;
       incomeFortnightly = false;
       incomeMonthly = false;
       payFreqIncome = 52;
       incomeMax = 25000;
-      //  }
+
       if (incomeValue[0] > incomeMax) {
         incomeValue[0] = incomeMax;
       }
@@ -409,19 +395,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'income_fortnight') {
-      // if (incomeFortnightly) {
-      //   incomeWeekly = false;
-      //   incomeFortnightly = false;
-      //   incomeMonthly = false;
-      //   payFreqIncome = 1;
-      //   incomeMax = 1000000;
-      // } else {
       incomeWeekly = false;
       incomeFortnightly = true;
       incomeMonthly = false;
       payFreqIncome = 26;
       incomeMax = 50000;
-      //}
+
       if (incomeValue[0] > incomeMax) {
         incomeValue[0] = incomeMax;
       }
@@ -431,19 +410,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'income_month') {
-      // if (incomeMonthly) {
-      //   incomeWeekly = false;
-      //   incomeFortnightly = false;
-      //   incomeMonthly = false;
-      //   payFreqIncome = 1;
-      //   incomeMax = 1000000;
-      // } else {
       incomeWeekly = false;
       incomeFortnightly = false;
       incomeMonthly = true;
       payFreqIncome = 12;
       incomeMax = 100000;
-      // }
+
       if (incomeValue[0] > incomeMax) {
         incomeValue[0] = incomeMax;
       }
@@ -453,19 +425,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'car_week') {
-      // if (carWeekly) {
-      //   carWeekly = false;
-      //   carFortnightly = false;
-      //   carMonthly = false;
-      //   payFreqCar = 1;
-      //   carLoanMax = 20000;
-      // } else {
       carWeekly = true;
       carFortnightly = false;
       carMonthly = false;
       payFreqCar = 52;
       carLoanMax = 500;
-      //}
+
       if (carLoanValue[0] > carLoanMax) {
         carLoanValue[0] = carLoanMax;
       }
@@ -475,19 +440,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'car_fortnight') {
-      // if (carFortnightly) {
-      //   carWeekly = false;
-      //   carFortnightly = false;
-      //   carMonthly = false;
-      //   payFreqCar = 1;
-      //   carLoanMax = 20000;
-      // } else {
       carWeekly = false;
       carFortnightly = true;
       carMonthly = false;
       payFreqCar = 26;
       carLoanMax = 1000;
-      //  }
+
       if (carLoanValue[0] > carLoanMax) {
         carLoanValue[0] = carLoanMax;
       }
@@ -497,19 +455,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'car_month') {
-      // if (carMonthly) {
-      //   carWeekly = false;
-      //   carFortnightly = false;
-      //   carMonthly = false;
-      //   payFreqCar = 1;
-      //   carLoanMax = 20000;
-      // } else {
       carWeekly = false;
       carFortnightly = false;
       carMonthly = true;
       payFreqCar = 12;
       carLoanMax = 2000;
-      // }
+
       if (carLoanValue[0] > carLoanMax) {
         carLoanValue[0] = carLoanMax;
       }
@@ -519,19 +470,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'other_week') {
-      // if (otherWeekly) {
-      //   otherWeekly = false;
-      //   otherFortnightly = false;
-      //   otherMonthly = false;
-      //   payFreqOther = 1;
-      //   otherLoanMax = 20000;
-      // } else {
       otherWeekly = true;
       otherFortnightly = false;
       otherMonthly = false;
       payFreqOther = 52;
       otherLoanMax = 500;
-      // }
+
       if (otherLoanValue[0] > otherLoanMax) {
         otherLoanValue[0] = otherLoanMax;
       }
@@ -541,19 +485,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'other_fortnight') {
-      // if (otherFortnightly) {
-      //   otherWeekly = false;
-      //   otherFortnightly = false;
-      //   otherMonthly = false;
-      //   payFreqOther = 1;
-      //   otherLoanMax = 20000;
-      // } else {
       otherWeekly = false;
       otherFortnightly = true;
       otherMonthly = false;
       payFreqOther = 26;
       otherLoanMax = 1000;
-      // }
+
       if (otherLoanValue[0] > otherLoanMax) {
         otherLoanValue[0] = otherLoanMax;
       }
@@ -563,19 +500,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       setState(() {});
     }
     if (key == 'other_month') {
-      // if (otherMonthly) {
-      //   otherWeekly = false;
-      //   otherFortnightly = false;
-      //   otherMonthly = false;
-      //   payFreqOther = 1;
-      //   otherLoanMax = 20000;
-      // } else {
       otherWeekly = false;
       otherFortnightly = false;
       otherMonthly = true;
       payFreqOther = 12;
       otherLoanMax = 2000;
-      //}
+
       if (otherLoanValue[0] > otherLoanMax) {
         otherLoanValue[0] = otherLoanMax;
       }
@@ -735,7 +665,19 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: Dimens.size30),
-                      Text("Interest rate", style: theme.textTheme.bodyText1),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Interest rate',
+                          style: theme.textTheme.bodyText1,
+                          children: [
+                            TextSpan(
+                              text: ' *',
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(color: Colors.red),
+                            )
+                          ],
+                        ),
+                      ),
                       const SizedBox(height: Dimens.size8),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -771,6 +713,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                         final number = double.tryParse(
                                                 interesetRateController.text) ??
                                             0;
+                                        if (number == 0) {
+                                          interesetRateController.text = '0';
+                                        }
                                         if (number > loadInterestMax) {
                                           inValidInterest = true;
                                           interestRateValue[0] =
@@ -794,6 +739,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                             ConvertHelper.formartNumber(
                                                 interestRateValue[0]
                                                     .toStringAsFixed(2)));
+                                        interesetRateController.selection =
+                                            TextSelection.fromPosition(
+                                                TextPosition(
+                                                    offset:
+                                                        interesetRateController
+                                                            .text.length));
                                       },
                                     ),
                                     GestureDetector(
@@ -817,7 +768,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                 if (inValidInterest)
                                   const SizedBox(height: Dimens.size4),
                                 if (inValidInterest)
-                                  Text("Invalid number",
+                                  Text("Please enter your interest rate",
                                       style: theme.primaryTextTheme.error())
                               ],
                             ),
@@ -825,7 +776,19 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                         ],
                       ),
                       const SizedBox(height: Dimens.size10),
-                      Text("Loan term", style: theme.textTheme.bodyText1),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Loan term ',
+                          style: theme.textTheme.bodyText1,
+                          children: [
+                            TextSpan(
+                              text: ' *',
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(color: Colors.red),
+                            )
+                          ],
+                        ),
+                      ),
                       const SizedBox(height: Dimens.size8),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -862,6 +825,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 loadTermController.text
                                                     .replaceAll(',', '')) ??
                                             0;
+                                        if (number == 0) {
+                                          loadTermController.text = '0';
+                                        }
                                         if (number > loadTermMax) {
                                           inValidTerm = true;
                                           loadTermController.text =
@@ -883,6 +849,11 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                             ConvertHelper.formartNumber(
                                                 loadTermValue[0]
                                                     .toStringAsFixed(2)));
+                                        loadTermController.selection =
+                                            TextSelection.fromPosition(
+                                                TextPosition(
+                                                    offset: loadTermController
+                                                        .text.length));
                                       },
                                     ),
                                     GestureDetector(
@@ -905,7 +876,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                 if (inValidTerm)
                                   const SizedBox(height: Dimens.size4),
                                 if (inValidTerm)
-                                  Text("Invalid number",
+                                  Text("Please enter your loan term",
                                       style: theme.primaryTextTheme.error())
                               ],
                             ),
@@ -952,8 +923,19 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                             ],
                           ),
                           const SizedBox(height: Dimens.size20),
-                          Text("How much do you earn after tax?",
-                              style: theme.textTheme.bodyText1),
+                          RichText(
+                            text: TextSpan(
+                              text: 'How much do you earn after tax? ',
+                              style: theme.textTheme.bodyText1,
+                              children: [
+                                TextSpan(
+                                  text: ' *',
+                                  style: theme.textTheme.bodyText1
+                                      ?.copyWith(color: Colors.red),
+                                )
+                              ],
+                            ),
+                          ),
                           const SizedBox(height: Dimens.size10),
                           Row(
                             children: [
@@ -1019,6 +1001,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                     earnTaxController.text
                                                         .replaceAll(',', '')) ??
                                                 0;
+                                            if (number == 0) {
+                                              earnTaxController.text = '0';
+                                            }
+
                                             if (number > earnTaxMax) {
                                               inValidEarnTax = true;
                                               earnTaxController.text =
@@ -1028,6 +1014,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                             } else {
                                               if (number < earnTaxMin) {
                                                 earnTaxValue[0] = earnTaxMin;
+                                                inValidEarnTax = true;
+                                                setState(() {});
+                                              } else if (number == 0) {
+                                                earnTaxValue[0] = 0;
                                                 inValidEarnTax = true;
                                                 setState(() {});
                                               } else {
@@ -1040,6 +1030,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 ConvertHelper.formartNumber(
                                                     earnTaxValue[0]
                                                         .toStringAsFixed(0)));
+                                            earnTaxController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        offset:
+                                                            earnTaxController
+                                                                .text.length));
                                           },
                                         ),
                                         GestureDetector(
@@ -1065,7 +1061,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                     if (inValidEarnTax)
                                       const SizedBox(height: Dimens.size4),
                                     if (inValidEarnTax)
-                                      Text("Invalid number",
+                                      Text("Please enter your income",
                                           style: theme.primaryTextTheme.error())
                                   ],
                                 ),
@@ -1074,9 +1070,20 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                           ),
                           const SizedBox(height: Dimens.size20),
                           if (twoUs)
-                            Text(
-                                "How much does other applicant earn after tax?",
-                                style: theme.textTheme.bodyText1),
+                            RichText(
+                              text: TextSpan(
+                                text:
+                                    'How much does other applicant earn after tax?',
+                                style: theme.textTheme.bodyText1,
+                                children: [
+                                  TextSpan(
+                                    text: ' *',
+                                    style: theme.textTheme.bodyText1
+                                        ?.copyWith(color: Colors.red),
+                                  )
+                                ],
+                              ),
+                            ),
                           if (twoUs) const SizedBox(height: Dimens.size10),
                           if (twoUs)
                             Row(
@@ -1146,6 +1153,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                           .replaceAll(
                                                               ',', '')) ??
                                                   0;
+                                              if (number == 0) {
+                                                nextTaxController.text = '0';
+                                              }
                                               if (number > nextTaxMax) {
                                                 inValidNextTax = true;
                                                 nextTaxController.text =
@@ -1155,6 +1165,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 setState(() {});
                                               } else {
                                                 if (number < nextTaxMin) {
+                                                  nextTaxValue[0] = nextTaxMin;
+                                                  inValidNextTax = true;
+                                                  setState(() {});
+                                                } else if (number == 0) {
                                                   nextTaxValue[0] = nextTaxMin;
                                                   inValidNextTax = true;
                                                   setState(() {});
@@ -1168,6 +1182,13 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                   ConvertHelper.formartNumber(
                                                       nextTaxValue[0]
                                                           .toStringAsFixed(0)));
+                                              nextTaxController.selection =
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset:
+                                                              nextTaxController
+                                                                  .text
+                                                                  .length));
                                             },
                                           ),
                                           GestureDetector(
@@ -1193,7 +1214,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                       if (inValidNextTax)
                                         const SizedBox(height: Dimens.size4),
                                       if (inValidNextTax)
-                                        Text("Invalid number",
+                                        Text(
+                                            "Please enter your applicant income",
                                             style:
                                                 theme.primaryTextTheme.error())
                                     ],
@@ -1202,8 +1224,19 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                               ],
                             ),
                           const SizedBox(height: Dimens.size20),
-                          Text("Do you have any other sources of income?",
-                              style: theme.textTheme.bodyText1),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Do you have any other sources of income?',
+                              style: theme.textTheme.bodyText1,
+                              children: [
+                                // TextSpan(
+                                //   text: ' *',
+                                //   style: theme.textTheme.bodyText1
+                                //       ?.copyWith(color: Colors.red),
+                                // )
+                              ],
+                            ),
+                          ),
                           const SizedBox(height: Dimens.size10),
                           Row(
                             children: [
@@ -1268,6 +1301,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                     incomeController.text
                                                         .replaceAll(',', '')) ??
                                                 0;
+                                            if (number == 0) {
+                                              incomeController.text = '0';
+                                            }
+
                                             if (number > incomeMax) {
                                               inValidIncome = true;
                                               incomeController.text =
@@ -1279,7 +1316,13 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 incomeValue[0] = incomeMin;
                                                 inValidIncome = true;
                                                 setState(() {});
-                                              } else {
+                                              }
+                                              //  else if (number == 0) {
+                                              //   incomeValue[0] = 0;
+                                              //   inValidIncome = true;
+                                              //   setState(() {});
+                                              // }
+                                              else {
                                                 incomeValue[0] = number;
                                                 inValidIncome = false;
                                                 setState(() {});
@@ -1289,6 +1332,11 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 ConvertHelper.formartNumber(
                                                     incomeValue[0]
                                                         .toStringAsFixed(0)));
+                                            incomeController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        offset: incomeController
+                                                            .text.length));
                                           },
                                         ),
                                         GestureDetector(
@@ -1314,7 +1362,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                     if (inValidIncome)
                                       const SizedBox(height: Dimens.size4),
                                     if (inValidIncome)
-                                      Text("Invalid number",
+                                      Text("Please provide your income",
                                           style: theme.primaryTextTheme.error())
                                   ],
                                 ),
@@ -1326,6 +1374,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                             text: 'Next: Your expense details',
                             onTap: () => onChangeTab(2, true),
                           ),
+                          const BottomSpace(),
                           const SizedBox(height: Dimens.size80),
                         ],
                       ),
@@ -1406,6 +1455,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                     carLoanController.text
                                                         .replaceAll(',', '')) ??
                                                 0;
+                                            if (number == 0) {
+                                              carLoanController.text = '0';
+                                            }
                                             if (number > carLoanMax) {
                                               inValidCarLoan = true;
                                               carLoanController.text =
@@ -1427,6 +1479,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 ConvertHelper.formartNumber(
                                                     carLoanValue[0]
                                                         .toStringAsFixed(0)));
+                                            carLoanController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        offset:
+                                                            carLoanController
+                                                                .text.length));
                                           },
                                         ),
                                         GestureDetector(
@@ -1452,7 +1510,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                     if (inValidCarLoan)
                                       const SizedBox(height: Dimens.size4),
                                     if (inValidCarLoan)
-                                      Text("Invalid number",
+                                      Text(
+                                          "Please enter your car loan repayment",
                                           style: theme.primaryTextTheme.error())
                                   ],
                                 ),
@@ -1525,6 +1584,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                     otherLoanController.text
                                                         .replaceAll(',', '')) ??
                                                 0;
+                                            if (number == 0) {
+                                              otherLoanController.text = '0';
+                                            }
                                             if (number > otherLoanMax) {
                                               inValidOtherLoan = true;
                                               otherLoanController.text =
@@ -1548,6 +1610,12 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 ConvertHelper.formartNumber(
                                                     otherLoanValue[0]
                                                         .toStringAsFixed(0)));
+                                            otherLoanController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        offset:
+                                                            otherLoanController
+                                                                .text.length));
                                           },
                                         ),
                                         GestureDetector(
@@ -1573,7 +1641,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                     if (inValidOtherLoan)
                                       const SizedBox(height: Dimens.size4),
                                     if (inValidOtherLoan)
-                                      Text("Invalid number",
+                                      Text(
+                                          "Please enter your other loan repayment",
                                           style: theme.primaryTextTheme.error())
                                   ],
                                 ),
@@ -1619,6 +1688,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                     creditController.text
                                                         .replaceAll(',', '')) ??
                                                 0;
+                                            if (number == 0) {
+                                              creditController.text = '0';
+                                            }
                                             if (number > creditMax) {
                                               inValidCredit = true;
                                               creditController.text =
@@ -1640,6 +1712,11 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 ConvertHelper.formartNumber(
                                                     creditValue[0]
                                                         .toStringAsFixed(0)));
+                                            creditController.selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        offset: creditController
+                                                            .text.length));
                                           },
                                         ),
                                         GestureDetector(
@@ -1665,7 +1742,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                     if (inValidCredit)
                                       const SizedBox(height: Dimens.size4),
                                     if (inValidCredit)
-                                      Text("Invalid number",
+                                      Text(
+                                          "Please enter your credit card limit",
                                           style: theme.primaryTextTheme.error())
                                   ],
                                 ),
@@ -1710,6 +1788,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                                 dependantController.text
                                                     .replaceAll(',', '')) ??
                                             0;
+                                        if (number == 0) {
+                                          dependantController.text = '0';
+                                        }
                                         if (number > dependantMax) {
                                           inValidDependant = true;
                                           dependantController.text = '5';
@@ -1726,12 +1807,21 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                             setState(() {});
                                           }
                                         }
+                                        await appPreference.setDependant(
+                                            ConvertHelper.formartNumber(
+                                                dependantValue[0]
+                                                    .toStringAsFixed(0)));
+                                        dependantController.selection =
+                                            TextSelection.fromPosition(
+                                                TextPosition(
+                                                    offset: dependantController
+                                                        .text.length));
                                       },
                                     ),
                                     if (inValidDependant)
                                       const SizedBox(height: Dimens.size4),
                                     if (inValidDependant)
-                                      Text("Invalid number",
+                                      Text("Please enter your dependant",
                                           style: theme.primaryTextTheme.error())
                                   ],
                                 ),
@@ -1745,6 +1835,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                               openCalculate();
                             },
                           ),
+                          const BottomSpace(),
                           const SizedBox(height: Dimens.size80)
                         ],
                       ),
@@ -1773,7 +1864,27 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
     int creditCardRepay = int.parse(creditController.text.replaceAll(',', ''));
     int otherPay = int.parse(otherLoanController.text.replaceAll(',', ''));
     int annualExpence = CaculatorHelper.getDependant(dependants, isSingle);
-
+    final listError = <String>[];
+    if (inValidInterest) {
+      listError.add('interest rate');
+    }
+    if (inValidTerm) {
+      listError.add('loan term');
+    }
+    if (netSalary <= 0) {
+      listError.add('your income after tax');
+    }
+    if (netSalary2 <= 0 && !justMe) {
+      listError.add('your applicant income after tax');
+    }
+    final result = listError.join(', ');
+    if (result.isNotEmpty) {
+      showDialogWarnig(
+          context: context,
+          msg:
+              'Please provide $result so we can calculate your borrowing power.');
+      return;
+    }
     int netSalPeriod = payFreqEarn;
     int netSalPeriod2;
     if (isSingle) {
@@ -1783,11 +1894,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       netSalPeriod2 = payFreqNext;
     }
     int netIncomePeriod = payFreqIncome;
-
     int carLoanRepayPeriod = payFreqCar;
-
     double homeRepay = 0;
-
     int otherPayPeriod = payFreqOther;
 
     double n = loanTerm * 12;
@@ -1809,24 +1917,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
     double monthlyRepay;
 
     if (checkBorrow < 0) {
-      showDialog(
+      showDialogWarnig(
           context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Not Eligible For Loan',
-                  style: Theme.of(context).textTheme.headline5),
-              content: Text(
-                'You cannot take a loan',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('OK',
-                        style: Theme.of(context).textTheme.bodyMedium)),
-              ],
-            );
-          });
+          msg:
+              'Please provide Interest rate, Loan term and Income so we can calculate your borrowing power.');
       return;
     } else {
       double dispensableMonthlyIncome = checkBorrow / 12;

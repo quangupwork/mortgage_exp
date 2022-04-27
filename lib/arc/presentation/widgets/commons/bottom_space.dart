@@ -8,9 +8,8 @@ class BottomSpace extends StatelessWidget {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
       return SizedBox(
-          height: isKeyboardVisible
-              ? MediaQuery.of(context).viewInsets.bottom
-              : 10);
+          height:
+              isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom : 0);
     });
   }
 }
