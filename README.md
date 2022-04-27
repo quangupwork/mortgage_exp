@@ -10,8 +10,9 @@
 
 ## 2.1 How to Run
 Step 1: Install Flutter: https://flutter.dev/docs/get-started/install
-  - Flutter version: '2.10'
+  - Flutter version: 2.10.5
   - Channel: stable
+
 Step 2: Get source.
   ```
   flutter pub get
