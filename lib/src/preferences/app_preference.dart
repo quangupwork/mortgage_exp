@@ -67,6 +67,12 @@ class AppPreference extends BasePreference {
   Future setWeekly(bool? value) async =>
       await setBool(PreferenceKeys.isWeekly, value);
 
+  Future<bool?> get isExtraWeekly async =>
+      await getBool(PreferenceKeys.isExtraWeekly);
+
+  Future setExtraWeekly(bool? value) async =>
+      await setBool(PreferenceKeys.isExtraWeekly, value);
+
   Future<bool?> get earnWeekly async =>
       await getBool(PreferenceKeys.earnWeekly);
 
@@ -161,10 +167,16 @@ class AppPreference extends BasePreference {
   Future setJustMe(bool? value) async =>
       await setBool(PreferenceKeys.justMe, value);
 
-  Future<bool?> get isFortnightly async => await getBool(PreferenceKeys.twoUs);
+  Future<bool?> get isFortnightly async =>
+      await getBool(PreferenceKeys.isFortnightly);
 
   Future setFortnightly(bool? value) async =>
-      await setBool(PreferenceKeys.twoUs, value);
+      await setBool(PreferenceKeys.isFortnightly, value);
+  Future<bool?> get isExtraFortnightly async =>
+      await getBool(PreferenceKeys.isExtraFortnightly);
+
+  Future setExtraFortnightly(bool? value) async =>
+      await setBool(PreferenceKeys.isExtraFortnightly, value);
 
   Future<bool?> get twoUs async => await getBool(PreferenceKeys.twoUs);
 
@@ -175,6 +187,12 @@ class AppPreference extends BasePreference {
 
   Future setMonthly(bool? value) async =>
       await setBool(PreferenceKeys.isMonthly, value);
+
+  Future<bool?> get isExtraMonthly async =>
+      await getBool(PreferenceKeys.isExtraMonthly);
+
+  Future setExtraMonthly(bool? value) async =>
+      await setBool(PreferenceKeys.isExtraMonthly, value);
 
   Future<bool?> get principleInterest async =>
       await getBool(PreferenceKeys.principleInterest);

@@ -68,6 +68,15 @@ class RepaymentBloc extends IBaseBloc {
     if (!weekly && !fortnightly && !monthly) {
       isMonthly = true;
     }
+    if (isWeekly) {
+      payFreq = 52;
+    }
+    if (isFortnightly) {
+      payFreq = 26;
+    }
+    if (isMonthly) {
+      payFreq = 12;
+    }
     if (!principle && !only) {
       principleInterest = true;
     }

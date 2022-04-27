@@ -59,9 +59,9 @@ class ExtraBloc extends IBaseBloc {
     final repaymentString = await appPreference.extraRepayment ?? '250';
     final interest = await appPreference.interestRate ?? '2';
     final term = await appPreference.loanTerm ?? '30';
-    final weekly = await appPreference.isWeekly ?? false;
-    final fortnightly = await appPreference.isFortnightly ?? false;
-    final monthly = await appPreference.isMonthly ?? false;
+    final weekly = await appPreference.isExtraWeekly ?? false;
+    final fortnightly = await appPreference.isExtraFortnightly ?? false;
+    final monthly = await appPreference.isExtraMonthly ?? false;
 
     loadAmountValue[0] = double.parse(amount.replaceAll(',', ''));
     interestRateValue[0] = double.parse(interest);
@@ -73,6 +73,15 @@ class ExtraBloc extends IBaseBloc {
 
     if (!weekly && !fortnightly && !monthly) {
       isMonthly = true;
+    }
+    if (isWeekly) {
+      payFreq = 52;
+    }
+    if (isFortnightly) {
+      payFreq = 26;
+    }
+    if (isMonthly) {
+      payFreq = 12;
     }
     yield currentState.copyWith(
         total: total,
@@ -235,9 +244,9 @@ class ExtraBloc extends IBaseBloc {
       isMonthly = true;
       payFreq = 12;
     }
-    await appPreference.setWeekly(isWeekly);
-    await appPreference.setFortnightly(isFortnightly);
-    await appPreference.setMonthly(isMonthly);
+    await appPreference.setExtraWeekly(isWeekly);
+    await appPreference.setExtraFortnightly(isFortnightly);
+    await appPreference.setExtraMonthly(isMonthly);
     yield currentState.copyWith(
       isWeekly: isWeekly,
       isFortnightly: isFortnightly,

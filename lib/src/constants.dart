@@ -49,6 +49,9 @@ class PreferenceKeys {
   static const String isWeekly = 'WEEKLY';
   static const String isFortnightly = 'FORTNIGHTLY';
   static const String isMonthly = 'MONTHLY';
+  static const String isExtraWeekly = 'EXTRA_WEEKLY';
+  static const String isExtraFortnightly = 'EXTRA_FORTNIGHTLY';
+  static const String isExtraMonthly = 'EXTRA_MONTHLY';
   static const String earnWeekly = 'EARN_WEEKLY';
   static const String earnFortnightly = 'EARN_FORTNIGHTLY';
   static const String earnMonthly = 'EARN_MONTHLY';
