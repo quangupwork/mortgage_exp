@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ItemMenu(
                 icon: ImageAssetPath.icAbout,
                 title: "About Us",
-                subTitle: "Supporting finance advice providers",
+                subTitle: "Supporting financial advice providers",
                 onTap: () => navigator.pushNamed(RouteKey.about),
               ),
             ),
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ItemMenu(
                 icon: ImageAssetPath.icFindAdviser,
                 title: "Find an adviser",
-                subTitle: "Finance, Mortgage and Insurance advice",
+                subTitle: "Financial, Mortgage and Insurance advice",
                 onTap: () => navigator.pushNamed(RouteKey.findAnAdvicer),
               ),
             ),
