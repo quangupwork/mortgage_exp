@@ -41,11 +41,11 @@ class TextFieldCustom extends StatelessWidget {
         focusNode: focusNode,
         keyboardType: TextInputType.number,
         maxLines: 1,
-        style: theme.textTheme.bodyText2,
+        style: theme.primaryTextTheme.bodyText2,
         textAlignVertical: TextAlignVertical.center,
         textAlign: TextAlign.left,
         onChanged: onChanged,
-        cursorColor: const Color(0xff8b745d),
+        cursorColor: Theme.of(context).backgroundColor,
         cursorWidth: 2,
         inputFormatters: [ThousandsFormatter(allowFraction: true)],
         decoration: InputDecoration(

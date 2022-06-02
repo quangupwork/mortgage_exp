@@ -57,7 +57,9 @@ class _YourBorrowingScreenState extends State<YourBorrowingScreen> {
                       children: [
                         const SizedBox(height: Dimens.size14),
                         Image.asset(ImageAssetPath.icYourPayment,
-                            height: Dimens.size40, width: Dimens.size30),
+                            color: theme.backgroundColor,
+                            height: Dimens.size40,
+                            width: Dimens.size30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -101,6 +103,7 @@ class _YourBorrowingScreenState extends State<YourBorrowingScreen> {
                           flex: 2,
                           child: Image.asset(ImageAssetPath.icLogo),
                         ),
+                        const SizedBox(width: Dimens.size20),
                         Expanded(
                           flex: 3,
                           child: Text(

@@ -106,7 +106,7 @@ class _FindAdvicerScreenState extends IStateful<PostBloc, FindAdvicerScreen> {
                             ),
                             Flexible(
                               child: Image.asset(ImageAssetPath.icFilter,
-                                  color: const Color(0xff8b745d),
+                                  color: theme.backgroundColor,
                                   height: 30,
                                   width: 30),
                             )

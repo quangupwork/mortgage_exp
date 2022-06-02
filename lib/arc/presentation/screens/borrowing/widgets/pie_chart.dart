@@ -44,9 +44,7 @@ class _ChartWidgetState extends State<ChartWidget> {
               Text("Monthly income", style: theme.textTheme.s16w800()),
               const SizedBox(width: Dimens.size10),
               Text("\$${widget.monthlyIncome.toInt()}",
-                  style: theme.textTheme
-                      .s16w800()
-                      .copyWith(fontWeight: FontWeight.normal)),
+                  style: theme.textTheme.s16w800()),
             ],
           ),
         ),
@@ -207,8 +205,7 @@ class Indicator extends StatelessWidget {
         ),
         Expanded(
           flex: 3,
-          child:
-              Text(value, maxLines: 2, style: theme.textTheme.s16w800normal()),
+          child: Text(value, maxLines: 2, style: theme.textTheme.s16w800()),
         )
       ],
     );

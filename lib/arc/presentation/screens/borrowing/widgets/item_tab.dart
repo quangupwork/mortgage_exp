@@ -30,13 +30,13 @@ class ItemTab extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: status
                     ? theme.textTheme.styleBTabEnable()
-                    : theme.textTheme.styleBTabDisable()),
+                    : theme.textTheme.styleBTabEnable()),
             const SizedBox(height: Dimens.size6),
             Container(
               height: 4,
               margin: const EdgeInsets.symmetric(horizontal: Dimens.size10),
               decoration: BoxDecoration(
-                color: status ? theme.primaryColor : Colors.transparent,
+                color: status ? theme.backgroundColor : Colors.transparent,
                 borderRadius: BorderRadius.circular(1),
               ),
             )

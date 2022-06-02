@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
           height: height,
           padding: const EdgeInsets.symmetric(horizontal: Dimens.size10),
           width: width ?? MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(color: Color.fromRGBO(50, 55, 64, 1)),
+          decoration: const BoxDecoration(color: MyColors.colorButton),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -34,6 +34,7 @@ class CustomButton extends StatelessWidget {
                 Flexible(
                   child: Image.asset(icon!,
                       height: Dimens.size34,
+                      color: theme.backgroundColor,
                       width: Dimens.size34,
                       fit: BoxFit.scaleDown),
                 ),

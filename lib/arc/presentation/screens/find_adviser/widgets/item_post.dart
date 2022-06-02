@@ -45,11 +45,11 @@ class ItemPost extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(postModel.name ?? '',
-                    maxLines: 3,
+                    maxLines: 2,
                     style: theme.textTheme.s14w600().copyWith(
                           fontSize: 15,
                           color: Colors.black,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                         )),
                 const SizedBox(height: 2),
                 Text("Mortgage Adviser",
@@ -128,8 +128,12 @@ class _ItemInfo extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(icon,
-              height: 30, width: 30, color: const Color(0xff8b745d)),
+          Image.asset(
+            icon,
+            height: 30,
+            width: 30,
+            color: theme.backgroundColor,
+          ),
           const SizedBox(width: Dimens.size10),
           Flexible(
             child: Text(text, style: theme.textTheme.s14w700(), maxLines: 2),

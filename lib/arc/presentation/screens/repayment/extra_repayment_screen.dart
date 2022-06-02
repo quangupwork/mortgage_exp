@@ -553,7 +553,9 @@ class _ExtraRepaymentScreenState
                       children: [
                         const SizedBox(height: Dimens.size20),
                         Image.asset(ImageAssetPath.icYourPayment,
-                            height: Dimens.size40, width: Dimens.size30),
+                            color: theme.backgroundColor,
+                            height: Dimens.size40,
+                            width: Dimens.size30),
                         Flexible(
                           flex: 2,
                           child: Row(

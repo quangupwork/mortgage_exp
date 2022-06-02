@@ -24,72 +24,59 @@ class _HomeScreenState extends State<HomeScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: theme.primaryColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
-        child: Column(
-          children: [
-            const SizedBox(height: Dimens.size20),
-            Flexible(
-              flex: 4,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Center(
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+              children: [
+                const SizedBox(height: Dimens.size20),
+                Center(
                   child: Image.asset(ImageAssetPath.icLogo,
                       height: Dimens.size200, width: Dimens.size200),
                 ),
-              ),
+                ItemMenu(
+                  icon: ImageAssetPath.icBorrowing,
+                  title: "Borrowing Power",
+                  subTitle: "Know how much you can borrow",
+                  onTap: () => navigator.pushNamed(RouteKey.borrowingPower),
+                ),
+                const SizedBox(height: Dimens.size12),
+                ItemMenu(
+                  icon: ImageAssetPath.icRepayment,
+                  title: "Repayments",
+                  subTitle: "Know your repayments",
+                  onTap: () => navigator.pushNamed(RouteKey.repayment),
+                ),
+                const SizedBox(height: Dimens.size12),
+                ItemMenu(
+                  icon: ImageAssetPath.icExtraRepayment,
+                  title: "Extra Repayments",
+                  subTitle: "Know how much you will save",
+                  onTap: () => navigator.pushNamed(RouteKey.extraRepayment),
+                ),
+                SizedBox(height: size.height / 14),
+                ItemMenu(
+                  icon: ImageAssetPath.icAbout,
+                  title: "About Us",
+                  subTitle: "Supporting financial advice providers",
+                  onTap: () => navigator.pushNamed(RouteKey.about),
+                ),
+                const SizedBox(height: Dimens.size12),
+                ItemMenu(
+                  icon: ImageAssetPath.icFindAdviser,
+                  title: "Find an adviser",
+                  subTitle: "Financial, Mortgage and Insurance advice",
+                  onTap: () => navigator.pushNamed(RouteKey.findAnAdvicer),
+                ),
+                SizedBox(height: size.height / 12),
+                const ButtonWidget(),
+                SizedBox(height: size.height / 18),
+              ],
             ),
-            Flexible(
-              child: ItemMenu(
-                icon: ImageAssetPath.icBorrowing,
-                title: "Borrowing Power",
-                subTitle: "Know how much you can borrow",
-                onTap: () => navigator.pushNamed(RouteKey.borrowingPower),
-              ),
-            ),
-            const SizedBox(height: Dimens.size12),
-            Flexible(
-              child: ItemMenu(
-                icon: ImageAssetPath.icRepayment,
-                title: "Repayments",
-                subTitle: "Know your repayments",
-                onTap: () => navigator.pushNamed(RouteKey.repayment),
-              ),
-            ),
-            const SizedBox(height: Dimens.size12),
-            Flexible(
-              child: ItemMenu(
-                icon: ImageAssetPath.icExtraRepayment,
-                title: "Extra Repayments",
-                subTitle: "Know how much you will save",
-                onTap: () => navigator.pushNamed(RouteKey.extraRepayment),
-              ),
-            ),
-            SizedBox(height: size.height / 14),
-            Flexible(
-              child: ItemMenu(
-                icon: ImageAssetPath.icAbout,
-                title: "About Us",
-                subTitle: "Supporting financial advice providers",
-                onTap: () => navigator.pushNamed(RouteKey.about),
-              ),
-            ),
-            const SizedBox(height: Dimens.size12),
-            Flexible(
-              child: ItemMenu(
-                icon: ImageAssetPath.icFindAdviser,
-                title: "Find an adviser",
-                subTitle: "Financial, Mortgage and Insurance advice",
-                onTap: () => navigator.pushNamed(RouteKey.findAnAdvicer),
-              ),
-            ),
-            SizedBox(height: size.height / 12),
-            const ButtonWidget(),
-            SizedBox(height: size.height / 18),
-            const Spacer(),
-            const FooterWidget.withURL()
-          ],
-        ),
+          ),
+          const FooterWidget.withURL(hasPadding: true)
+        ],
       ),
     );
   }

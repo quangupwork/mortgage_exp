@@ -27,7 +27,7 @@ class ButtonNext extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: Dimens.size50,
-        color: const Color(0xff434c57),
+        color: MyColors.colorButton,
         child: Stack(
           children: [
             Center(

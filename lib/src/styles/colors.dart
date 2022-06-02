@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class MyColors {
   MyColors._();
 
-  static const Color primaryColor = Color.fromRGBO(250, 242, 234, 1);
+  static const Color primaryColor = Color.fromRGBO(255, 255, 254, 1);
   static const Color secondaryColor = Color.fromRGBO(85, 172, 65, 1);
+  static const Color colorButton = Color.fromRGBO(0, 0, 0, 1);
 
   static const Color backgroundIconColor = Color.fromRGBO(223, 243, 231, 1);
-  static const Color backgroundColor = Color.fromRGBO(248, 248, 253, 1);
+  static const Color backgroundColor = Color(0xffbb9b74);
 
   static const Color whiteColor = Color.fromRGBO(255, 255, 255, 1);
   static const Color white95 = Color.fromRGBO(255, 255, 255, 0.95);

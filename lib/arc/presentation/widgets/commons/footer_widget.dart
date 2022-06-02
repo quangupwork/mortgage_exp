@@ -20,6 +20,7 @@ class FooterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: hasPadding
@@ -31,48 +32,37 @@ class FooterWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                  onTap: _termAndCondition,
-                  child: Text("Terms and Conditions",
-                      style: theme.textTheme.subtitle2)),
+                  onTap: () =>
+                      _openLink('https://www.mortgage-express.co.nz/legal'),
+                  child: Text(
+                    "Terms and Conditions",
+                    style: theme.primaryTextTheme.bodyText2,
+                  )),
               GestureDetector(
-                  onTap: _privacyStatement,
-                  child: Text("Privacy Statement",
-                      style: theme.textTheme.subtitle2)),
+                  onTap: () => _openLink(
+                      'https://www.mortgage-express.co.nz/privacy-statement'),
+                  child: Text(
+                    "Privacy Statement",
+                    style: theme.primaryTextTheme.bodyText2,
+                  )),
             ],
           ),
-          if (hasURL) const SizedBox(height: Dimens.size14),
+          if (hasURL) const SizedBox(height: Dimens.size10),
           if (hasURL)
             GestureDetector(
-                onTap: _onPrivacy,
-                child: Text("www.mortgage-express.co.nz",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.subtitle2)),
+                onTap: () => _openLink('https://www.mortgage-express.co.nz'),
+                child: Text(
+                  "www.mortgage-express.co.nz",
+                  textAlign: TextAlign.center,
+                  style: theme.primaryTextTheme.bodyText2,
+                )),
           const SizedBox(height: Dimens.size10),
         ],
       ),
     );
   }
 
-  Future<void> _termAndCondition() async {
-    const url = "https://www.mortgage-express.co.nz/legal";
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw "Could not launch $url";
-    }
-  }
-
-  Future<void> _privacyStatement() async {
-    const url = "https://www.mortgage-express.co.nz/privacy-statement";
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw "Could not launch $url";
-    }
-  }
-
-  Future<void> _onPrivacy() async {
-    const url = "https://www.mortgage-express.co.nz";
+  Future<void> _openLink(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {

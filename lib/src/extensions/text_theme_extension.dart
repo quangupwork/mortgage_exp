@@ -17,7 +17,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return TextStyle(
-      fontFamily: MyTheme.crimsonPro,
+      fontFamily: MyTheme.sourceSans,
       color: isLight ? MyColors.black : MyColors.black,
       fontSize: Dimens.textSize12,
       fontWeight: FontWeight.w500,
@@ -30,10 +30,10 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.roboto,
-      fontWeight: FontWeight.w500,
+      fontFamily: MyTheme.sourceSans,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
-      color: Color.fromRGBO(141, 117, 93, 1),
+      color: MyColors.backgroundColor,
       fontSize: Dimens.size16,
     );
   }
@@ -44,7 +44,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.roboto,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w700,
       height: 1.2,
       color: Colors.white,
@@ -58,7 +58,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.roboto,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w500,
       height: 1.2,
       color: Colors.white,
@@ -72,9 +72,9 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.roboto,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w700,
-      color: Color(0xff424c58),
+      color: Colors.white,
       fontSize: Dimens.size14,
     );
   }
@@ -85,7 +85,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: Color(0xff808080),
       fontSize: Dimens.size14,
     );
@@ -97,7 +97,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w800,
       color: Color.fromRGBO(66, 76, 88, 1),
       fontSize: Dimens.size20,
@@ -110,9 +110,9 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
-      fontWeight: FontWeight.w600,
-      color: Color.fromRGBO(66, 76, 88, 1),
+      fontFamily: MyTheme.sourceSans,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
       fontSize: Dimens.size14,
     );
   }
@@ -123,7 +123,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w700,
       color: Color.fromRGBO(66, 76, 88, 1),
       fontSize: Dimens.size17,
@@ -136,7 +136,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w700,
       color: Colors.white,
       fontSize: Dimens.size17,
@@ -149,10 +149,10 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.crimsonPro,
-      fontWeight: FontWeight.bold,
+      fontFamily: MyTheme.sourceSans,
+      fontWeight: FontWeight.w600,
       color: Colors.black,
-      fontSize: Dimens.size18,
+      fontSize: Dimens.size17,
     );
   }
 
@@ -162,7 +162,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w500,
       color: Colors.black,
       fontSize: Dimens.size16,
@@ -175,7 +175,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w800,
       color: Color.fromRGBO(66, 76, 88, 1),
       fontSize: Dimens.size16,
@@ -188,7 +188,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       color: Color.fromRGBO(66, 76, 88, 1),
       fontSize: Dimens.size16,
     );
@@ -200,7 +200,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.bold,
       color: Color(0xff424c58),
       fontSize: Dimens.size28,
@@ -213,7 +213,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-      fontFamily: MyTheme.din,
+      fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w800,
       color: Color(0xff424c58),
       fontSize: Dimens.size12,
@@ -226,7 +226,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-        fontFamily: MyTheme.din,
+        fontFamily: MyTheme.sourceSans,
         fontWeight: FontWeight.w600,
         color: Color(0xff424c58),
         fontSize: Dimens.size14);
@@ -238,7 +238,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-        fontFamily: MyTheme.din,
+        fontFamily: MyTheme.sourceSans,
         fontSize: Dimens.size22,
         fontWeight: FontWeight.w700,
         color: Colors.white);
@@ -250,7 +250,7 @@ extension ThemeExtension on TextTheme {
             Brightness.light;
     final isLight = isLightMode ?? _isLightMode;
     return const TextStyle(
-        fontFamily: MyTheme.roboto,
+        fontFamily: MyTheme.sourceSans,
         fontSize: Dimens.size12,
         fontWeight: FontWeight.w400,
         color: Colors.red);

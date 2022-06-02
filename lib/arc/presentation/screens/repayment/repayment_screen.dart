@@ -470,7 +470,9 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                     children: [
                       const SizedBox(height: Dimens.size14),
                       Image.asset(ImageAssetPath.icYourPayment,
-                          height: Dimens.size40, width: Dimens.size30),
+                          color: theme.backgroundColor,
+                          height: Dimens.size40,
+                          width: Dimens.size30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,

@@ -30,16 +30,18 @@ class SliderCustom extends StatelessWidget {
       jump: true,
       selectByTap: true,
       onDragging: onDragging,
-      trackBar: const FlutterSliderTrackBar(
+      trackBar: FlutterSliderTrackBar(
           activeTrackBarHeight: 2,
-          activeTrackBar: BoxDecoration(color: Color(0xff8b745d))),
+          activeTrackBar: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+          )),
       handler: FlutterSliderHandler(
         decoration: const BoxDecoration(),
         child: Container(
           height: Dimens.size20,
           width: Dimens.size20,
           decoration: BoxDecoration(
-              color: const Color(0xff8b745d),
+              color: Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.circular(Dimens.size25)),
           padding: const EdgeInsets.all(Dimens.size2),
           child: Container(

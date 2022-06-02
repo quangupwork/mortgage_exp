@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     this.title,
     this.leading,
     this.action,
-    this.color = const Color(0xff434c57),
+    this.color = MyColors.colorButton,
   })  : hasLeading = true,
         super(key: key);
   @override
@@ -46,6 +46,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                               fit: BoxFit.scaleDown,
                               child: Image.asset(ImageAssetPath.icBack,
                                   fit: BoxFit.cover,
+                                  color: Colors.white,
                                   height: Dimens.size20,
                                   width: Dimens.size20))),
                     ))

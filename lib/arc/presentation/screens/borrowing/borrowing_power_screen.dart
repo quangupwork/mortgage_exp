@@ -625,7 +625,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
       body: Column(
         children: [
           Container(
-            color: const Color(0xff434c57),
+            color: MyColors.colorButton,
             padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
             child: Row(
               children: [
@@ -668,7 +668,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                       RichText(
                         text: TextSpan(
                           text: 'Interest rate',
-                          style: theme.textTheme.bodyText1,
+                          style: theme.primaryTextTheme.bodyText2,
                           children: [
                             TextSpan(
                               text: ' *',
@@ -779,7 +779,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                       RichText(
                         text: TextSpan(
                           text: 'Loan term ',
-                          style: theme.textTheme.bodyText1,
+                          style: theme.primaryTextTheme.bodyText2,
                           children: [
                             TextSpan(
                               text: ' *',
@@ -901,8 +901,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                             horizontal: Dimens.size40),
                         children: [
                           const SizedBox(height: Dimens.size20),
-                          Text("Who is this loan for?",
-                              style: theme.textTheme.bodyText1),
+                          Text(
+                            "Who is this loan for?",
+                            style: theme.primaryTextTheme.bodyText2,
+                          ),
                           const SizedBox(height: Dimens.size10),
                           Row(
                             children: [
@@ -926,7 +928,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                           RichText(
                             text: TextSpan(
                               text: 'How much do you earn after tax? ',
-                              style: theme.textTheme.bodyText1,
+                              style: theme.primaryTextTheme.bodyText2,
                               children: [
                                 TextSpan(
                                   text: ' *',
@@ -1074,7 +1076,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                               text: TextSpan(
                                 text:
                                     'How much does other applicant earn after tax?',
-                                style: theme.textTheme.bodyText1,
+                                style: theme.primaryTextTheme.bodyText2,
                                 children: [
                                   TextSpan(
                                     text: ' *',
@@ -1227,7 +1229,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                           RichText(
                             text: TextSpan(
                               text: 'Do you have any other sources of income?',
-                              style: theme.textTheme.bodyText1,
+                              style: theme.primaryTextTheme.bodyText2,
                               children: [
                                 // TextSpan(
                                 //   text: ' *',
@@ -1390,8 +1392,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                             horizontal: Dimens.size40),
                         children: [
                           const SizedBox(height: Dimens.size20),
-                          Text("How much is your car loan repayment?",
-                              style: theme.textTheme.bodyText1),
+                          Text(
+                            "How much is your car loan repayment?",
+                            style: theme.primaryTextTheme.bodyText2,
+                          ),
                           const SizedBox(height: Dimens.size10),
                           Row(
                             children: [
@@ -1519,8 +1523,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                             ],
                           ),
                           const SizedBox(height: Dimens.size20),
-                          Text("How much is your other loan repayments?",
-                              style: theme.textTheme.bodyText1),
+                          Text(
+                            "How much is your other loan repayments?",
+                            style: theme.primaryTextTheme.bodyText2,
+                          ),
                           const SizedBox(height: Dimens.size10),
                           Row(
                             children: [
@@ -1650,8 +1656,10 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                             ],
                           ),
                           const SizedBox(height: Dimens.size20),
-                          Text("What’s your credit card limit?",
-                              style: theme.textTheme.bodyText1),
+                          Text(
+                            "What’s your credit card limit?",
+                            style: theme.primaryTextTheme.bodyText2,
+                          ),
                           const SizedBox(height: Dimens.size8),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -1752,8 +1760,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                           ),
                           const SizedBox(height: Dimens.size20),
                           Text(
-                              "How many dependants do you financially support?",
-                              style: theme.textTheme.bodyText1),
+                            "How many dependants do you financially support?",
+                            style: theme.primaryTextTheme.bodyText2,
+                          ),
                           const SizedBox(height: Dimens.size8),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,

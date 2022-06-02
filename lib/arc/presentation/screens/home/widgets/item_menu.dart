@@ -23,21 +23,20 @@ class ItemMenu extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: Dimens.size50,
-        color: Colors.white,
+        color: MyColors.colorButton,
         child: Stack(
           children: [
             Row(
               children: [
                 const SizedBox(width: Dimens.size6),
-                Flexible(
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Center(
-                      child: Image.asset(
-                        icon,
-                        height: Dimens.size40,
-                        width: Dimens.size40,
-                      ),
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: Center(
+                    child: Image.asset(
+                      icon,
+                      color: theme.backgroundColor,
+                      height: Dimens.size40,
+                      width: Dimens.size40,
                     ),
                   ),
                 ),
@@ -48,21 +47,12 @@ class ItemMenu extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(height: Dimens.size4),
-                      Flexible(
-                        child: FittedBox(
-                            fit: BoxFit.contain,
-                            child:
-                                Text(title, style: theme.textTheme.headline6)),
+                      FittedBox(
+                        child: Text(title, style: theme.textTheme.headline6),
                       ),
-                      const SizedBox(height: Dimens.size2),
-                      Flexible(
-                        child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text(subTitle,
-                                style: theme.textTheme.subtitle1)),
+                      FittedBox(
+                        child: Text(subTitle, style: theme.textTheme.subtitle1),
                       ),
-                      const SizedBox(height: Dimens.size4),
                     ],
                   ),
                 )
@@ -74,6 +64,7 @@ class ItemMenu extends StatelessWidget {
                 padding: const EdgeInsets.only(right: Dimens.size4),
                 child: Image.asset(
                   ImageAssetPath.icArrow,
+                  color: Colors.white,
                   height: Dimens.size20,
                   width: Dimens.size20,
                 ),
@@ -82,8 +73,8 @@ class ItemMenu extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 2,
-                color: const Color(0xffe9ccb6),
+                height: 4,
+                color: theme.backgroundColor,
               ),
             )
           ],

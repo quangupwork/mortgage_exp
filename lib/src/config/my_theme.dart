@@ -4,9 +4,7 @@ import 'package:flutter/scheduler.dart';
 import '../styles/style.dart';
 
 class MyTheme {
-  static const String crimsonPro = 'CrimsonPro';
-  static const String din = 'DIN';
-  static const String roboto = 'Roboto';
+  static const String sourceSans = 'SourceSans';
 
   final bool _isLightMode =
       SchedulerBinding.instance!.window.platformBrightness == Brightness.light;
@@ -15,7 +13,7 @@ class MyTheme {
 
   static ThemeData lightTheme() {
     return ThemeData(
-      fontFamily: din,
+      fontFamily: sourceSans,
       backgroundColor: MyColors.backgroundColor,
       primaryColor: MyColors.primaryColor,
       colorScheme: const ColorScheme(
@@ -39,50 +37,54 @@ class MyTheme {
       // Text
       primaryTextTheme: const TextTheme(
         bodyText1: TextStyle(
-          fontFamily: MyTheme.crimsonPro,
+          fontFamily: MyTheme.sourceSans,
           color: Colors.white,
           fontSize: Dimens.size15,
           fontWeight: FontWeight.w300,
         ),
+        bodyText2: TextStyle(
+          fontFamily: MyTheme.sourceSans,
+          color: Colors.black,
+          fontSize: Dimens.size15,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(
-          fontFamily: MyTheme.crimsonPro,
+          fontFamily: MyTheme.sourceSans,
           color: Colors.white,
           fontSize: Dimens.size22,
           fontWeight: FontWeight.w700,
         ),
         headline6: TextStyle(
-            fontFamily: MyTheme.din,
+            fontFamily: MyTheme.sourceSans,
             fontSize: Dimens.size18,
             fontWeight: FontWeight.bold,
-            color: Colors.black),
+            color: Colors.white),
         subtitle1: TextStyle(
-            fontFamily: MyTheme.crimsonPro,
+            fontFamily: MyTheme.sourceSans,
             fontSize: Dimens.size14,
-            fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w500,
-            color: Colors.black),
+            color: Colors.white),
         subtitle2: TextStyle(
-            fontFamily: MyTheme.crimsonPro,
-            fontSize: Dimens.size16,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.w500,
+            fontFamily: MyTheme.sourceSans,
+            fontSize: Dimens.size15,
+            fontWeight: FontWeight.w400,
             color: Colors.black),
         bodyText1: TextStyle(
-          fontFamily: crimsonPro,
+          fontFamily: sourceSans,
           color: Colors.black,
           fontSize: Dimens.textSize16,
           fontWeight: FontWeight.w700,
         ),
         bodyText2: TextStyle(
-            fontFamily: MyTheme.roboto,
+            fontFamily: MyTheme.sourceSans,
             fontWeight: FontWeight.w400,
             fontStyle: FontStyle.normal,
             color: Colors.black,
             fontSize: Dimens.size14),
         button: TextStyle(
-            fontFamily: MyTheme.din,
+            fontFamily: MyTheme.sourceSans,
             fontWeight: FontWeight.w700,
             color: Colors.white,
             fontSize: Dimens.size20),
@@ -121,7 +123,7 @@ class MyTheme {
       // Text
       primaryTextTheme: const TextTheme(
         bodyText1: TextStyle(
-          fontFamily: crimsonPro,
+          fontFamily: sourceSans,
           color: Colors.white,
           fontSize: Dimens.size15,
           fontWeight: FontWeight.w300,
@@ -129,18 +131,18 @@ class MyTheme {
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(
-          fontFamily: crimsonPro,
+          fontFamily: sourceSans,
           color: Colors.white,
           fontSize: Dimens.size22,
           fontWeight: FontWeight.w700,
         ),
         headline6: TextStyle(
-            fontFamily: crimsonPro,
+            fontFamily: sourceSans,
             fontSize: Dimens.size17,
             fontWeight: FontWeight.bold,
             color: Colors.black),
         bodyText1: TextStyle(
-          fontFamily: din,
+          fontFamily: sourceSans,
           color: Colors.black,
           fontSize: Dimens.textSize14,
           fontWeight: FontWeight.w700,

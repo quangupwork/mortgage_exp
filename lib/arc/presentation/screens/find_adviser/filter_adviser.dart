@@ -92,7 +92,12 @@ class ItemSelected extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w700)),
             ),
             const Spacer(),
-            if (isSelected) Image.asset(ImageAssetPath.icCheck, height: 20),
+            if (isSelected)
+              Image.asset(
+                ImageAssetPath.icCheck,
+                color: theme.backgroundColor,
+                height: 20,
+              ),
           ],
         ),
       ),
