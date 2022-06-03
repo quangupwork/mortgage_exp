@@ -5,7 +5,7 @@ import '../styles/style.dart';
 
 class MyTheme {
   static const String sourceSans = 'SourceSans';
-
+  static const String sourceSansSemi = 'SourceSansSemi';
   final bool _isLightMode =
       SchedulerBinding.instance!.window.platformBrightness == Brightness.light;
 
@@ -43,7 +43,7 @@ class MyTheme {
           fontWeight: FontWeight.w300,
         ),
         bodyText2: TextStyle(
-          fontFamily: MyTheme.sourceSans,
+          fontFamily: MyTheme.sourceSansSemi,
           color: Colors.black,
           fontSize: Dimens.size15,
           fontWeight: FontWeight.w500,

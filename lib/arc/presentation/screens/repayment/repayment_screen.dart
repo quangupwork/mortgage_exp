@@ -134,7 +134,10 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
               padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
               children: [
                 const SizedBox(height: Dimens.size30),
-                Text("Loan amount", style: theme.textTheme.bodyText1),
+                Text(
+                  "Loan amount",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
                 const SizedBox(height: Dimens.size8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,7 +232,10 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                   ],
                 ),
                 const SizedBox(height: Dimens.size10),
-                Text("Interest rate", style: theme.textTheme.bodyText1),
+                Text(
+                  "Interest rate",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
                 const SizedBox(height: Dimens.size8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -321,7 +327,10 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                   ],
                 ),
                 const SizedBox(height: Dimens.size10),
-                Text("Loan term", style: theme.textTheme.bodyText1),
+                Text(
+                  "Loan term",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
                 const SizedBox(height: Dimens.size8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -410,7 +419,10 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                   ],
                 ),
                 const SizedBox(height: Dimens.size14),
-                Text("Repayment frequency", style: theme.textTheme.bodyText1),
+                Text(
+                  "Repayment frequency",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
                 const SizedBox(height: Dimens.size20),
                 Row(
                   children: [
@@ -438,7 +450,10 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                   ],
                 ),
                 const SizedBox(height: Dimens.size20),
-                Text("Repayment type", style: theme.textTheme.bodyText1),
+                Text(
+                  "Repayment type",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
                 const SizedBox(height: Dimens.size20),
                 Row(
                   children: [

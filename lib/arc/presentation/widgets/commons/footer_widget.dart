@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../src/styles/style.dart';
@@ -36,14 +37,14 @@ class FooterWidget extends StatelessWidget {
                       _openLink('https://www.mortgage-express.co.nz/legal'),
                   child: Text(
                     "Terms and Conditions",
-                    style: theme.primaryTextTheme.bodyText2,
+                    style: theme.textTheme.s15w400(),
                   )),
               GestureDetector(
                   onTap: () => _openLink(
                       'https://www.mortgage-express.co.nz/privacy-statement'),
                   child: Text(
                     "Privacy Statement",
-                    style: theme.primaryTextTheme.bodyText2,
+                    style: theme.textTheme.s15w400(),
                   )),
             ],
           ),
@@ -54,7 +55,7 @@ class FooterWidget extends StatelessWidget {
                 child: Text(
                   "www.mortgage-express.co.nz",
                   textAlign: TextAlign.center,
-                  style: theme.primaryTextTheme.bodyText2,
+                  style: theme.textTheme.s15w400(),
                 )),
           const SizedBox(height: Dimens.size10),
         ],

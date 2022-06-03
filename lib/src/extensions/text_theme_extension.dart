@@ -38,6 +38,20 @@ extension ThemeExtension on TextTheme {
     );
   }
 
+  TextStyle s15w400({bool? isLightMode, Color? color}) {
+    final bool _isLightMode =
+        SchedulerBinding.instance?.window.platformBrightness ==
+            Brightness.light;
+    final isLight = isLightMode ?? _isLightMode;
+    return const TextStyle(
+      fontFamily: MyTheme.sourceSans,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+      color: MyColors.black,
+      fontSize: Dimens.size15,
+    );
+  }
+
   TextStyle styleBTabEnable({bool? isLightMode, Color? color}) {
     final bool _isLightMode =
         SchedulerBinding.instance?.window.platformBrightness ==

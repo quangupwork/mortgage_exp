@@ -140,7 +140,10 @@ class _ExtraRepaymentScreenState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(height: Dimens.size20),
-                  Text("Loan amount", style: theme.textTheme.bodyText1),
+                  Text(
+                    "Loan amount",
+                    style: theme.primaryTextTheme.bodyText2,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -236,7 +239,10 @@ class _ExtraRepaymentScreenState
                       )
                     ],
                   ),
-                  Text("Interest rate", style: theme.textTheme.bodyText1),
+                  Text(
+                    "Interest rate",
+                    style: theme.primaryTextTheme.bodyText2,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -327,7 +333,10 @@ class _ExtraRepaymentScreenState
                       ),
                     ],
                   ),
-                  Text("Loan term", style: theme.textTheme.bodyText1),
+                  Text(
+                    "Loan term",
+                    style: theme.primaryTextTheme.bodyText2,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -421,7 +430,10 @@ class _ExtraRepaymentScreenState
                           ))
                     ],
                   ),
-                  Text("Repayment frequency", style: theme.textTheme.bodyText1),
+                  Text(
+                    "Repayment frequency",
+                    style: theme.primaryTextTheme.bodyText2,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -447,7 +459,10 @@ class _ExtraRepaymentScreenState
                       ))
                     ],
                   ),
-                  Text("Extra Repayment", style: theme.textTheme.bodyText1),
+                  Text(
+                    "Extra Repayment",
+                    style: theme.primaryTextTheme.bodyText2,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
