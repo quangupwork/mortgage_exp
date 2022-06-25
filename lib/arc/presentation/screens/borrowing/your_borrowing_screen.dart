@@ -68,12 +68,16 @@ class _YourBorrowingScreenState extends State<YourBorrowingScreen> {
                               child: FittedBox(
                                 fit: BoxFit.cover,
                                 child: Text("You can borrow up to",
-                                    style: theme.textTheme.s22w800()),
+                                    style: theme.textTheme.s22w800().copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        )),
                               ),
                             ),
                             Flexible(
                               child: Text(formatter.format(widget.canBorrow),
-                                  style: theme.textTheme.s28bold()),
+                                  style: theme.textTheme
+                                      .s28bold()
+                                      .copyWith(fontWeight: FontWeight.w800)),
                             ),
                           ],
                         ),

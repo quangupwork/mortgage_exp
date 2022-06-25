@@ -57,7 +57,10 @@ class FooterWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: theme.textTheme.s15w400(),
                 )),
-          const SizedBox(height: Dimens.size10),
+          SizedBox(
+              height: MediaQuery.of(context).viewPadding.bottom == 0
+                  ? 10
+                  : MediaQuery.of(context).viewPadding.bottom),
         ],
       ),
     );

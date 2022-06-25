@@ -113,7 +113,7 @@ extension ThemeExtension on TextTheme {
     return const TextStyle(
       fontFamily: MyTheme.sourceSans,
       fontWeight: FontWeight.w800,
-      color: Color.fromRGBO(66, 76, 88, 1),
+      color: MyColors.dark,
       fontSize: Dimens.size20,
     );
   }

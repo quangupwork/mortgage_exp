@@ -32,8 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const SizedBox(height: Dimens.size20),
                 Center(
-                  child: Image.asset(ImageAssetPath.icLogo,
-                      height: Dimens.size200, width: Dimens.size200),
+                  child: Image.asset(
+                    ImageAssetPath.icLogo,
+                    height: size.height * 0.2,
+                    width: size.width / 2.5,
+                  ),
                 ),
                 ItemMenu(
                   icon: ImageAssetPath.icBorrowing,

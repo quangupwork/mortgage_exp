@@ -7,6 +7,8 @@ class MyColors {
   static const Color secondaryColor = Color.fromRGBO(85, 172, 65, 1);
   static const Color colorButton = Color.fromRGBO(0, 0, 0, 1);
 
+  static const Color dark = Color.fromRGBO(66, 76, 88, 1);
+
   static const Color backgroundIconColor = Color.fromRGBO(223, 243, 231, 1);
   static const Color backgroundColor = Color(0xffbb9b74);
 

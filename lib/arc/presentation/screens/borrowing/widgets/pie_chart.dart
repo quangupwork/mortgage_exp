@@ -41,10 +41,15 @@ class _ChartWidgetState extends State<ChartWidget> {
             children: [
               Text("Based on", style: theme.textTheme.s16w700()),
               const Spacer(),
-              Text("Monthly income", style: theme.textTheme.s16w800()),
+              Text("Monthly income",
+                  style: theme.textTheme
+                      .s16w800()
+                      .copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(width: Dimens.size10),
               Text("\$${widget.monthlyIncome.toInt()}",
-                  style: theme.textTheme.s16w800()),
+                  style: theme.textTheme
+                      .s16w800()
+                      .copyWith(fontWeight: FontWeight.w700)),
             ],
           ),
         ),
@@ -121,12 +126,12 @@ class _ChartWidgetState extends State<ChartWidget> {
 
   List<PieChartSectionData> showingSections() {
     final otherRepayment =
-        (widget.monthlyIncome / widget.otherRepayment).toDouble();
+        (widget.otherRepayment / widget.monthlyIncome).toDouble();
     final mortgageRepayment =
-        (widget.monthlyIncome / widget.mortgageRepayment).toDouble();
+        (widget.mortgageRepayment / widget.monthlyIncome).toDouble();
     final livingExpreses =
-        (widget.monthlyIncome / widget.livingExpreses).toDouble();
-    final remaining = (widget.monthlyIncome / widget.remaining).toDouble();
+        (widget.livingExpreses / widget.monthlyIncome).toDouble();
+    final remaining = (widget.remaining / widget.monthlyIncome).toDouble();
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
       final radius = isTouched ? 60.0 : 50.0;
@@ -201,11 +206,17 @@ class Indicator extends StatelessWidget {
           child: Text(text,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.s16w800()),
+              style: theme.textTheme
+                  .s16w800()
+                  .copyWith(fontWeight: FontWeight.bold)),
         ),
         Expanded(
           flex: 3,
-          child: Text(value, maxLines: 2, style: theme.textTheme.s16w800()),
+          child: Text(value,
+              maxLines: 2,
+              style: theme.textTheme
+                  .s16w800()
+                  .copyWith(fontWeight: FontWeight.w700)),
         )
       ],
     );
