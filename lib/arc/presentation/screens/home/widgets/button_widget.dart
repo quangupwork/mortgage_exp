@@ -14,7 +14,7 @@ class ButtonWidget extends StatelessWidget {
       children: [
         Expanded(
           child: CustomButton(
-            onTap: () => launch("tel://0800226226"),
+            onTap: () => launch("tel://${Constants.phone} "),
             text: 'Call Now',
             icon: ImageAssetPath.icCall,
           ),
@@ -25,7 +25,7 @@ class ButtonWidget extends StatelessWidget {
             onTap: () async {
               final Uri params = Uri(
                 scheme: 'mailto',
-                path: 'mortgages@mortgage-express.co.nz',
+                path: Constants.email,
                 query:
                     'subject=Regarding My Home Loan&body=Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards', //add subject and body here
               );

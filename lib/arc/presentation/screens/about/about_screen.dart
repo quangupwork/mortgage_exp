@@ -65,8 +65,8 @@ With access to a panel of more than 30 bank and non-bank lenders, we offer more 
                 const SizedBox(height: Dimens.size14),
                 _ItemContact(
                   icon: ImageAssetPath.icCall,
-                  onTap: () => launch("tel://08002266226"),
-                  text: '08002266226 (Free phone)',
+                  onTap: () => launch("tel://${Constants.phone}"),
+                  text: '${Constants.phone} (Free phone)',
                 ),
                 const SizedBox(height: Dimens.size10),
                 _ItemContact(
@@ -74,7 +74,7 @@ With access to a panel of more than 30 bank and non-bank lenders, we offer more 
                   onTap: () async {
                     final Uri params = Uri(
                       scheme: 'mailto',
-                      path: 'info@mx.co.nz',
+                      path: Constants.email,
                       query:
                           'subject=Regarding My Home Loan&body=Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards', //add subject and body here
                     );

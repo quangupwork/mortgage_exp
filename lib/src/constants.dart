@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static const String appName = 'River Group';
+  static const String appName = 'Mortgage Express';
 
+  static const String email = 'info@mx.co.nz';
+  static const String phone = '0800 226 226';
   // Responsive
   static const kTabletBreakpoint = 650;
   static const kDesktopBreakpoint = 1100;
@@ -12,7 +14,7 @@ class Constants {
     Locale('vi'),
   ];
   static List<int> categoryIDS = [
-    3883698826, // All Region
+    3883698826, // All Regions
     4030995060, // Auckland
     4031001500, // Bay of Plenty
     3838289969, // Chinese Speaking

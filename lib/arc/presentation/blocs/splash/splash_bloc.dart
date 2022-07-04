@@ -90,12 +90,17 @@ class SplashBloc extends IBaseBloc {
           result.add(responseTopic.topicModel?[index].name ?? '');
         }
       }
-      result[0] = 'All region';
+      result[0] = 'All regions';
       StaticVariable.listTopic = result;
       await appPreference.setSaveFilter(result);
       LoggerUtils.d("Save topic success");
     } else {
-      StaticVariable.listTopic = await appPreference.saveFilter ?? [];
+      final listTopic = await appPreference.saveFilter ?? [];
+      int index = listTopic.indexOf('All region');
+      if (index != -1) {
+        listTopic[index] = 'All regions';
+      }
+      StaticVariable.listTopic = listTopic;
     }
     yield SplashLoadedState();
   }
