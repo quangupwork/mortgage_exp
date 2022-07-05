@@ -65,26 +65,13 @@ With access to a panel of more than 30 bank and non-bank lenders, we offer more 
                 const SizedBox(height: Dimens.size14),
                 _ItemContact(
                   icon: ImageAssetPath.icCall,
-                  onTap: () => launch("tel://${Constants.phone}"),
+                  onTap: () => launchCaller(Constants.phone),
                   text: '${Constants.phone} (Free phone)',
                 ),
                 const SizedBox(height: Dimens.size10),
                 _ItemContact(
                   icon: ImageAssetPath.icEmail,
-                  onTap: () async {
-                    final Uri params = Uri(
-                      scheme: 'mailto',
-                      path: Constants.email,
-                      query:
-                          'subject=Regarding My Home Loan&body=Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards', //add subject and body here
-                    );
-                    final url = params.toString();
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
+                  onTap: () => makeEmail(Constants.email),
                   text: 'info@mx.co.nz',
                 ),
                 const SizedBox(height: Dimens.size40),
@@ -95,6 +82,38 @@ With access to a panel of more than 30 bank and non-bank lenders, we offer more 
         ],
       ),
     );
+  }
+
+  Future<void> makeEmail(String email) async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Regarding My Home Loan',
+        'body':
+            'Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards',
+      }),
+    );
+    launchUrl(emailLaunchUri);
+  }
+
+  Future<bool> launchCaller(String? number) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: number,
+    );
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+      return true;
+    }
+    return false;
   }
 }
 

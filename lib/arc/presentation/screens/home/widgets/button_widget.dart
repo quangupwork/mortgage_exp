@@ -14,7 +14,7 @@ class ButtonWidget extends StatelessWidget {
       children: [
         Expanded(
           child: CustomButton(
-            onTap: () => launch("tel://${Constants.phone} "),
+            onTap: () => launchCaller(Constants.phone),
             text: 'Call Now',
             icon: ImageAssetPath.icCall,
           ),
@@ -22,25 +22,44 @@ class ButtonWidget extends StatelessWidget {
         const SizedBox(width: Dimens.size4),
         Expanded(
           child: CustomButton(
-            onTap: () async {
-              final Uri params = Uri(
-                scheme: 'mailto',
-                path: Constants.email,
-                query:
-                    'subject=Regarding My Home Loan&body=Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards', //add subject and body here
-              );
-              final url = params.toString();
-              if (await canLaunch(url)) {
-                await launch(url);
-              } else {
-                throw 'Could not launch $url';
-              }
-            },
+            onTap: () => makeEmail(Constants.email),
             text: 'Email Now',
             icon: ImageAssetPath.icEmail,
           ),
         ),
       ],
     );
+  }
+
+  Future<bool> launchCaller(String? number) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: number,
+    );
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> makeEmail(String email) async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Regarding My Home Loan',
+        'body':
+            'Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards',
+      }),
+    );
+    launchUrl(emailLaunchUri);
   }
 }

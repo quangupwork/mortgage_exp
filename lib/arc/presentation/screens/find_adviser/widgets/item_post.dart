@@ -58,29 +58,16 @@ class ItemPost extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
                 _ItemInfo(
-                  onTap: () => launch(
-                      "tel://${HTMLHelper.parsePhoneFromHTML(postModel.postSummary ?? '')}"),
+                  onTap: () => launchCaller(HTMLHelper.parsePhoneFromHTML(
+                      postModel.postSummary ?? '')),
                   icon: ImageAssetPath.icCall,
                   text: HTMLHelper.parsePhoneFromHTML(
                       postModel.postSummary ?? ''),
                 ),
                 const SizedBox(height: 2),
                 _ItemInfo(
-                  onTap: () async {
-                    final Uri params = Uri(
-                      scheme: 'mailto',
-                      path: HTMLHelper.parseEmailFromHTML(
-                          postModel.postSummary ?? ''),
-                      query:
-                          'subject=Regarding My Home Loan&body=Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards', //add subject and body here
-                    );
-                    final url = params.toString();
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
+                  onTap: () => makeEmail(HTMLHelper.parseEmailFromHTML(
+                      postModel.postSummary ?? '')),
                   icon: ImageAssetPath.icEmail,
                   text: HTMLHelper.parseEmailFromHTML(
                       postModel.postSummary ?? ''),
@@ -106,6 +93,38 @@ class ItemPost extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> makeEmail(String email) async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Regarding My Home Loan',
+        'body':
+            'Hi\n\nI would like to discuss my home loan options. Below are my contact details\n\nName:\nMobile Number\nBest Time To Contact:\n\nPlease get in touch\n\nRegards',
+      }),
+    );
+    launchUrl(emailLaunchUri);
+  }
+
+  Future<bool> launchCaller(String? number) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: number,
+    );
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+      return true;
+    }
+    return false;
   }
 }
 

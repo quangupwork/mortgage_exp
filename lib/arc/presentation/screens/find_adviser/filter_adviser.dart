@@ -22,7 +22,6 @@ class _FilterAdviserScreenState extends State<FilterAdviserScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: CustomAppBar.withLeading(title: "State/Territory"),
@@ -30,19 +29,6 @@ class _FilterAdviserScreenState extends State<FilterAdviserScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 10),
-          // Container(
-          //   height: 40,
-          //   padding: const EdgeInsets.symmetric(horizontal: Dimens.size10),
-          //   margin: EdgeInsets.symmetric(horizontal: size.width / 7),
-          //   decoration: const BoxDecoration(color: Colors.white),
-          //   child: Align(
-          //     alignment: Alignment.centerLeft,
-          //     child: Text("Select State/Territory",
-          //         style: theme.textTheme
-          //             .s16w700black()
-          //             .copyWith(fontWeight: FontWeight.w700)),
-          //   ),
-          // ),
           Flexible(
               child: ListView.builder(
                   itemCount: itemCategory.length,
