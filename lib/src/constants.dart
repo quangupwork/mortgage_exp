@@ -28,6 +28,8 @@ class Constants {
     3895800592, // Northland
     3883704076, // Tauranga
     4059967301, // Wellington
+    34971721693, // Otago Advisers
+    18132082503, // South Canterbury Advisers
   ];
 }
 

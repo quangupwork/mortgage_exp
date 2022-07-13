@@ -7,6 +7,7 @@ import 'package:mortgage_exp/src/constants.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:mortgage_exp/src/preferences/app_preference.dart';
 import 'package:mortgage_exp/src/styles/dimens.dart';
+import 'package:mortgage_exp/src/utilities/showtoast.dart';
 
 import '../../../../injector.dart';
 import '../../../../src/base_widget_state/base_widget_state.dart';
@@ -60,6 +61,7 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
   double intWith = 0;
   double repaymentInterestOnly = 0;
   double repayment = 0;
+  int count = 1;
 
   @override
   void initState() {
@@ -72,18 +74,6 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
   void listener(BuildContext context, IBaseState state) async {
     super.listener(context, state);
     if (state is RepaymentLoaded) {
-      loadAmountController.text = ConvertHelper.formartNumber(
-          state.loadAmountValue?[0].toString() ?? '0');
-      interesetRateController.text = ConvertHelper.formartNumber(
-          state.interestRateValue?[0].toString() ?? '0');
-      loadTermController.text = ConvertHelper.formartNumber(
-          state.loadTermValue?[0].toString() ?? '0');
-      loadAmountController.selection = TextSelection.fromPosition(
-          TextPosition(offset: loadAmountController.text.length));
-      interesetRateController.selection = TextSelection.fromPosition(
-          TextPosition(offset: interesetRateController.text.length));
-      loadTermController.selection = TextSelection.fromPosition(
-          TextPosition(offset: loadTermController.text.length));
       isWeekly = state.isWeekly ?? false;
       isFortnightly = state.isFortnightly ?? false;
       isMonthly = state.isMonthly ?? false;
@@ -115,6 +105,29 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
       if (repayment.isNaN) {
         repayment = 0;
       }
+
+      loadAmountController.text = ConvertHelper.formartNumber(
+          state.loadAmountValue?[0].toString() ?? '0');
+
+      if (count < 3) {
+        interesetRateController.text = ConvertHelper.formartNumber(
+            state.interestRateValue?[0].toString() ?? '0');
+        loadTermController.text = ConvertHelper.formartNumber(
+            state.loadTermValue?[0].toString() ?? '0');
+        count++;
+      }
+      // if ((double.tryParse(interesetRateController.text) ?? 0) < 0.5) {
+      //   interesetRateController.text = loadInterestMin.toString();
+      //   interestRateValue[0] = loadInterestMin;
+      //   appPreference.setInterestRate(loadInterestMin.toString());
+      // }
+
+      loadAmountController.selection = TextSelection.fromPosition(
+          TextPosition(offset: loadAmountController.text.length));
+      interesetRateController.selection = TextSelection.fromPosition(
+          TextPosition(offset: interesetRateController.text.length));
+      loadTermController.selection = TextSelection.fromPosition(
+          TextPosition(offset: loadTermController.text.length));
     }
   }
 
@@ -244,11 +257,15 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                         flex: 5,
                         child: SliderCustom(
                           values: interestRateValue,
-                          max: loadInterestMax,
+                          max: loadInterestMax < interestRateValue.first
+                              ? interestRateValue.first
+                              : loadInterestMax,
                           min: loadInterestMin,
                           step: const FlutterSliderStep(step: 0.1),
                           onDragging: (handlerIndex, lowerValue, upperValue) {
                             onProgress(lowerValue, '2');
+                            interesetRateController.text =
+                                lowerValue.toString();
                           },
                         )),
                     const SizedBox(width: Dimens.size4),
@@ -268,36 +285,7 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                                 padding: const EdgeInsets.only(
                                     left: 24, top: 10, bottom: 10),
                                 onChanged: (value) async {
-                                  final number = double.tryParse(
-                                          interesetRateController.text) ??
-                                      0;
-                                  if (number == 0) {
-                                    interesetRateController.text = '0';
-                                  }
-                                  if (number > loadInterestMax) {
-                                    inValidInterest = true;
-                                    interestRateValue[0] = loadInterestMax;
-                                    interesetRateController.text =
-                                        loadInterestMax.toString();
-                                    setState(() {});
-                                  } else {
-                                    if (number < loadInterestMin) {
-                                      interestRateValue[0] = loadInterestMin;
-                                      inValidInterest = true;
-                                      setState(() {});
-                                    } else {
-                                      interestRateValue[0] = number;
-                                      inValidInterest = false;
-                                      setState(() {});
-                                    }
-                                  }
-                                  await appPreference.setInterestRate(
-                                      interestRateValue[0].toString());
-                                  interesetRateController.selection =
-                                      TextSelection.fromPosition(TextPosition(
-                                          offset: interesetRateController
-                                              .text.length));
-                                  calculate();
+                                  await onChangeInterestRate(value);
                                 },
                               ),
                               GestureDetector(
@@ -344,6 +332,9 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                           step: const FlutterSliderStep(step: 1),
                           onDragging: (handlerIndex, lowerValue, upperValue) {
                             onProgress(lowerValue, '3');
+                            loadTermController.text =
+                                ConvertHelper.formartNumber(
+                                    lowerValue.toString());
                           },
                         )),
                     const SizedBox(width: Dimens.size4),
@@ -367,23 +358,27 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                                             loadTermController.text
                                                 .replaceAll(',', '')) ??
                                         0;
-                                    if (number == 0) {
-                                      loadTermController.text = '0';
-                                    }
+                                    // if (number == 0) {
+                                    //   loadTermController.text = '0';
+                                    // }
                                     if (number > loadTermMax) {
                                       inValidTerm = true;
                                       loadTermController.text =
                                           loadTermMax.toStringAsFixed(0);
+
                                       loadTermValue[0] = loadTermMax;
+                                      setState(() {});
                                     } else {
                                       if (number < loadTermMin) {
                                         loadTermValue[0] = loadTermMin;
                                         // loadTermController.text =
                                         //     loadTermMin.toStringAsFixed(0);
                                         inValidTerm = true;
+                                        setState(() {});
                                       } else {
                                         loadTermValue[0] = number;
                                         inValidTerm = false;
+                                        setState(() {});
                                       }
                                     }
                                     await appPreference.setLoanTerm(
@@ -522,6 +517,42 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> onChangeInterestRate(String value) async {
+    final number = double.tryParse(value) ?? 0;
+    // if (number == 0) {
+    //   interesetRateController.text = '0';
+    // }
+    if (number < 0.5 && interesetRateController.text.length > 2) {
+      await Future.delayed(const Duration(milliseconds: 300));
+      interestRateValue[0] = loadInterestMin;
+      interesetRateController.text = '0.5';
+    }
+
+    if (number > loadInterestMax) {
+      inValidInterest = false;
+      interestRateValue[0] = number;
+
+      // interesetRateController.text =
+      //     loadInterestMax.toString();
+      setState(() {});
+    } else {
+      if (number < loadInterestMin) {
+        interestRateValue[0] = loadInterestMin;
+        inValidInterest = true;
+        setState(() {});
+      } else {
+        interestRateValue[0] = number;
+        inValidInterest = false;
+        setState(() {});
+      }
+    }
+
+    await appPreference.setInterestRate(interestRateValue[0].toString());
+    interesetRateController.selection = TextSelection.fromPosition(
+        TextPosition(offset: interesetRateController.text.length));
+    calculate();
   }
 
   Future<void> onRepaymentType(String key) async {

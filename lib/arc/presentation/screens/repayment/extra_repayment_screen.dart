@@ -65,6 +65,7 @@ class _ExtraRepaymentScreenState
 
   double repaymentInterestOnly = 0;
   double repayment = 0;
+  int count = 0;
 
   @override
   void initState() {
@@ -79,10 +80,16 @@ class _ExtraRepaymentScreenState
     if (state is ExtraLoaded) {
       loadAmountController.text = ConvertHelper.formartNumber(
           state.loadAmountValue?[0].toString() ?? '0');
-      interesetRateController.text = ConvertHelper.formartNumber(
-          state.interestRateValue?[0].toString() ?? '0');
-      loadTermController.text = ConvertHelper.formartNumber(
-          state.loadTermValue?[0].toString() ?? '0');
+      if (count < 3) {
+        interesetRateController.text = ConvertHelper.formartNumber(
+            state.interestRateValue?[0].toString() ?? '0');
+        loadTermController.text = ConvertHelper.formartNumber(
+            state.loadTermValue?[0].toString() ?? '0');
+        count++;
+      }
+      // interesetRateController.text = ConvertHelper.formartNumber(
+      //     state.interestRateValue?[0].toString() ?? '0');
+
       repaymentController.text = ConvertHelper.formartNumber(
           state.repaymentValue?[0].toString() ?? '0');
       repaymentController.selection = TextSelection.fromPosition(
@@ -250,11 +257,15 @@ class _ExtraRepaymentScreenState
                           flex: 5,
                           child: SliderCustom(
                             values: interestRateValue,
-                            max: loadInterestMax,
+                            max: loadInterestMax < interestRateValue.first
+                                ? interestRateValue.first
+                                : loadInterestMax,
                             min: loadInterestMin,
                             step: const FlutterSliderStep(step: 0.1),
                             onDragging: (handlerIndex, lowerValue, upperValue) {
                               onProgress(lowerValue, '2');
+                              interesetRateController.text =
+                                  lowerValue.toString();
                             },
                           )),
                       const SizedBox(width: Dimens.size4),
@@ -277,14 +288,23 @@ class _ExtraRepaymentScreenState
                                     final number = double.tryParse(
                                             interesetRateController.text) ??
                                         0;
-                                    if (number == 0) {
-                                      interesetRateController.text = '0';
+                                    // if (number == 0) {
+                                    //   interesetRateController.text = '0';
+                                    // }
+
+                                    if (number < 0.5 &&
+                                        interesetRateController.text.length >
+                                            2) {
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 300));
+                                      interestRateValue[0] = loadInterestMin;
+                                      interesetRateController.text = '0.5';
                                     }
                                     if (number > loadInterestMax) {
-                                      inValidInterest = true;
-                                      interestRateValue[0] = loadInterestMax;
-                                      interesetRateController.text =
-                                          loadInterestMax.toString();
+                                      //    inValidInterest = true;
+                                      interestRateValue[0] = number;
+                                      // interesetRateController.text =
+                                      //     loadInterestMax.toString();
                                       setState(() {});
                                     } else {
                                       if (number < loadInterestMin) {
@@ -349,6 +369,9 @@ class _ExtraRepaymentScreenState
                             step: const FlutterSliderStep(step: 1),
                             onDragging: (handlerIndex, lowerValue, upperValue) {
                               onProgress(lowerValue, '3');
+                              loadTermController.text =
+                                  ConvertHelper.formartNumber(
+                                      lowerValue.toString());
                             },
                           )),
                       const SizedBox(width: Dimens.size4),

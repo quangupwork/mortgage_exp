@@ -21,7 +21,8 @@ class FooterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: hasPadding
@@ -35,16 +36,28 @@ class FooterWidget extends StatelessWidget {
               GestureDetector(
                   onTap: () =>
                       _openLink('https://www.mortgage-express.co.nz/legal'),
-                  child: Text(
-                    "Terms and Conditions",
-                    style: theme.textTheme.s15w400(),
+                  child: FittedBox(
+                    child: Text(
+                      "Terms and Conditions",
+                      style: isSmall
+                          ? theme.textTheme
+                              .s15w400()
+                              .copyWith(fontSize: Dimens.size13)
+                          : theme.textTheme.s15w400(),
+                    ),
                   )),
               GestureDetector(
                   onTap: () => _openLink(
                       'https://www.mortgage-express.co.nz/privacy-statement'),
-                  child: Text(
-                    "Privacy Statement",
-                    style: theme.textTheme.s15w400(),
+                  child: FittedBox(
+                    child: Text(
+                      "Privacy Statement",
+                      style: isSmall
+                          ? theme.textTheme
+                              .s15w400()
+                              .copyWith(fontSize: Dimens.size13)
+                          : theme.textTheme.s15w400(),
+                    ),
                   )),
             ],
           ),
@@ -55,7 +68,11 @@ class FooterWidget extends StatelessWidget {
                 child: Text(
                   "www.mortgage-express.co.nz",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.s15w400(),
+                  style: isSmall
+                      ? theme.textTheme
+                          .s15w400()
+                          .copyWith(fontSize: Dimens.size13)
+                      : theme.textTheme.s15w400(),
                 )),
           SizedBox(
               height: MediaQuery.of(context).viewPadding.bottom == 0

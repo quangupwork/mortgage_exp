@@ -33,10 +33,12 @@ class _FilterAdviserScreenState extends State<FilterAdviserScreen> {
               child: ListView.builder(
                   itemCount: itemCategory.length,
                   itemBuilder: (context, index) => ItemSelected(
-                      text: FilterConverter.filterConvert(itemCategory[index]),
-                      id: itemCategory[index],
-                      isSelected: itemCategory[index] == widget.selectedValue,
-                      isSepared: index % 2 == 0)))
+                        text:
+                            FilterConverter.filterConvert(itemCategory[index]),
+                        id: itemCategory[index],
+                        isSelected: itemCategory[index] == widget.selectedValue,
+                        isSepared: index % 2 == 0,
+                      )))
         ],
       ),
     );

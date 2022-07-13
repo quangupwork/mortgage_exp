@@ -72,6 +72,7 @@ class SplashBloc extends IBaseBloc {
 
     // Get List FILTER
     final getFilter = await appPreference.saveFilter ?? [];
+
     if (getFilter.isEmpty) {
       // Get API TOPIC
       final resTopic = await postService.getTopic();
@@ -100,6 +101,13 @@ class SplashBloc extends IBaseBloc {
       if (index != -1) {
         listTopic[index] = 'All regions';
       }
+      if (!listTopic.contains('Otago Advisers')) {
+        listTopic.add('Otago Advisers');
+      }
+      if (!listTopic.contains('South Canterbury Advisers')) {
+        listTopic.add('South Canterbury Advisers');
+      }
+
       StaticVariable.listTopic = listTopic;
     }
     yield SplashLoadedState();

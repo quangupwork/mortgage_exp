@@ -19,6 +19,8 @@ class ItemMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -35,8 +37,8 @@ class ItemMenu extends StatelessWidget {
                     child: Image.asset(
                       icon,
                       color: theme.backgroundColor,
-                      height: Dimens.size40,
-                      width: Dimens.size40,
+                      height: isSmall ? Dimens.size30 : Dimens.size40,
+                      width: isSmall ? Dimens.size30 : Dimens.size40,
                     ),
                   ),
                 ),
@@ -47,28 +49,32 @@ class ItemMenu extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FittedBox(
-                        child: Text(title, style: theme.textTheme.headline6),
+                      Text(
+                        title,
+                        style: isSmall
+                            ? theme.textTheme.headline6
+                                ?.copyWith(fontSize: Dimens.size17)
+                            : theme.textTheme.headline6,
                       ),
-                      FittedBox(
-                        child: Text(subTitle, style: theme.textTheme.subtitle1),
+                      Text(
+                        subTitle,
+                        style: isSmall
+                            ? theme.textTheme.subtitle1
+                                ?.copyWith(fontSize: Dimens.size12)
+                            : theme.textTheme.subtitle1,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: Dimens.size4),
-                child: Image.asset(
+                ),
+                Image.asset(
                   ImageAssetPath.icArrow,
                   color: Colors.white,
                   height: Dimens.size20,
                   width: Dimens.size20,
                 ),
-              ),
+              ],
             ),
             Align(
               alignment: Alignment.bottomCenter,

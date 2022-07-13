@@ -22,20 +22,27 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 400 ? true : false;
+
     return Scaffold(
       backgroundColor: theme.primaryColor,
       body: Column(
         children: [
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+              padding: EdgeInsets.symmetric(
+                horizontal: isSmall ? Dimens.size20 : Dimens.size40,
+              ),
               children: [
                 const SizedBox(height: Dimens.size20),
-                Center(
-                  child: Image.asset(
-                    ImageAssetPath.icLogo,
-                    height: size.height * 0.2,
-                    width: size.width / 2.5,
+                Container(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Center(
+                    child: Image.asset(
+                      ImageAssetPath.icLogo,
+                      height: size.height * 0.2,
+                      width: size.width / 2.5,
+                    ),
                   ),
                 ),
                 ItemMenu(

@@ -94,7 +94,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
   double dependantMin = 0;
   bool justMe = true;
   bool twoUs = false;
-
+  bool isFirst = true;
   final interesetRateController = TextEditingController();
   final loadTermController = TextEditingController();
   final earnTaxController = TextEditingController();
@@ -686,7 +686,9 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                               flex: 5,
                               child: SliderCustom(
                                 values: interestRateValue,
-                                max: loadInterestMax,
+                                max: loadInterestMax < interestRateValue.first
+                                    ? interestRateValue.first
+                                    : loadInterestMax,
                                 min: loadInterestMin,
                                 step: const FlutterSliderStep(step: 0.1),
                                 onDragging:
@@ -713,21 +715,30 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                         final number = double.tryParse(
                                                 interesetRateController.text) ??
                                             0;
-                                        if (number == 0) {
-                                          interesetRateController.text = '0';
+
+                                        if (number < 0.5 &&
+                                            interesetRateController
+                                                    .text.length >
+                                                2) {
+                                          await Future.delayed(const Duration(
+                                              milliseconds: 300));
+                                          interestRateValue[0] =
+                                              loadInterestMin;
+                                          interesetRateController.text = '0.5';
+                                          setState(() {});
                                         }
                                         if (number > loadInterestMax) {
-                                          inValidInterest = true;
-                                          interestRateValue[0] =
-                                              loadInterestMax;
-                                          interesetRateController.text =
-                                              loadInterestMax.toString();
+                                          inValidInterest = false;
+                                          interestRateValue[0] = number;
+                                          // interesetRateController.text =
+                                          //     number.toString();
                                           setState(() {});
                                         } else {
                                           if (number < loadInterestMin) {
                                             interestRateValue[0] =
                                                 loadInterestMin;
                                             inValidInterest = true;
+
                                             setState(() {});
                                           } else {
                                             interestRateValue[0] = number;
@@ -1928,8 +1939,7 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
     if (checkBorrow < 0) {
       showDialogWarnig(
           context: context,
-          msg:
-              'Please provide Interest rate, Loan term and Income so we can calculate your borrowing power.');
+          msg: 'Not Eligible For Loan. You cannot take a loan');
       return;
     } else {
       double dispensableMonthlyIncome = checkBorrow / 12;
