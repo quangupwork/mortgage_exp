@@ -133,6 +133,8 @@ class _ExtraRepaymentScreenState
   @override
   Widget buildContent(BuildContext context, {IBaseState? state}) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: theme.primaryColor,
@@ -140,151 +142,155 @@ class _ExtraRepaymentScreenState
       body: Column(
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(height: Dimens.size20),
-                  Text(
-                    "Loan amount",
-                    style: theme.primaryTextTheme.bodyText2,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: SliderCustom(
-                          values: loadAmountValue,
-                          max: loadAmountMax,
-                          min: loadAmountMin,
-                          step: const FlutterSliderStep(step: 1),
-                          onDragging: (handlerIndex, lowerValue, upperValue) {
-                            onProgress(lowerValue, '1');
-                          },
-                        ),
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                  horizontal: isSmall ? Dimens.size20 : Dimens.size40),
+              children: [
+                const SizedBox(height: Dimens.size20),
+                Text(
+                  "Loan amount",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: SliderCustom(
+                        values: loadAmountValue,
+                        max: loadAmountMax,
+                        min: loadAmountMin,
+                        step: const FlutterSliderStep(step: 1),
+                        onDragging: (handlerIndex, lowerValue, upperValue) {
+                          onProgress(lowerValue, '1');
+                        },
                       ),
-                      const SizedBox(width: Dimens.size4),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                TextFieldCustom(
-                                  controller: loadAmountController,
-                                  focusNode: loadAmountNode,
-                                  padding: const EdgeInsets.only(
-                                      left: 24, top: 10, bottom: 10),
-                                  onChanged: (value) async {
-                                    final number = double.tryParse(
-                                            loadAmountController.text
-                                                .replaceAll(',', '')) ??
-                                        0;
-                                    if (number == 0) {
-                                      loadAmountController.text = '0';
+                    ),
+                    const SizedBox(width: Dimens.size4),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              TextFieldCustom(
+                                controller: loadAmountController,
+                                focusNode: loadAmountNode,
+                                padding: const EdgeInsets.only(
+                                    left: 24, top: 10, bottom: 10),
+                                onChanged: (value) async {
+                                  final number = double.tryParse(
+                                          loadAmountController.text
+                                              .replaceAll(',', '')) ??
+                                      0;
+                                  if (number == 0) {
+                                    loadAmountController.text = '0';
+                                    inValidAmount = true;
+                                    setState(() {});
+                                  }
+                                  if (number > loadAmountMax) {
+                                    inValidAmount = true;
+                                    loadAmountValue[0] = loadAmountMax;
+                                    loadAmountController.text = '2,000,000';
+                                    setState(() {});
+                                  } else {
+                                    if (number < loadAmountMin) {
+                                      loadAmountValue[0] = loadAmountMin;
                                       inValidAmount = true;
                                       setState(() {});
-                                    }
-                                    if (number > loadAmountMax) {
+                                    } else if (number == 0) {
+                                      loadAmountValue[0] = 0;
                                       inValidAmount = true;
-                                      loadAmountValue[0] = loadAmountMax;
-                                      loadAmountController.text = '2,000,000';
                                       setState(() {});
                                     } else {
-                                      if (number < loadAmountMin) {
-                                        loadAmountValue[0] = loadAmountMin;
-                                        inValidAmount = true;
-                                        setState(() {});
-                                      } else if (number == 0) {
-                                        loadAmountValue[0] = 0;
-                                        inValidAmount = true;
-                                        setState(() {});
-                                      } else {
-                                        loadAmountValue[0] = number;
-                                        inValidAmount = false;
-                                        setState(() {});
-                                      }
+                                      loadAmountValue[0] = number;
+                                      inValidAmount = false;
+                                      setState(() {});
                                     }
-                                    await appPreference.setLoadAmount(
-                                        formatNumber
-                                            .format(loadAmountValue[0]));
-                                    loadAmountController.selection =
-                                        TextSelection.fromPosition(TextPosition(
-                                            offset: loadAmountController
-                                                .text.length));
-                                    calculate();
-                                  },
-                                ),
-                                GestureDetector(
-                                  onTap: () => loadAmountNode.requestFocus(),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 10, bottom: 10),
-                                      child: Text(
-                                        '\u0024',
-                                        style:
-                                            theme.textTheme.styleTextFields(),
-                                      ),
+                                  }
+                                  await appPreference.setLoadAmount(
+                                      formatNumber.format(loadAmountValue[0]));
+                                  loadAmountController.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset: loadAmountController
+                                              .text.length));
+                                  calculate();
+                                },
+                              ),
+                              GestureDetector(
+                                onTap: () => loadAmountNode.requestFocus(),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 10, bottom: 10),
+                                    child: Text(
+                                      '\u0024',
+                                      style: theme.textTheme.styleTextFields(),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            if (inValidAmount)
-                              const SizedBox(height: Dimens.size4),
-                            if (inValidAmount)
-                              Text("Invalid loan account",
-                                  style: theme.primaryTextTheme.error())
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Text(
-                    "Interest rate",
-                    style: theme.primaryTextTheme.bodyText2,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          flex: 5,
-                          child: SliderCustom(
-                            values: interestRateValue,
-                            max: loadInterestMax < interestRateValue.first
-                                ? interestRateValue.first
-                                : loadInterestMax,
-                            min: loadInterestMin,
-                            step: const FlutterSliderStep(step: 0.1),
-                            onDragging: (handlerIndex, lowerValue, upperValue) {
-                              onProgress(lowerValue, '2');
-                              interesetRateController.text =
-                                  lowerValue.toString();
-                            },
-                          )),
-                      const SizedBox(width: Dimens.size4),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                TextFieldCustom(
-                                  isLeft: true,
-                                  focusNode: interesetRateNode,
-                                  controller: interesetRateController,
-                                  suffixIcon: '%',
-                                  textAlign: TextAlign.center,
-                                  padding: const EdgeInsets.only(
-                                      left: 24, top: 10, bottom: 10),
-                                  onChanged: (value) async {
+                                ),
+                              )
+                            ],
+                          ),
+                          if (inValidAmount)
+                            const SizedBox(height: Dimens.size4),
+                          if (inValidAmount)
+                            Text("Invalid loan account",
+                                style: theme.primaryTextTheme.error())
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Text(
+                  "Interest rate",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child: SliderCustom(
+                          values: interestRateValue,
+                          max: loadInterestMax < interestRateValue.first
+                              ? interestRateValue.first
+                              : loadInterestMax,
+                          min: loadInterestMin,
+                          step: const FlutterSliderStep(step: 0.1),
+                          onDragging: (handlerIndex, lowerValue, upperValue) {
+                            onProgress(lowerValue, '2');
+                            interesetRateController.text =
+                                lowerValue.toString();
+                          },
+                        )),
+                    const SizedBox(width: Dimens.size4),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              TextFieldCustom(
+                                isLeft: true,
+                                focusNode: interesetRateNode,
+                                controller: interesetRateController,
+                                suffixIcon: '%',
+                                inputFormatters: const [],
+                                textAlign: TextAlign.center,
+                                padding: const EdgeInsets.only(
+                                    left: 24, top: 10, bottom: 10),
+                                onChanged: (value) async {
+                                  if (value.contains(',')) {
+                                    interesetRateController.text =
+                                        value.replaceAll(',', '.');
+                                    interesetRateController.selection =
+                                        TextSelection.fromPosition(
+                                            TextPosition(offset: value.length));
+                                  } else {
                                     final number = double.tryParse(
                                             interesetRateController.text) ??
                                         0;
@@ -324,185 +330,58 @@ class _ExtraRepaymentScreenState
                                             offset: interesetRateController
                                                 .text.length));
                                     calculate();
-                                  },
-                                ),
-                                GestureDetector(
-                                  onTap: () => interesetRateNode.requestFocus(),
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 10, top: 10, bottom: 10),
-                                      child: Text(
-                                        '%',
-                                        style:
-                                            theme.textTheme.styleTextFields(),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            if (inValidInterest)
-                              const SizedBox(height: Dimens.size4),
-                            if (inValidInterest)
-                              Text("Invalid interest rate",
-                                  style: theme.primaryTextTheme.error())
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "Loan term",
-                    style: theme.primaryTextTheme.bodyText2,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          flex: 5,
-                          child: SliderCustom(
-                            values: loadTermValue,
-                            max: loadTermMax,
-                            min: loadTermMin,
-                            step: const FlutterSliderStep(step: 1),
-                            onDragging: (handlerIndex, lowerValue, upperValue) {
-                              onProgress(lowerValue, '3');
-                              loadTermController.text =
-                                  ConvertHelper.formartNumber(
-                                      lowerValue.toString());
-                            },
-                          )),
-                      const SizedBox(width: Dimens.size4),
-                      Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  TextFieldCustom(
-                                    isLeft: true,
-                                    focusNode: loadTermNode,
-                                    controller: loadTermController,
-                                    suffixIcon: 'year',
-                                    textAlign: TextAlign.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 24, top: 10, bottom: 10),
-                                    onChanged: (value) async {
-                                      final number = double.tryParse(
-                                              loadTermController.text
-                                                  .replaceAll(',', '')) ??
-                                          0;
-                                      if (number == 0) {
-                                        loadTermController.text = '0';
-                                      }
-                                      if (number > loadTermMax) {
-                                        inValidTerm = true;
-                                        loadTermController.text =
-                                            loadTermMax.toStringAsFixed(0);
-                                        loadTermValue[0] = loadTermMax;
-                                        setState(() {});
-                                      } else {
-                                        if (number < loadTermMin) {
-                                          loadTermValue[0] = loadTermMin;
-                                          // loadTermController.text =
-                                          //     loadTermMin.toStringAsFixed(0);
-                                          inValidTerm = true;
-                                          setState(() {});
-                                        } else {
-                                          loadTermValue[0] = number;
-                                          inValidTerm = false;
-                                          setState(() {});
-                                        }
-                                      }
-                                      await appPreference.setLoanTerm(
-                                          loadTermValue[0].toStringAsFixed(0));
-                                      loadTermController.selection =
-                                          TextSelection.fromPosition(
-                                              TextPosition(
-                                                  offset: loadTermController
-                                                      .text.length));
-                                      calculate();
-                                    },
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => loadTermNode.requestFocus(),
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 10, top: 10, bottom: 10),
-                                        child: Text(
-                                          'year',
-                                          style:
-                                              theme.textTheme.styleTextFields(),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                  }
+                                },
                               ),
-                              if (inValidTerm)
-                                const SizedBox(height: Dimens.size4),
-                              if (inValidTerm)
-                                Text("Invalid loan term",
-                                    style: theme.primaryTextTheme.error())
+                              GestureDetector(
+                                onTap: () => interesetRateNode.requestFocus(),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 10, top: 10, bottom: 10),
+                                    child: Text(
+                                      '%',
+                                      style: theme.textTheme.styleTextFields(),
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
-                          ))
-                    ],
-                  ),
-                  Text(
-                    "Repayment frequency",
-                    style: theme.primaryTextTheme.bodyText2,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SelectButton(
-                          status: isWeekly,
-                          text: 'Weekly',
-                          onTap: () async => onRepaymentFrequency('1'),
-                        ),
+                          ),
+                          if (inValidInterest)
+                            const SizedBox(height: Dimens.size4),
+                          if (inValidInterest)
+                            Text("Invalid interest rate",
+                                style: theme.primaryTextTheme.error())
+                        ],
                       ),
-                      const SizedBox(width: Dimens.size1),
-                      Expanded(
-                          child: SelectButton(
-                        status: isFortnightly,
-                        text: 'Fortnightly',
-                        onTap: () async => onRepaymentFrequency('2'),
-                      )),
-                      const SizedBox(width: Dimens.size1),
-                      Expanded(
-                          child: SelectButton(
-                        status: isMonthly,
-                        text: 'Monthly',
-                        onTap: () async => onRepaymentFrequency('3'),
-                      ))
-                    ],
-                  ),
-                  Text(
-                    "Extra Repayment",
-                    style: theme.primaryTextTheme.bodyText2,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
+                    ),
+                  ],
+                ),
+                Text(
+                  "Loan term",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
                         flex: 5,
                         child: SliderCustom(
-                          values: repaymentValue,
-                          max: repaymentMax,
-                          min: repaymentMin,
+                          values: loadTermValue,
+                          max: loadTermMax,
+                          min: loadTermMin,
                           step: const FlutterSliderStep(step: 1),
                           onDragging: (handlerIndex, lowerValue, upperValue) {
-                            onProgress(lowerValue, '4');
+                            onProgress(lowerValue, '3');
+                            loadTermController.text =
+                                ConvertHelper.formartNumber(
+                                    lowerValue.toString());
                           },
-                        ),
-                      ),
-                      const SizedBox(width: Dimens.size4),
-                      Expanded(
+                        )),
+                    const SizedBox(width: Dimens.size4),
+                    Expanded(
                         flex: 3,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -510,57 +389,58 @@ class _ExtraRepaymentScreenState
                             Stack(
                               children: [
                                 TextFieldCustom(
-                                  controller: repaymentController,
-                                  focusNode: repaymentNode,
+                                  isLeft: true,
+                                  focusNode: loadTermNode,
+                                  controller: loadTermController,
+                                  suffixIcon: 'year',
+                                  textAlign: TextAlign.center,
                                   padding: const EdgeInsets.only(
                                       left: 24, top: 10, bottom: 10),
                                   onChanged: (value) async {
                                     final number = double.tryParse(
-                                            repaymentController.text
+                                            loadTermController.text
                                                 .replaceAll(',', '')) ??
                                         0;
                                     if (number == 0) {
-                                      repaymentController.text = '0';
+                                      loadTermController.text = '0';
                                     }
-                                    if (number > repaymentMax) {
-                                      inValidRepayment = true;
-                                      repaymentController.text =
-                                          formatNumber.format(repaymentMax);
-                                      repaymentValue[0] = repaymentMax;
+                                    if (number > loadTermMax) {
+                                      inValidTerm = true;
+                                      loadTermController.text =
+                                          loadTermMax.toStringAsFixed(0);
+                                      loadTermValue[0] = loadTermMax;
                                       setState(() {});
                                     } else {
-                                      if (number < repaymentMin) {
-                                        repaymentValue[0] = repaymentMin;
-                                        inValidRepayment = true;
-                                        setState(() {});
-                                      } else if (number == 0) {
-                                        repaymentValue[0] = 0;
-                                        inValidRepayment = true;
+                                      if (number < loadTermMin) {
+                                        loadTermValue[0] = loadTermMin;
+                                        // loadTermController.text =
+                                        //     loadTermMin.toStringAsFixed(0);
+                                        inValidTerm = true;
                                         setState(() {});
                                       } else {
-                                        repaymentValue[0] = number;
-                                        inValidRepayment = false;
+                                        loadTermValue[0] = number;
+                                        inValidTerm = false;
                                         setState(() {});
                                       }
                                     }
-                                    await appPreference.setExtraRepayment(
-                                        formatNumber.format(repaymentValue[0]));
-                                    repaymentController.selection =
+                                    await appPreference.setLoanTerm(
+                                        loadTermValue[0].toStringAsFixed(0));
+                                    loadTermController.selection =
                                         TextSelection.fromPosition(TextPosition(
-                                            offset: repaymentController
+                                            offset: loadTermController
                                                 .text.length));
                                     calculate();
                                   },
                                 ),
                                 GestureDetector(
-                                  onTap: () => repaymentNode.requestFocus(),
+                                  onTap: () => loadTermNode.requestFocus(),
                                   child: Align(
-                                    alignment: Alignment.centerLeft,
+                                    alignment: Alignment.centerRight,
                                     child: Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 10, top: 10, bottom: 10),
+                                          right: 10, top: 10, bottom: 10),
                                       child: Text(
-                                        '\u0024',
+                                        'year',
                                         style:
                                             theme.textTheme.styleTextFields(),
                                       ),
@@ -569,75 +449,203 @@ class _ExtraRepaymentScreenState
                                 )
                               ],
                             ),
-                            if (inValidRepayment)
+                            if (inValidTerm)
                               const SizedBox(height: Dimens.size4),
-                            if (inValidRepayment)
-                              Text("Invalid extra repayment",
+                            if (inValidTerm)
+                              Text("Invalid loan term",
                                   style: theme.primaryTextTheme.error())
                           ],
+                        ))
+                  ],
+                ),
+                const SizedBox(height: Dimens.size10),
+                Text(
+                  "Repayment frequency",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
+                const SizedBox(height: Dimens.size10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SelectButton(
+                        status: isWeekly,
+                        text: 'Weekly',
+                        onTap: () async => onRepaymentFrequency('1'),
+                      ),
+                    ),
+                    const SizedBox(width: Dimens.size1),
+                    Expanded(
+                        child: SelectButton(
+                      status: isFortnightly,
+                      text: 'Fortnightly',
+                      onTap: () async => onRepaymentFrequency('2'),
+                    )),
+                    const SizedBox(width: Dimens.size1),
+                    Expanded(
+                        child: SelectButton(
+                      status: isMonthly,
+                      text: 'Monthly',
+                      onTap: () async => onRepaymentFrequency('3'),
+                    ))
+                  ],
+                ),
+                const SizedBox(height: Dimens.size10),
+                Text(
+                  "Extra Repayment",
+                  style: theme.primaryTextTheme.bodyText2,
+                ),
+                const SizedBox(height: Dimens.size10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: SliderCustom(
+                        values: repaymentValue,
+                        max: repaymentMax,
+                        min: repaymentMin,
+                        step: const FlutterSliderStep(step: 1),
+                        onDragging: (handlerIndex, lowerValue, upperValue) {
+                          onProgress(lowerValue, '4');
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: Dimens.size4),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              TextFieldCustom(
+                                controller: repaymentController,
+                                focusNode: repaymentNode,
+                                padding: const EdgeInsets.only(
+                                    left: 24, top: 10, bottom: 10),
+                                onChanged: (value) async {
+                                  final number = double.tryParse(
+                                          repaymentController.text
+                                              .replaceAll(',', '')) ??
+                                      0;
+                                  if (number == 0) {
+                                    repaymentController.text = '0';
+                                  }
+                                  if (number > repaymentMax) {
+                                    inValidRepayment = true;
+                                    repaymentController.text =
+                                        formatNumber.format(repaymentMax);
+                                    repaymentValue[0] = repaymentMax;
+                                    setState(() {});
+                                  } else {
+                                    if (number < repaymentMin) {
+                                      repaymentValue[0] = repaymentMin;
+                                      inValidRepayment = true;
+                                      setState(() {});
+                                    } else if (number == 0) {
+                                      repaymentValue[0] = 0;
+                                      inValidRepayment = true;
+                                      setState(() {});
+                                    } else {
+                                      repaymentValue[0] = number;
+                                      inValidRepayment = false;
+                                      setState(() {});
+                                    }
+                                  }
+                                  await appPreference.setExtraRepayment(
+                                      formatNumber.format(repaymentValue[0]));
+                                  repaymentController.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset:
+                                              repaymentController.text.length));
+                                  calculate();
+                                },
+                              ),
+                              GestureDetector(
+                                onTap: () => repaymentNode.requestFocus(),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 10, bottom: 10),
+                                    child: Text(
+                                      '\u0024',
+                                      style: theme.textTheme.styleTextFields(),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          if (inValidRepayment)
+                            const SizedBox(height: Dimens.size4),
+                          if (inValidRepayment)
+                            Text("Invalid extra repayment",
+                                style: theme.primaryTextTheme.error())
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: Dimens.size20),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: Dimens.size10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: const Color(0xffd8d7d5))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: Dimens.size20),
+                      Image.asset(ImageAssetPath.icYourPayment,
+                          color: theme.backgroundColor,
+                          height: Dimens.size40,
+                          width: Dimens.size30),
+                      Flexible(
+                        flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Flexible(
+                              flex: 5,
+                              child: Text(
+                                "Interest you will save",
+                                maxLines: 3,
+                                style: theme.textTheme.s22w800(),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 3,
+                              child: FittedBox(
+                                child: Text(formatter.format(total),
+                                    maxLines: 1,
+                                    style: theme.textTheme.s28bold()),
+                              ),
+                            ),
+                          ],
                         ),
-                      )
+                      ),
+                      const SizedBox(height: Dimens.size6),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Time you will save",
+                                style: theme.textTheme.s12w800()),
+                            Text(time, style: theme.textTheme.s14w600()),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: Dimens.size24),
                     ],
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: Dimens.size10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: const Color(0xffd8d7d5))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: Dimens.size20),
-                        Image.asset(ImageAssetPath.icYourPayment,
-                            color: theme.backgroundColor,
-                            height: Dimens.size40,
-                            width: Dimens.size30),
-                        Flexible(
-                          flex: 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Flexible(
-                                flex: 5,
-                                child: Text(
-                                  "Interest you will save",
-                                  maxLines: 3,
-                                  style: theme.textTheme.s22w800(),
-                                ),
-                              ),
-                              Flexible(
-                                flex: 3,
-                                child: FittedBox(
-                                  child: Text(formatter.format(total),
-                                      maxLines: 1,
-                                      style: theme.textTheme.s28bold()),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: Dimens.size6),
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Time you will save",
-                                  style: theme.textTheme.s12w800()),
-                              Text(time, style: theme.textTheme.s14w600()),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: Dimens.size24),
-                      ],
-                    ),
-                  ),
-                  const BottomSpace(),
-                  const SizedBox(height: Dimens.size80),
-                ],
-              ),
+                ),
+                const BottomSpace(),
+                const SizedBox(height: Dimens.size80),
+              ],
             ),
           ),
           const FooterWidget(hasPadding: true)

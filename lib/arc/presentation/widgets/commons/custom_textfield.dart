@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mortgage_exp/src/extensions/extension.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
@@ -15,11 +16,13 @@ class TextFieldCustom extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   final FocusNode focusNode;
+  final List<TextInputFormatter>? inputFormatters;
   const TextFieldCustom({
     Key? key,
     required this.controller,
     this.hintText = '',
     this.prefixIcon = '',
+    this.inputFormatters,
     this.validator,
     this.isLeft = false,
     this.suffixIcon = '',
@@ -39,7 +42,8 @@ class TextFieldCustom extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
-        keyboardType: TextInputType.number,
+        keyboardType:
+            const TextInputType.numberWithOptions(signed: false, decimal: true),
         maxLines: 1,
         style: theme.primaryTextTheme.bodyText2,
         textAlignVertical: TextAlignVertical.center,
@@ -47,7 +51,8 @@ class TextFieldCustom extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: Theme.of(context).backgroundColor,
         cursorWidth: 2,
-        inputFormatters: [ThousandsFormatter(allowFraction: true)],
+        inputFormatters:
+            inputFormatters ?? [ThousandsFormatter(allowFraction: true)],
         decoration: InputDecoration(
           filled: true,
           isDense: true,

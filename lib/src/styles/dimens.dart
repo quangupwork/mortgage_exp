@@ -30,7 +30,7 @@ class Dimens {
   static const double size32 = 32.0;
   static const double size34 = 34.0;
   static const double size36 = 36.0;
-  static const double size40 = 40.0;
+  static const double size40 = 36.0;
   static const double size42 = 42.0;
   static const double size41 = 41.0;
   static const double size44 = 44.0;

@@ -34,6 +34,8 @@ class _YourBorrowingScreenState extends State<YourBorrowingScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Scaffold(
         backgroundColor: theme.primaryColor,
         resizeToAvoidBottomInset: false,
@@ -42,7 +44,8 @@ class _YourBorrowingScreenState extends State<YourBorrowingScreen> {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+                padding: EdgeInsets.symmetric(
+                    horizontal: isSmall ? Dimens.size20 : Dimens.size40),
                 children: [
                   const SizedBox(height: Dimens.size14),
                   Container(

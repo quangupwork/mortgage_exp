@@ -617,7 +617,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Scaffold(
       backgroundColor: theme.primaryColor,
       resizeToAvoidBottomInset: false,
@@ -626,7 +627,8 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
         children: [
           Container(
             color: MyColors.colorButton,
-            padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+            padding: EdgeInsets.symmetric(
+                horizontal: isSmall ? Dimens.size20 : Dimens.size40),
             child: Row(
               children: [
                 Expanded(
@@ -708,54 +710,66 @@ class _BorrowingPowerScreenState extends State<BorrowingPowerScreen> {
                                       focusNode: interesetRateNode,
                                       controller: interesetRateController,
                                       suffixIcon: '%',
+                                      inputFormatters: const [],
                                       textAlign: TextAlign.center,
                                       padding: const EdgeInsets.only(
                                           left: 24, top: 10, bottom: 10),
                                       onChanged: (value) async {
-                                        final number = double.tryParse(
-                                                interesetRateController.text) ??
-                                            0;
-
-                                        if (number < 0.5 &&
-                                            interesetRateController
-                                                    .text.length >
-                                                2) {
-                                          await Future.delayed(const Duration(
-                                              milliseconds: 300));
-                                          interestRateValue[0] =
-                                              loadInterestMin;
-                                          interesetRateController.text = '0.5';
-                                          setState(() {});
-                                        }
-                                        if (number > loadInterestMax) {
-                                          inValidInterest = false;
-                                          interestRateValue[0] = number;
-                                          // interesetRateController.text =
-                                          //     number.toString();
-                                          setState(() {});
+                                        if (value.contains(',')) {
+                                          interesetRateController.text =
+                                              value.replaceAll(',', '.');
+                                          interesetRateController.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: value.length));
                                         } else {
-                                          if (number < loadInterestMin) {
+                                          final number = double.tryParse(
+                                                  interesetRateController
+                                                      .text) ??
+                                              0;
+
+                                          if (number < 0.5 &&
+                                              interesetRateController
+                                                      .text.length >
+                                                  2) {
+                                            await Future.delayed(const Duration(
+                                                milliseconds: 300));
                                             interestRateValue[0] =
                                                 loadInterestMin;
-                                            inValidInterest = true;
-
-                                            setState(() {});
-                                          } else {
-                                            interestRateValue[0] = number;
-                                            inValidInterest = false;
+                                            interesetRateController.text =
+                                                '0.5';
                                             setState(() {});
                                           }
+                                          if (number > loadInterestMax) {
+                                            inValidInterest = false;
+                                            interestRateValue[0] = number;
+                                            // interesetRateController.text =
+                                            //     number.toString();
+                                            setState(() {});
+                                          } else {
+                                            if (number < loadInterestMin) {
+                                              interestRateValue[0] =
+                                                  loadInterestMin;
+                                              inValidInterest = true;
+
+                                              setState(() {});
+                                            } else {
+                                              interestRateValue[0] = number;
+                                              inValidInterest = false;
+                                              setState(() {});
+                                            }
+                                          }
+                                          await appPreference.setInterestRate(
+                                              ConvertHelper.formartNumber(
+                                                  interestRateValue[0]
+                                                      .toStringAsFixed(2)));
+                                          interesetRateController.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset:
+                                                          interesetRateController
+                                                              .text.length));
                                         }
-                                        await appPreference.setInterestRate(
-                                            ConvertHelper.formartNumber(
-                                                interestRateValue[0]
-                                                    .toStringAsFixed(2)));
-                                        interesetRateController.selection =
-                                            TextSelection.fromPosition(
-                                                TextPosition(
-                                                    offset:
-                                                        interesetRateController
-                                                            .text.length));
                                       },
                                     ),
                                     GestureDetector(

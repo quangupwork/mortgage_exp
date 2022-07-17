@@ -134,6 +134,8 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
   @override
   Widget buildContent(BuildContext context, {IBaseState? state}) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: theme.primaryColor,
@@ -144,7 +146,8 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+              padding: EdgeInsets.symmetric(
+                  horizontal: isSmall ? Dimens.size20 : Dimens.size40),
               children: [
                 const SizedBox(height: Dimens.size30),
                 Text(
@@ -281,11 +284,20 @@ class _RepaymentScreenState extends IStateful<RepaymentBloc, RepaymentScreen> {
                                 focusNode: interesetRateNode,
                                 controller: interesetRateController,
                                 suffixIcon: '%',
+                                inputFormatters: const [],
                                 textAlign: TextAlign.center,
                                 padding: const EdgeInsets.only(
                                     left: 24, top: 10, bottom: 10),
                                 onChanged: (value) async {
-                                  await onChangeInterestRate(value);
+                                  if (value.contains(',')) {
+                                    interesetRateController.text =
+                                        value.replaceAll(',', '.');
+                                    interesetRateController.selection =
+                                        TextSelection.fromPosition(
+                                            TextPosition(offset: value.length));
+                                  } else {
+                                    await onChangeInterestRate(value);
+                                  }
                                 },
                               ),
                               GestureDetector(

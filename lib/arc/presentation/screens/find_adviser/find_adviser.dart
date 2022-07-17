@@ -60,6 +60,8 @@ class _FindAdvicerScreenState extends IStateful<PostBloc, FindAdvicerScreen> {
   @override
   Widget buildContent(BuildContext context, {IBaseState? state}) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: CustomAppBar.withLeading(title: "Find an Adviser"),
@@ -68,6 +70,7 @@ class _FindAdvicerScreenState extends IStateful<PostBloc, FindAdvicerScreen> {
         children: [
           const SizedBox(height: Dimens.size10),
           Flexible(
+            flex: 2,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
               child: Row(
@@ -131,8 +134,9 @@ class _FindAdvicerScreenState extends IStateful<PostBloc, FindAdvicerScreen> {
             Expanded(
               flex: 20,
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Dimens.size40, vertical: Dimens.size10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: isSmall ? Dimens.size20 : Dimens.size40,
+                    vertical: Dimens.size10),
                 itemCount: postModel?.length ?? 0,
                 itemBuilder: (context, index) =>
                     ItemPost(postModel: postModel![index]),
@@ -144,8 +148,9 @@ class _FindAdvicerScreenState extends IStateful<PostBloc, FindAdvicerScreen> {
             Expanded(
               flex: 20,
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Dimens.size40, vertical: Dimens.size10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: isSmall ? Dimens.size20 : Dimens.size40,
+                    vertical: Dimens.size10),
                 itemCount: filterPost?.length ?? 0,
                 itemBuilder: (context, index) =>
                     ItemPost(postModel: filterPost![index]),

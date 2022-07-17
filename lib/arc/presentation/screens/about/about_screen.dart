@@ -19,6 +19,7 @@ class _AboutScreenState extends State<AboutScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: CustomAppBar.withLeading(title: "About Us"),
@@ -26,7 +27,7 @@ class _AboutScreenState extends State<AboutScreen> {
         children: [
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: Dimens.size10),
+              padding: const EdgeInsets.all(0),
               children: [
                 const SizedBox(height: Dimens.size20),
                 Center(
@@ -37,7 +38,8 @@ class _AboutScreenState extends State<AboutScreen> {
                 )),
                 const SizedBox(height: Dimens.size20),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: isSmall ? Dimens.size20 : Dimens.size40),
                   padding: const EdgeInsets.symmetric(
                       horizontal: Dimens.size10, vertical: Dimens.size14),
                   decoration: BoxDecoration(
@@ -55,8 +57,8 @@ With access to a panel of more than 30 bank and non-bank lenders, we offer more 
                 ),
                 const SizedBox(height: Dimens.size40),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Dimens.size40),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isSmall ? Dimens.size20 : Dimens.size40),
                   child: Text('Contact Us:',
                       style: theme.textTheme
                           .s16w700black()
@@ -72,7 +74,7 @@ With access to a panel of more than 30 bank and non-bank lenders, we offer more 
                 _ItemContact(
                   icon: ImageAssetPath.icEmail,
                   onTap: () => makeEmail(Constants.email),
-                  text: 'info@mx.co.nz',
+                  text: Constants.email,
                 ),
                 const SizedBox(height: Dimens.size40),
               ],
@@ -131,8 +133,11 @@ class _ItemContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isSmall = size.width < 350 ? true : false;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Dimens.size40),
+      padding: EdgeInsets.symmetric(
+          horizontal: isSmall ? Dimens.size20 : Dimens.size40),
       child: GestureDetector(
         onTap: onTap,
         child: Container(

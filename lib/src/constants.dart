@@ -30,6 +30,8 @@ class Constants {
     4059967301, // Wellington
     34971721693, // Otago Advisers
     18132082503, // South Canterbury Advisers
+    5003232348, // Korean Speaking Mortgage Advisers
+    40792035830, // Manawatu Mortgage Advisers
   ];
 }
 

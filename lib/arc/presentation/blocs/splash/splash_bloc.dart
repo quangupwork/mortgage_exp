@@ -107,7 +107,13 @@ class SplashBloc extends IBaseBloc {
       if (!listTopic.contains('South Canterbury Advisers')) {
         listTopic.add('South Canterbury Advisers');
       }
-
+      if (!listTopic.contains('Korean Speaking Mortgage Advisers')) {
+        listTopic.add('Korean Speaking Mortgage Advisers');
+      }
+      if (!listTopic.contains('Manawatu Mortgage Advisers')) {
+        listTopic.add('Manawatu Mortgage Advisers');
+      }
+      listTopic.sort();
       StaticVariable.listTopic = listTopic;
     }
     yield SplashLoadedState();

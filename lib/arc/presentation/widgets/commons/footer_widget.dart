@@ -26,7 +26,8 @@ class FooterWidget extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: hasPadding
-          ? const EdgeInsets.symmetric(horizontal: Dimens.size40)
+          ? EdgeInsets.symmetric(
+              horizontal: isSmall ? Dimens.size20 : Dimens.size40)
           : EdgeInsets.zero,
       child: Column(
         children: [
@@ -39,11 +40,7 @@ class FooterWidget extends StatelessWidget {
                   child: FittedBox(
                     child: Text(
                       "Terms and Conditions",
-                      style: isSmall
-                          ? theme.textTheme
-                              .s15w400()
-                              .copyWith(fontSize: Dimens.size13)
-                          : theme.textTheme.s15w400(),
+                      style: theme.textTheme.s15w400(),
                     ),
                   )),
               GestureDetector(
@@ -52,11 +49,7 @@ class FooterWidget extends StatelessWidget {
                   child: FittedBox(
                     child: Text(
                       "Privacy Statement",
-                      style: isSmall
-                          ? theme.textTheme
-                              .s15w400()
-                              .copyWith(fontSize: Dimens.size13)
-                          : theme.textTheme.s15w400(),
+                      style: theme.textTheme.s15w400(),
                     ),
                   )),
             ],
@@ -68,11 +61,7 @@ class FooterWidget extends StatelessWidget {
                 child: Text(
                   "www.mortgage-express.co.nz",
                   textAlign: TextAlign.center,
-                  style: isSmall
-                      ? theme.textTheme
-                          .s15w400()
-                          .copyWith(fontSize: Dimens.size13)
-                      : theme.textTheme.s15w400(),
+                  style: theme.textTheme.s15w400(),
                 )),
           SizedBox(
               height: MediaQuery.of(context).viewPadding.bottom == 0

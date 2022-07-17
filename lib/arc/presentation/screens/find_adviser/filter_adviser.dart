@@ -22,9 +22,10 @@ class _FilterAdviserScreenState extends State<FilterAdviserScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: theme.primaryColor,
-      appBar: CustomAppBar.withLeading(title: "State/Territory"),
+      appBar: CustomAppBar.withLeading(title: "Regions"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

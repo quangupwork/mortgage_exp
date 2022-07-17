@@ -20,30 +20,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final AppPreference appPreference =
-      AppDependencies.injector.get<AppPreference>();
-  bool isLight = true;
-  @override
-  void initState() {
-    super.initState();
-    config();
-  }
-
-  void config() async {
-    // var locate = await appPreference.language;
-    // var color = await appPreference.colorMode;
-    // if (locate == 'vi') {
-    //   context.setLocale(Constants.languages[0]);
-    // } else if (locate == 'en') {
-    //   context.setLocale(Constants.languages[1]);
-    // }
-    // if (color == 'dark') {
-    //   isLight = false;
-    // } else if (color == 'light') {
-    //   isLight = true;
-    // }
-  }
-
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(
@@ -57,7 +33,16 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: context.localizationDelegates,
         navigatorKey:
             AppDependencies.injector.get<NavigationService>().navigationKey,
-        builder: EasyLoading.init(),
+        builder: (context, Widget? child) {
+          final isSmall =
+              MediaQuery.of(context).size.width < 350 ? true : false;
+          return MediaQuery(
+            child: child ?? const SizedBox(),
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: isSmall ? 0.8 : 1,
+            ),
+          );
+        },
         theme: MyTheme.lightTheme(),
         //  darkTheme: MyTheme.darkTheme(),
         //   themeMode: ThemeMode.system,

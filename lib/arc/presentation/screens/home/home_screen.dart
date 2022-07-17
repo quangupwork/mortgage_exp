@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    final isSmall = size.width < 400 ? true : false;
+    final isSmall = size.width < 350 ? true : false;
 
     return Scaffold(
       backgroundColor: theme.primaryColor,
