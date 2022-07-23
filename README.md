@@ -3,10 +3,10 @@
 - Package name: 
 
   iOS: com.mortgageexpressnz.mortgageexpress
-    - https://apps.apple.com/sg/app/grab-superapp/id
+    - https://apps.apple.com/us/app/mortgage-express-nz/id587353555
 
-  Android: com.mortgageexpressnz.mortgageexpress
-    - https://play.google.com/store/apps/details?id=com.mortgageexpressnz.mortgageexpress
+  Android: com.mortgage.android.nz
+    - https://play.google.com/store/apps/details?id=com.mortgage.android.nz
 
 # 2. Technical Development
 
